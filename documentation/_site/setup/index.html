@@ -1,0 +1,262 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>SetUp </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="SetUp ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      
+  </head>
+
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="setup">SetUp</h1>
+
+<h2 id="minimum-hardware-requirements">Minimum Hardware Requirements</h2>
+<p>本大会で使用していただくPCの動作環境として以下を推奨しております。</p>
+<ul>
+<li>OS: Ubuntu 22.04</li>
+<li>CPU: Intel Corei7 (8 cores) or higher</li>
+<li>GPU: NVIDIA Geforce RTX 3080 (VRAM 12 GB) or higher</li>
+<li>Memory: 32 GB or more</li>
+<li>Storage: SSD 30 GB or higher</li>
+</ul>
+<p>上記のスペックを満たすPCをご用意できない方は、下記の「PC2台で参加する方向け」のスペックをご参照ください。</p>
+<h4 id="2台のpcを使用する方向け">2台のPCを使用する方向け</h4>
+<h4 id="autoware-pc">Autoware PC</h4>
+<ul>
+<li>OS: Ubuntu 20.04</li>
+<li>CPU: Intel Corei7 (8 cores) or higher</li>
+<li>GPU: NVIDIA Geforce GTX 1080 or higher</li>
+<li>Memory: 16 GB or higher</li>
+<li>Storage: SSD 10 GB or higher</li>
+<li>詳細は<a href="https://autowarefoundation.github.io/autoware-documentation/main/installation/">こちら</a></li>
+</ul>
+<h4 id="awsim-pc">AWSIM PC</h4>
+<ul>
+<li>OS: Ubuntu 22.04 or Windows 10/11</li>
+<li>CPU: Intel Corei7 (6 cores and 12 threads) or higher</li>
+<li>GPU: NVIDIA Geforce RTX 2080 Ti or higher</li>
+<li>詳細は<a href="https://tier4.github.io/AWSIM/">こちら</a></li>
+</ul>
+<p>※Autoware動作PCとAWSIM動作PCは、同じネットワーク内に配置してください。
+配置できていれば、基本的には追加設定をすることなく、PC間のトピック通信は可能です。万が一、トピック通信ができなかった場合はファイアーウォールの解除、もしくはルールの見直しをお願いします。</p>
+<h2 id="environment-setup">Environment Setup</h2>
+<h3 id="awsimubuntu">AWSIM(Ubuntu)</h3>
+<h4 id="事前準備">事前準備</h4>
+<ul>
+<li><p>Nvidiaドライバのインストール</p>
+<ol>
+<li>リポジトリの追加</li>
+</ol>
+<pre><code>sudo add-apt-repository ppa:graphics-drivers/ppa
+</code></pre>
+<ol start="2">
+<li>パッケージリストの更新</li>
+</ol>
+<pre><code>sudo apt update
+</code></pre>
+<ol start="3">
+<li>インストール</li>
+</ol>
+<pre><code>sudo ubuntu-drivers autoinstall
+</code></pre>
+<ol start="4">
+<li>再起動の後、下記コマンドによりインストールできていることを確認</li>
+</ol>
+<pre><code>nvidia-smi
+</code></pre>
+<p><img src="../images/setup/nvidia-smi.png" alt="nvidia-smi"></p>
+</li>
+<li><p>Vulkunのインストール</p>
+<ol>
+<li>パッケージリストの更新</li>
+</ol>
+<pre><code>sudo apt update
+</code></pre>
+<ol start="2">
+<li>libvulkan1をインストール</li>
+</ol>
+<pre><code>sudo apt install libvulkan1
+</code></pre>
+</li>
+<li><p>コースの準備</p>
+<ol>
+<li>大会用の実行ファイルを<a href="dokka">ダウンロード</a>し、解凍</li>
+<li>パーミッションを図のように変更<br>
+<img src="../images/setup/permmision.png" alt="パーミッション変更の様子"></li>
+<li>ファイルをダブルクリックで起動</li>
+<li>下記のような画面が表示されることを確認
+<img src="../images/setup/awsim_ubuntu.png" alt="awsim_ubuntu"></li>
+</ol>
+</li>
+</ul>
+<h3 id="awsimwindows">AWSIM(Windows)</h3>
+<ol>
+<li>大会用の実行ファイルを<a href="dokka">ダウンロード</a>し、解凍</li>
+<li>ファイルをダブルクリックで起動</li>
+<li>下記のような画面が表示されることを確認
+<img src="../images/setup/awsim_win.png" alt="awsim_win"></li>
+</ol>
+<h3 id="autoware">Autoware</h3>
+<p>本大会用にAutowareの Docker イメージ(CUDA利用）を用意しておりますので、ご利用ください。</p>
+<ul>
+<li><p>事前準備<br>
+下記のインストールをお願いします。</p>
+<ul>
+<li><a href="https://docs.docker.com/engine/install/ubuntu/">docker</a></li>
+<li><a href="https://github.com/osrf/rocker">rocker</a>
+<ul>
+<li>Dockerコンテナ内のRviz、rqtなどのGUIを使用するために用います。</li>
+</ul>
+</li>
+<li><a href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html">Nvidia Container Toolkit</a></li>
+<li><a href="https://packagecloud.io/github/git-lfs/install">git lfs</a></li>
+<li><a href="https://docs.ros.org/en/humble/index.html">ROS2</a> (動画確認済バージョン: Humble)</li>
+</ul>
+</li>
+<li><p>Dockerイメージの準備・起動 〜 Autowareの準備</p>
+<ol>
+<li>Dockerイメージを入手</li>
+</ol>
+<pre><code>docker pull ghcr.io/automotiveaichallenge/aichallenge2022-sim/autoware-universe-cuda:3.1
+</code></pre>
+<p>※上記の方法では長時間かかってしまう方・タイムアウトしてしまう方↓<br>
+<a href="dokka">こちら</a>に、イメージをtarにまとめたものを置きましたので、下記コマンドよりご利用ください</p>
+<pre><code>docker load &lt; aichallenge2022_sim_autoware_v3.1.tar.gz
+</code></pre>
+<ol start="2">
+<li>大会用データのダウンロード</li>
+</ol>
+<pre><code>sudo apt install -y git-lfs
+git lfs clone https://github.com/AutomotiveAIChallenge/aichallenge2022-sim
+</code></pre>
+<ol start="3">
+<li>rockerを起動</li>
+</ol>
+<pre><code>cd ./aichallenge2022-sim
+rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2022-sim/autoware-universe-cuda:3.1
+</code></pre>
+</li>
+<li><p>Autowareの動作確認<br>
+AWSIMを用いて、Autowareの動作確認を行う方法を記します。</p>
+<ol>
+<li>AWSIMを起動</li>
+<li>Autowareを起動</li>
+</ol>
+<pre><code># Rockerコンテナ内で
+ cd /aichallenge
+ ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=sample_vehicle sensor_model:=awsim_sensor_kit map_path:=nishishinjuku_autoware_map
+</code></pre>
+<ol start="3">
+<li><p>下記のような画面(Rviz2)が表示されることを確認<br>
+<img src="../images/setup/autoware1.png" alt="autoware1"></p>
+</li>
+<li><p>RvizのタブにあるPanelからadd new Panelを開き、AutowareStatePanelを追加<br>
+<img src="../images/setup/autoware2.png" alt="autoware2"><br>
+<img src="../images/setup/autoware3.png" alt="autoware3"></p>
+</li>
+<li><p>自己位置推定ができていることを確認<br>
+<img src="../images/setup/autoware4.png" alt="autoware4"></p>
+</li>
+<li><p>正しく推定できていなければ、タブにある2D Pose Estimateを選択し、実際の車両の位置をドラッグで指定<br>
+<img src="../images/setup/autoware5.png" alt="autoware5"></p>
+</li>
+<li><p>タブにある2D Goal Poseを選択し、ゴールポジションをドラッグで指定<br>
+<img src="../images/setup/autoware6.png" alt="autoware6"></p>
+</li>
+<li><p>画像のように、ルートが表示されている かつ 「waiting for engage」状態になっていることを確認（指定してから少し時間がかかります）
+<img src="../images/setup/autoware7.png" alt="autoware7"></p>
+</li>
+<li><p>engageボタンを押下し、自動運転が開始されることを確認<br>
+<img src="../images/setup/autoware8.png" alt="autoware8"></p>
+</li>
+</ol>
+</li>
+</ul>
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

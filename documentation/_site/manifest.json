@@ -1,0 +1,470 @@
+{
+  "homepages": [],
+  "source_base_path": "//Mac/Home/Documents/temp2/docfx_project",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Conceptual",
+      "source_relative_path": "README.md",
+      "output": {
+        ".html": {
+          "relative_path": "README.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "evaluation/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "evaluation/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Toc",
+      "source_relative_path": "evaluation/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "evaluation/toc.html"
+        },
+        ".json": {
+          "relative_path": "evaluation/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/intro/awsim.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/intro/awsim.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/rule/course.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/rule/course.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/rule/kadai 2.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/rule/kadai 2.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/rule/kadai.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/rule/kadai.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/rule/kadai2.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/rule/kadai2.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/rule/kadai3.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/rule/kadai3.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/rule/vehicle.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/rule/vehicle.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/setup/autoware1.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/setup/autoware1.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/setup/autoware2.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/setup/autoware2.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/setup/autoware3.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/setup/autoware3.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/setup/autoware4.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/setup/autoware4.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/setup/autoware5.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/setup/autoware5.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/setup/autoware6.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/setup/autoware6.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/setup/autoware7.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/setup/autoware7.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/setup/autoware8.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/setup/autoware8.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/setup/awsim_ubuntu.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/setup/awsim_ubuntu.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/setup/awsim_win.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/setup/awsim_win.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/setup/nvidia-smi.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/setup/nvidia-smi.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/setup/permmision.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/setup/permmision.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/top/accomplish.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/top/accomplish.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/top/aichallenge2023.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/top/aichallenge2023.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/top/availability.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/top/availability.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/top/challenge_thema.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/top/challenge_thema.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/top/safety.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/top/safety.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/top/schedule_2023.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/top/schedule_2023.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Conceptual",
+      "source_relative_path": "intro/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "intro/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Toc",
+      "source_relative_path": "intro/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "intro/toc.html"
+        },
+        ".json": {
+          "relative_path": "intro/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "local/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "local/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Toc",
+      "source_relative_path": "local/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "local/toc.html"
+        },
+        ".json": {
+          "relative_path": "local/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Conceptual",
+      "source_relative_path": "other/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "other/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Toc",
+      "source_relative_path": "other/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "other/toc.html"
+        },
+        ".json": {
+          "relative_path": "other/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Conceptual",
+      "source_relative_path": "rule/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "rule/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Toc",
+      "source_relative_path": "rule/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "rule/toc.html"
+        },
+        ".json": {
+          "relative_path": "rule/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Conceptual",
+      "source_relative_path": "setup/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "setup/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Toc",
+      "source_relative_path": "setup/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "setup/toc.html"
+        },
+        ".json": {
+          "relative_path": "setup/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html"
+        },
+        ".json": {
+          "relative_path": "toc.json"
+        }
+      },
+      "version": ""
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Evaluation Enviroment </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Evaluation Enviroment ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      
+  </head>
+
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="evaluation-enviroment">Evaluation Enviroment</h1>
+
+<h2 id="outline-of-execution-flow-in-an-online-environment">Outline of Execution Flow in an Online Environment</h2>
+<p>スコアの算出にあたっては、オンライン評価環境のwebページよりパッケージaichallenge_submitのみを提出していただき、自動採点を行います。 提出後、オンライン評価環境ではevaluation/以下のスクリプトを使って下記の手順で評価されます。</p>
+<ol>
+<li><p>aichallenge_submitの配置<br>
+アップロードしていただいたaichallenge_submit.tar.gzはevaluation/以下に配置されます。</p>
+</li>
+<li><p>docker build<br>
+evaluation/build.shが実行され、evaluation/Dockerfileで定義されるdockerイメージが作成されます。このイメージの作成手順は下記の通りです。</p>
+<ol>
+<li>提出いただいたaichallenge_submit.tar.gzを/aichallenge/aichallenge_ws/src/aichallenge_submitへ展開</li>
+<li>rosdep installとcolcon buildの実行</li>
+</ol>
+</li>
+<li><p>シミュレーション実行<br>
+オンライン評価環境でsimulatorが立ち上がり、シミュレーションが開始されます。<br>
+コンテナ内ではevaluation/main.bashの実行によって、以下が行われます。</p>
+<ol>
+<li>ROS2ノード群の起動</li>
+<li>シナリオの開始
+evaluation/run.shで実行した場合、evaluation/output以下に結果(score.json)が保存されます。</li>
+</ol>
+</li>
+</ol>
+<h2 id="procedures-for-submitting-source-code">Procedures for Submitting Source Code</h2>
+<ol>
+<li><p>ソースコードを圧縮する
+aichallenge_submit内のソースコードを圧縮します。</p>
+<pre><code>cd evaluation
+sh create_submit_tar.sh
+</code></pre>
+<p>evaluation/aichallenge_submit.tar.gzに圧縮済みのファイルが生成されていることを確認してください。</p>
+</li>
+<li><p>evaluation/ でdocker内での自動実行ができることを確認する
+オンライン評価環境にアップロードする前に、ローカル環境を使いオンライン環境と同様のDockerコンテナ内でビルド・実行ができることを以下の手順で確認してください。<br>
+まず、以下のファイルがevaluation/以下に配置されていることを確認してください。</p>
+<ul>
+<li>aichallenge_submit.tar.gz<br>
+次に、作成いただいたaichallenge_submitを含むdockerイメージをビルドしてください。</li>
+</ul>
+<pre><code>sh build.sh
+</code></pre>
+<p>ビルドが完了したら、run.shによってdockerコンテナを立ち上げ採点のフローを実行してください。</p>
+<pre><code>sh run.sh
+</code></pre>
+<p>最後に、evaluation/output/score.jsonに出力されるスコアを確認してください。</p>
+</li>
+<li><p>オンライン評価環境webページよりソースをアップロードする
+<a href="">webページ</a>にログイン後画面の指示に従って(1)で作成したaichallenge_submit.tar.gzをアップロードしてください。</p>
+<p>アップロードが終了すると、ソースのビルド・シミュレーションの実行が順番に行われます。</p>
+<ul>
+<li>正常に終了した場合はScoring completeと表示され、配布シナリオ・評価用シナリオそれぞれのタイムが表示されます。最後にアップロードした評価シナリオのタイムが、ランキングにて最終タイムとして使われます。</li>
+<li>正常にシナリオ実行が終了しても、launchに失敗した等でスコアが出力されていない場合はNo result、チェックポイントを全て通過していない場合はCheckpoint not passedと表示され、いずれの場合も最終的なタイムとしては使われません。</li>
+<li>ビルドに失敗した場合はBuild errorが表示されます。(1),(2)の手順に従ってDocker imageのビルドができることを再度ご確認ください。</li>
+<li>シミュレーターの実行に失敗した場合はSimulator errorと表示されます。この場合サーバーサイドで内部エラーが生じている可能性があるため再度アップロードお願いします。繰り返し表示されてしまう場合はお問合せください。</li>
+<li>採点プロセスは一度の提出で5回行われ、結果はその平均によって決定されます。</li>
+</ul>
+<p>なお、採点実行中は新たなソースのアップロードはできません。またアップロードできるのは1日3回までで、日本時間0時にリセットされます。</p>
+</li>
+</ol>
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
