@@ -1,2 +1,2 @@
-# Ignore documentaion 
-/documentation/
+# Ignore generated documentaion 
+/documentation/_site
