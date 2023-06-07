@@ -11,11 +11,11 @@
 ### autoware/aichallenge_ws/src
 * aichallenge_launch
   * 大元のlaunchファイルaichallenge.launch.xmlを含んでいます。すべてのROS2ノードはこのlaunchファイルから起動されます。
-* aichallenge_eval
+* aichallenge_eval(**WIP**)
   * スコア算出用のパッケージです。
-* aichallenge_score_msgs
+* aichallenge_score_msgs(**WIP**)
   * メッセージ定義を含みます。
-* aichallenge_submit
+* aichallenge_submit(**WIP**)
   * このディレクトリの内容は自由に変更していただいて構いません。
   * 提出時にはこのディレクトリの内容のみ提出していただきますので、参加者の皆さまが実装されたROS2パッケージはすべてこのディレクトリ内に配置してください。配布段階で以下のパッケージを含んでいます。
   * aichallenge_submit_launch
