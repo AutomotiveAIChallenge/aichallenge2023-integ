@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Local Enviroment </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Local Enviroment ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/blob/feature/pages/documentation/docfx_project_en/local/index.md/#L1">
+  </head>
+
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="local-enviroment">Local Enviroment</h1>
+
+<p>The following ROS2 package is provided in autoware/aichallenge_ws/src as a sample code to be used as a base in this repository.
+Please place the ROS2 package you have created under aichallenge_ws/src/aichallenge_submit and follow the steps below to build and execute it.</p>
+<h2 id="sample-code">Sample Code</h2>
+<h3 id="about-sample-code">About Sample Code</h3>
+<ul>
+<li>aichallenge_launch
+<ul>
+<li>Contains the main launch file aichallenge.launch.xml. All ROS2 nodes are launched from this launch file.</li>
+</ul>
+</li>
+<li>aichallenge_eval
+<ul>
+<li>Package for score calculation.</li>
+</ul>
+</li>
+<li>aichallenge_score_msgs
+<ul>
+<li>aichallenge_score_msgs * Contains message definitions.</li>
+</ul>
+</li>
+<li>aichallenge_submit
+<ul>
+<li>The contents of this directory may be freely modified.</li>
+<li>All ROS2 packages implemented by participants should be placed in this directory, as only the contents of this directory will be submitted at the time of submission. The following packages are included in the distribution phase.</li>
+<li>aichallenge_submit_launch
+<ul>
+<li>aichallenge_submit_launch.launch.xml is called from the main launch file aichallenge.launch.xml, so please modify this launch file accordingly to configure the ROS2 nodes you have implemented to be launched. Please modify this launch file accordingly and configure it to start the ROS2 node you have implemented.</li>
+</ul>
+</li>
+<li>sample_code_cpp
+<ul>
+<li>sample automatic running implementation.</li>
+</ul>
+</li>
+<li>obstacle_stop_planner_custom
+<ul>
+<li>Fix the problem that obstacles are mis-detected from obstacle_stop_planner in autoware.universe.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>tier4_*_launch
+<ul>
+<li>Copy and partially edit autoware's launch file. tier4_*_launch in autoware has been removed, so be sure to leave this one in aichallenge_submit.
+The file has been changed to call obstacle_stop_planner_custom instead of obstacle_stop_planner.</li>
+</ul>
+</li>
+</ul>
+<h3 id="build-sample-code">Build Sample Code</h3>
+<pre><code># In the Rocker container
+cd /aichallenge/aichallenge_ws
+rosdep update
+rosdep install -y -r -i --from-paths src --ignore-src --rosdistro $ROS_DISTRO
+colcon build
+</code></pre>
+<h3 id="run-sample-code">Run Sample Code</h3>
+<pre><code># In the Rocker container
+source /aichallenge/aichallenge_ws/install/setup.bash
+ros2 launch aichallenge_launch aichallenge.launch.xml
+</code></pre>
+<p>At this point, the setup and execution on the Autoware side is complete. If the setup is successful, rviz will display a point cloud map and start automatic operation.</p>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/blob/feature/pages/documentation/docfx_project_en/local/index.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
