@@ -18,7 +18,10 @@ jobs:
 
     - run: dotnet tool update -g docfx
     - run: docfx documentation/docfx_project/docfx.json
-
+    - run: docfx documentation/docfx_project_en/docfx.json
+    - run: mkdir documentation/docfx_project/_site/en
+    - run: cp documentation/docfx_project_en/_site/* documentation/docfx_project/_site/en/
+    
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       with:
