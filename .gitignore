@@ -1,2 +1,5 @@
 # Ignore generated documentaion 
-/documentation/_site
+_site
+
+# MacOS
+.DS_Store
