@@ -31,8 +31,7 @@
  * [Introduction](../intro)  予選大会について
  * [Setup](../setup)  環境構築手順について
  * [Rule](../rule) ルールについて
- <!--
-  * [About Local Enviroment](../local) ローカル開発環境について 
+ * [About Local Enviroment](../local) ローカル開発環境について
  * [About Evaluation Enviroment](../evaluation) オンライン評価環境について
  * [Other](../other) 問い合わせ・参加者同士の情報共有方法など
- -->
+ 
