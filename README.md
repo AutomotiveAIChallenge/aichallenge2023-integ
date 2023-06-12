@@ -1,4 +1,5 @@
 # aichallenge2023-sim
+[![.github/workflows/document.yml](https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/actions/workflows/document.yml/badge.svg?branch=feature%2Fen)](https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/actions/workflows/document.yml)
 
 ## ドキュメント
 - [pagesへのリンク追記]()
