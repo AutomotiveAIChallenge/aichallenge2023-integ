@@ -1,0 +1,9 @@
+- name: Minimum Hardware Requirements
+  href: index.html#minimum-hardware-requirements
+- name: Environment Setup
+  href: index.html#environment-setup
+- name: AWSIM(Environment Setup)
+  href: index.html#awsimubuntu
+- name: Autoware(Environment Setup)
+  href: index.html#autoware
+  homepage: setup/index.html
