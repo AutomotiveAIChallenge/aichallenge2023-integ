@@ -62,7 +62,8 @@
     ```
  * コースの準備
    1. 大会用の実行ファイルを[ダウンロード](https://drive.google.com/file/d/1aduBKhYGI0mhhRbgu4B05pBTyFXcZsGN/view?usp=sharing)し、解凍
-   2. パーミッションを図のように変更    
+   ※チュートリアル用
+   3. パーミッションを図のように変更    
    ![パーミッション変更の様子](../images/setup/permmision.png)  
    3. ファイルをダブルクリックで起動
    4. 下記のような画面が表示されることを確認
@@ -70,6 +71,7 @@
         
 ### AWSIM(Windows)
   1. 大会用の実行ファイルを[ダウンロード](https://drive.google.com/file/d/1L6jr9wttxA2aLl8IqC3xDXIuQUfjMTAJ/view?usp=sharing)し、解凍
+  ※チュートリアル用
   2. ファイルをダブルクリックで起動
   3. 下記のような画面が表示されることを確認
     ![awsim_win](../images/setup/awsim_win.png)
