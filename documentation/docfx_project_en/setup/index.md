@@ -66,16 +66,18 @@ If they are located in the same network, topic communication between PCs is basi
     sudo apt install libvulkan1
     ```
  * Prepare the course
-   1. [Download](https://drive.google.com/file/d/1aduBKhYGI0mhhRbgu4B05pBTyFXcZsGN/view?usp=sharing) the executable file for the competition and unzip it
-   2. change permissions as shown in the figure    
+   1. [Download](https://drive.google.com/file/d/1aduBKhYGI0mhhRbgu4B05pBTyFXcZsGN/view?usp=sharing) the executable file for the competition and unzip it    
+   ※Tutorial Environment
+   3. change permissions as shown in the figure    
    ![Change the permissions as shown in the figure ](../images/setup/permmision.png)  
    Double-click the file to launch it.
    4. confirm that the following screen is displayed
       ![awsim_ubuntu](../images/setup/awsim_ubuntu.png)
         
 ### AWSIM(Windows)
-  1. [Download](https://drive.google.com/file/d/1L6jr9wttxA2aLl8IqC3xDXIuQUfjMTAJ/view?usp=sharing) the executable file for the convention and unzip it. 
-  2. double-click the file to start it
+  1. [Download](https://drive.google.com/file/d/1L6jr9wttxA2aLl8IqC3xDXIuQUfjMTAJ/view?usp=sharing) the executable file for the convention and unzip it.   
+  ※Tutorial Environment
+  3. double-click the file to start it
   Confirm that the following screen is displayed.
     ![Confirm that a screen similar to the following appears](../images/setup/awsim_win.png)
     
