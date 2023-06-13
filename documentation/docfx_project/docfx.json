@@ -61,6 +61,48 @@
           "toc.yml",
           "*.md"
         ]
+      },
+      {
+        "files": [
+          "en/intro/toc.yml",
+          "en/intro/index.md"
+        ]
+      },
+     {
+        "files": [
+          "en/setup/toc.yml",
+          "en/setup/index.md"
+        ]
+      },
+     {
+        "files": [
+          "en/rule/toc.yml",
+          "en/rule/index.md"
+        ]
+      },
+      {
+        "files": [
+          "en/local/toc.yml",
+          "en/local/index.md"
+        ]
+      },
+     {
+        "files": [
+          "en/evaluation/toc.yml",
+          "en/evaluation/index.md"
+        ]
+      },
+      {
+        "files": [
+          "en/other/toc.yml",
+          "en/other/index.md"
+        ]
+      },
+      {
+        "files": [
+          "en/toc.yml",
+          "en/*.md"
+        ]
       }
     ],
     "resource": [
