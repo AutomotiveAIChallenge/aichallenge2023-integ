@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>AIChallenge2023 </title>
+      <title>AIチャレンジ2023インテグレーション大会 予選 </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="AIChallenge2023 ">
+      <meta name="title" content="AIチャレンジ2023インテグレーション大会 予選 ">
       
       <link rel="icon" href="../favicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
@@ -72,28 +72,26 @@
         </div>
 
         <article data-uid="">
-<h1 id="aichallenge2023">AIChallenge2023</h1>
+<h1 id="aiチャレンジ2023インテグレーション大会-予選">AIチャレンジ2023インテグレーション大会 予選</h1>
 
 <h2 id="introduction">Introduction</h2>
-<p> 本サイトでは、自動運転AIチャレンジ2023インテグレーション大会の予選大会に参加する方向けに、大会ルールや環境構築方法など、大会に参加するために必要な情報をまとめています。</p>
-<p> 昨年度行った、自動運転AIチャレンジ2022シミュレーション大会と同様に、本大会では自動運転ソフトウェアAutoware.universeと自動運転シミュレータAWSIMを使用します。<a href="../setup">Setupページ</a>記載の手順に沿って環境を構築し、大会へご参加ください。</p>
+<p> 昨年度行った、自動運転AIチャレンジ2022シミュレーション大会と同様に、自動運転AIチャレンジ2023インテグレーション大会の予選大会では自動運転ソフトウェアAutoware.universeと自動運転シミュレータAWSIMを使用します。<a href="../setup">Setupページ</a>記載の手順に沿って環境を構築し、大会へご参加ください。</p>
 <h2 id="about-competition">About Competition</h2>
 <p> 皆様には下記の流れに沿って、本大会に取り組んでいただきます。</p>
 <ol>
-<li>与えられたシナリオをクリアできるようなソフトウェアを開発</li>
+<li>与えられたシナリオをクリアできるようなソフトウェアをAutoware.universeをベースに開発</li>
 <li>ローカル環境で手順1で作成したソフトウェアを検証</li>
 <li>検証が完了したソフトウェアをオンライン環境にアップロード</li>
-<li>オンライン上でシミュレーションが実施されて、タイムを計測<br>
-※最後にアップロードされたソースコードのシミュレーション結果のタイムに基づいて順位を決定します。（オンライン環境へのご案内は後日行います）<br>
- 大会ルールの詳細は<a href="../rule">Ruleページ</a>をご参照ください。</li>
+<li>オンライン上でシミュレーションが実施され、タイムを計測<br>
+※最後にアップロードされたソースコードのシミュレーション結果のタイムに基づいて順位を決定します。
+（オンライン環境へのご案内は後日行います）</li>
 </ol>
 <h2 id="about-autoware">About Autoware</h2>
-<p>  AutowareとはROS2を使用したオープンソースの自動運転ソフトウェアです。LiDARやカメラなどからデータを取得するセンシング機能、センシングデータを組み合わせて車両の位置を推定するLocalization機能などがモジュールとして存在し、それらが相互に連携することで、自動運転を実現しています。本ソフトウェアは、日本国内の公道での実証実験も行われています。<br>
-  本大会ではAutowareの中でも研究・開発向けディストリビューションであるAutoware.universeを使用します。その他のディストリビューションやAutowareのこれまでの開発の流れについては、<a href="https://autowarefoundation.github.io/autoware-documentation/main/design/autoware-concepts/difference-from-ai-and-auto/">こちら</a>を御覧ください。
-<img src="/images/intro/autoware.png" alt="autoware"></p>
+<p>  AutowareとはROS2を使用したオープンソースの自動運転ソフトウェアです。LiDARやカメラなどからデータを取得するセンシング機能、センシングデータを組み合わせて車両の位置を推定するLocalization機能などがモジュールとして存在し、それらが相互に連携することで、自動運転を実現しています。本ソフトウェアは日本国内の公道での走行実験の実績もあります。<br>
+  本大会ではAutowareの中でも研究・開発向けディストリビューションであるAutoware.universeを使用します。その他のディストリビューションやAutowareのこれまでの開発の流れについては、<a href="https://autowarefoundation.github.io/autoware-documentation/main/design/autoware-concepts/difference-from-ai-and-auto/">こちら</a>を御覧ください。</p>
 <h2 id="about-awsim">About AWSIM</h2>
 <p> AWSIMはUnity上で動作するオープンソースの自動運転用シミュレータになります。ROS2 nativeに対応していること、WindowsやUbuntuに対応していることから、誰でも簡単に自動運転アルゴリズムのシミュレーションを行うことが可能です。
- AutowareでAWSIMを活用した場合、AWSIMからのセンシングデータをAutowareのノードがSubscribeし、受け取ったデータを各モジュールで処理した結果である車両制御情報をAWSIMにPublishすることで、AWSIM上の車両を制御します。
+ AutowareでAWSIMを活用した場合、AutowareのノードがAWSIMからセンシングデータをSubscribeし、受け取ったデータを各モジュールで処理を行い、その結果（車両制御情報）をAWSIMにPublishすることで、AWSIM上の車両を制御します。詳細は<a href="https://github.com/tier4/AWSIM">こちら</a>をご確認ください。
 <img src="/images/intro/awsim.png" alt="awsim"></p>
 <h2 id="related-documentations">Related Documentations</h2>
 <ul>
@@ -105,10 +103,6 @@
 <ul>
 <li><a href="../intro">Introduction</a>  予選大会について</li>
 <li><a href="../setup">Setup</a>  環境構築手順について</li>
-<li><a href="../rule">Rule</a> ルールについて</li>
-<li><a href="../local">About Local Enviroment</a> ローカル開発環境について</li>
-<li><a href="../evaluation">About Evaluation Enviroment</a> オンライン評価環境について</li>
-<li><a href="../other">Other</a> 問い合わせ・参加者同士の情報共有方法など</li>
 </ul>
 </article>
 

@@ -124,7 +124,7 @@
 <pre><code>sudo ubuntu-drivers autoinstall
 </code></pre>
 <ol start="4">
-<li>再起動の後、下記コマンドによりインストールできていることを確認</li>
+<li>再起動の後、下記コマンドを実行し、インストールできていることを確認</li>
 </ol>
 <pre><code>nvidia-smi
 </code></pre>
@@ -144,7 +144,7 @@
 </li>
 <li><p>コースの準備</p>
 <ol>
-<li>大会用の実行ファイルを<a href="dokka">ダウンロード</a>し、解凍</li>
+<li>大会用の実行ファイルを<a href="https://drive.google.com/file/d/1aduBKhYGI0mhhRbgu4B05pBTyFXcZsGN/view?usp=sharing">ダウンロード</a>し、解凍</li>
 <li>パーミッションを図のように変更<br>
 <img src="../images/setup/permmision.png" alt="パーミッション変更の様子"></li>
 <li>ファイルをダブルクリックで起動</li>
@@ -155,7 +155,7 @@
 </ul>
 <h3 id="awsimwindows">AWSIM(Windows)</h3>
 <ol>
-<li>大会用の実行ファイルを<a href="dokka">ダウンロード</a>し、解凍</li>
+<li>大会用の実行ファイルを<a href="https://drive.google.com/file/d/1L6jr9wttxA2aLl8IqC3xDXIuQUfjMTAJ/view?usp=sharing">ダウンロード</a>し、解凍</li>
 <li>ファイルをダブルクリックで起動</li>
 <li>下記のような画面が表示されることを確認
 <img src="../images/setup/awsim_win.png" alt="awsim_win"></li>
@@ -181,23 +181,23 @@
 <ol>
 <li>Dockerイメージを入手</li>
 </ol>
-<pre><code>docker pull ghcr.io/automotiveaichallenge/aichallenge2022-sim/autoware-universe-cuda:3.1
+<pre><code>docker pull ghcr.io/automotiveaichallenge/aichallenge2023-sim/autoware-universe-cuda:v1
 </code></pre>
 <p>※上記の方法では長時間かかってしまう方・タイムアウトしてしまう方↓<br>
-<a href="dokka">こちら</a>に、イメージをtarにまとめたものを置きましたので、下記コマンドよりご利用ください</p>
-<pre><code>docker load &lt; aichallenge2022_sim_autoware_v3.1.tar.gz
+<a href="https://drive.google.com/file/d/1mOEpiN36UPe70NqiibloDcd_ewgMr_5P/view?usp=sharing">こちら</a>に、イメージをtarにまとめたものを置きましたので、下記コマンドよりご利用ください</p>
+<pre><code>docker load &lt; autoware-universe-cuda_v1.tar.gz
 </code></pre>
 <ol start="2">
 <li>大会用データのダウンロード</li>
 </ol>
 <pre><code>sudo apt install -y git-lfs
-git lfs clone https://github.com/AutomotiveAIChallenge/aichallenge2022-sim
+git lfs clone https://github.com/AutomotiveAIChallenge/aichallenge2023-sim
 </code></pre>
 <ol start="3">
 <li>rockerを起動</li>
 </ol>
-<pre><code>cd ./aichallenge2022-sim
-rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2022-sim/autoware-universe-cuda:3.1
+<pre><code>cd ./aichallenge2023-sim
+rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2023-sim/autoware-universe-cuda:v1
 </code></pre>
 </li>
 <li><p>Autowareの動作確認<br>
@@ -207,8 +207,11 @@ AWSIMを用いて、Autowareの動作確認を行う方法を記します。</p>
 <li>Autowareを起動</li>
 </ol>
 <pre><code># Rockerコンテナ内で
+ cd /aichallenge/aichallenge_ws
+ colcon build 
+ source install/setup.bash
  cd /aichallenge
- ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=sample_vehicle sensor_model:=awsim_sensor_kit map_path:=nishishinjuku_autoware_map
+ ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=sample_vehicle sensor_model:=awsim_sensor_kit map_path:=mapfile
 </code></pre>
 <ol start="3">
 <li><p>下記のような画面(Rviz2)が表示されることを確認<br>

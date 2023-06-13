@@ -84,13 +84,11 @@
 <li>Storage: SSD 30 GB or higher</li>
 </ul>
 <p>If you are unable to prepare a PC that meets the above specifications, please refer to the &quot;For participants with two PCs&quot; below.</p>
-<h4 id="for-participants-with-two">For participants with two</h4>
-<ul>
-<li>CPU: Intel C PCs</li>
-</ul>
+<h4 id="for-participants-with-two-pcs">For participants with two PCs</h4>
 <h4 id="autoware-pc">Autoware PC</h4>
 <ul>
-<li>OS: Ubuntu 20.04orei7 (8 cores) or higher</li>
+<li>OS: Ubuntu 20.04</li>
+<li>CPU: Intel Corei7 (8 cores) or higher</li>
 <li>GPU: NVIDIA Geforce GTX 1080 or higher</li>
 <li>Memory: 16 GB or higher</li>
 <li>Storage: SSD 10 GB or higher</li>
@@ -109,52 +107,58 @@ If they are located in the same network, topic communication between PCs is basi
 <h3 id="awsimubuntu">AWSIM(Ubuntu)</h3>
 <h4 id="preparation">Preparation</h4>
 <ul>
-<li>Install Nvidia drivers
+<li><p>Install Nvidia drivers</p>
 <ol>
 <li>add repository</li>
 </ol>
 <pre><code>sudo add-apt-repository ppa:graphics-drivers/ppa
-```` 2.
-2. update package list
-```
-sudo apt update
-``` 3.
-3. install ```` sudo apt update ```
-Install ````
-sudo ubuntu-drivers autoinstall
-4.
-After rebooting, confirm that the installation has completed by using the following command: ```` sudo ubuntu-drivers autoinstall ```` 4.
 </code></pre>
-nvidia-smi
-<pre><code class="lang-nvidia-smi">![nvidia-smi](... /other) Inquiries, how to share information among participants, etc.
-
-* Install Vulkun
-  1. update package list
+<ol start="2">
+<li>update package list</li>
+</ol>
+<pre><code>sudo apt update
 </code></pre>
-sudo apt update
-<pre><code>2. install libvulkan1
-```
-sudo apt install libvulkan1
-```
+<ol start="3">
+<li>install</li>
+</ol>
+<pre><code>sudo ubuntu-drivers autoinstall
+</code></pre>
+<ol start="4">
+<li>After rebooting, run the following command to confirm that the installation has completed.</li>
+</ol>
+<pre><code>nvidia-smi
+</code></pre>
+<p><img src="../images/setup/nvidia-smi.png" alt="nvidia-smi"></p>
+</li>
+<li><p>Install Vulkun</p>
+<ol>
+<li>update package list</li>
+</ol>
+<pre><code>sudo apt update
+</code></pre>
+<ol start="2">
+<li>install libvulkan1</li>
+</ol>
+<pre><code>sudo apt install libvulkan1
 </code></pre>
 </li>
-<li>Prepare the course
+<li><p>Prepare the course</p>
 <ol>
-<li><a href="dokka">Download</a> the executable file for the competition and unzip it. 2.</li>
+<li><a href="https://drive.google.com/file/d/1aduBKhYGI0mhhRbgu4B05pBTyFXcZsGN/view?usp=sharing">Download</a> the executable file for the competition and unzip it</li>
 <li>change permissions as shown in the figure<br>
-![Change permissions as shown in the figure !/images/setup/permmision.png) 3.<br>
-Double-click the file to launch it. 4.</li>
+<img src="../images/setup/permmision.png" alt="Change the permissions as shown in the figure "><br>
+Double-click the file to launch it.</li>
 <li>confirm that the following screen is displayed
-![awsim_ubuntu](. /images/setup/awsim_ubuntu.png)</li>
+<img src="../images/setup/awsim_ubuntu.png" alt="awsim_ubuntu"></li>
 </ol>
 </li>
 </ul>
 <h3 id="awsimwindows">AWSIM(Windows)</h3>
 <ol>
-<li>download the executable file for the convention and unzip it. 2.
-Double-click the file to launch it. 3.
+<li><a href="https://drive.google.com/file/d/1L6jr9wttxA2aLl8IqC3xDXIuQUfjMTAJ/view?usp=sharing">Download</a> the executable file for the convention and unzip it.</li>
+<li>double-click the file to start it
 Confirm that the following screen is displayed.
-![Confirm that the following screen is displayed !/images/setup/awsim_win.png)</li>
+<img src="../images/setup/awsim_win.png" alt="Confirm that a screen similar to the following appears"></li>
 </ol>
 <h3 id="autoware">Autoware</h3>
 <p>Docker image of Autoware (using CUDA) is available for this competition.</p>
@@ -177,54 +181,64 @@ Please install the following.</p>
 <ol>
 <li>get a Docker image</li>
 </ol>
-<pre><code>docker pull ghcr.io/automotiveaichallenge/aichallenge2022-sim/autoware-universe-cuda:3.1
+<pre><code>docker pull ghcr.io/automotiveaichallenge/aichallenge2023-sim/autoware-universe-cuda:v1
 </code></pre>
-<p>*If the above method takes a long time or times out ↓↓<br>
-[Please use the following command.</p>
-<pre><code>docker load &lt; aichallenge2022_sim_autoware_v3.1.tar.gz
-```` 2.
-  2. download data for the competition
+<p>If the above method takes a long time or times out, you can use the following method.<br>
+We have placed a tarball of the image at <a href="https://drive.google.com/file/d/1mOEpiN36UPe70NqiibloDcd_ewgMr_5P/view?usp=sharing">here</a>. Please use the following command</p>
+<pre><code>docker load &lt; autoware-universe-cuda_v1.tar.gz
 </code></pre>
-<p>sudo apt install -y git-lfs
-git lfs clone <a href="https://github.com/AutomotiveAIChallenge/aichallenge2022-sim">https://github.com/AutomotiveAIChallenge/aichallenge2022-sim</a></p>
-<pre><code>3. start rocker
+<ol start="2">
+<li>download the data for the competition</li>
+</ol>
+<pre><code>sudo apt install -y git-lfs
+git lfs clone https://github.com/AutomotiveAIChallenge/aichallenge2023-sim
 </code></pre>
-<p>cd . /aichallenge2022-sim
-rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2022-sim/ autoware-universe-cuda:3.1</p>
-<pre><code>
+<ol start="3">
+<li>start rocker</li>
+</ol>
+<pre><code>cd . /aichallenge2023-sim
+rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2023-sim/ autoware-universe-cuda:v1
+```
+
 </code></pre>
 </li>
-<li><p>Checking Autoware operation<br>
-This section describes how to check the operation of Autoware using AWSIM. 1.
-Start AWSIM. 2.
-Start Autoware.</p>
+<li><p>Verify Autoware operation<br>
+This section describes how to check the operation of Autoware using AWSIM.</p>
+<ol>
+<li>Start AWSIM.</li>
+<li>Start Autoware.</li>
+</ol>
 <pre><code># In the Rocker container
+ cd /aichallenge/aichallenge_ws
+ colcon build 
+ source install/setup.bash
  cd /aichallenge
- ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=sample_vehicle sensor_model:=awsim_sensor_kit map_path:= nishishinjuku_autoware_map
-```` 3.
-Confirm that the following screen (Rviz2) is displayed.  
-![autoware1](. /images/setup/autoware1.png) 4.   
-
-Open ``add new Panel`` from Panel in Rviz tab and add AutowareStatePanel.  
-![autoware2](. /images/setup/autoware2.png)   
-![autoware3](.. /images/setup/autoware2.png) !/images/setup/autoware3.png) 5.   
-
- Confirmation of self-location estimation  
- ![autoware4](.. /images/setup/autoware4.png) /images/setup/autoware4.png) 6.   
-
- If it is not estimated correctly, select 2D Pose Estimate in the tab, and drag the actual position of the vehicle.  
- ![autoware5](. /images/setup/autoware5.png) 7.      
-
- Select 2D Goal Pose in the tab and drag to specify the goal position.  
-  ![autoware6](. /images/setup/autoware6.png) 8.         
-
-  8. check that the route is displayed and &quot;waiting for engage&quot; as shown in the image (it takes a little time after specifying the route)
-  ![autoware7](... /images/setup/autoware7.png) 9.   
-
-  9. press the &quot;engage&quot; button and confirm that the automatic operation starts  
-  ![autoware8](. /images/setup/autoware8.png)   
-
+ ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=sample_vehicle sensor_model:=awsim_sensor_kit map_path:=mapfile
 </code></pre>
+<ol start="3">
+<li><p>Confirm that the following screen (Rviz2) is displayed.<br>
+<img src="../images/setup/autoware1.png" alt="autoware1"></p>
+</li>
+<li><p>Open <code>add new Panel</code> from Panel in Rviz tab and add AutowareStatePanel.<br>
+<img src="../images/setup/autoware2.png" alt="autoware2"><br>
+<img src="../images/setup/autoware2.png" alt="autoware3"></p>
+</li>
+<li><p>Confirmation of self-location estimation<br>
+<img src="../images/setup/autoware4.png" alt="autoware4"></p>
+</li>
+<li><p>If it is not estimated correctly, select 2D Pose Estimate in the tab, and drag the actual position of the vehicle.<br>
+<img src="../images/setup/autoware5.png" alt="autoware5"></p>
+</li>
+<li><p>Select 2D Goal Pose in the tab and drag to specify the goal position.<br>
+<img src="../images/setup/autoware6.png" alt="autoware6"></p>
+</li>
+<li><p>check that the route is displayed and &quot;waiting for engage&quot; as shown in the image (it takes a little time after specifying the route)
+<img src="../images/setup/autoware7.png" alt="autoware7"></p>
+</li>
+<li><p>press the &quot;engage&quot; button and confirm that the automatic operation starts<br>
+<img src="../images/setup/autoware8.png" alt="autoware8"></p>
+</li>
+</ol>
 </li>
 </ul>
 </article>
