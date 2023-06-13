@@ -12,7 +12,7 @@
 ![schedule_2023](https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/assets/113989589/58e75a25-b823-4b20-9282-885a21527af8)
 
 ## ドキュメント
-&emsp; 下記ページに大会の詳細や環境構築方法などがまとめられています。ご参照の上、大会へご参加ください
+&emsp; 下記ページに本大会における予選大会の詳細や環境構築方法などがまとめられています。ご参照の上、大会へご参加ください
 - [日本語ページ](https://automotiveaichallenge.github.io/aichallenge2023-sim/index.html)
 - [English Page](https://automotiveaichallenge.github.io/aichallenge2023-sim/en/index.html)
 
