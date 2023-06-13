@@ -1,7 +1,7 @@
 ## AI Challenge 2023 Integration Competition Preliminary Round
 
 ## Introduction
-As in the Automated AI Challenge 2022 simulation competition held last year, the qualifying competition for the Automated AI Challenge 2023 Integration Competition will use the Autoware.universe automated driving software and the AWSIM automated driving simulator. The [Setup page](./setup) and participate in the competition.
+As in the Automated AI Challenge 2022 simulation competition held last year, the qualifying competition for the Automated AI Challenge 2023 Integration Competition will use the Autoware.universe automated driving software and the AWSIM automated driving simulator. The [Setup page](../setup) and participate in the competition.
   
 ## About Competition
 &emsp; You are required to follow the following steps to participate in the competition.
@@ -28,7 +28,7 @@ As in the Automated AI Challenge 2022 simulation competition held last year, the
  * [AWSIM](https://github.com/tier4/AWSIM)
  
 ## Page Links.
- * [Introduction](./intro)  About the Qualifying Competition.
- * [Setup](./setup) Setup procedure
+ * [Introduction](../intro)  About the Qualifying Competition.
+ * [Setup](../setup) Setup procedure
  
  
