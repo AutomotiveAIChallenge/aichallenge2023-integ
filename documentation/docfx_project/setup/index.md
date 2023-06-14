@@ -45,7 +45,7 @@
   ```
   sudo ubuntu-drivers autoinstall
   ```
-  4. 再起動の後、下記コマンドによりインストールできていることを確認
+  4. 再起動の後、下記コマンドを実行し、インストールできていることを確認
   ```
   nvidia-smi
   ```
@@ -61,15 +61,34 @@
     sudo apt install libvulkan1
     ```
  * コースの準備
-   1. 大会用の実行ファイルを[ダウンロード](dokka)し、解凍
-   2. パーミッションを図のように変更    
+   1. 大会用の実行ファイルを[ダウンロード](https://drive.google.com/file/d/1aduBKhYGI0mhhRbgu4B05pBTyFXcZsGN/view?usp=sharing)し、解凍
+   ※チュートリアル用
+   3. パーミッションを図のように変更    
    ![パーミッション変更の様子](../images/setup/permmision.png)  
    3. ファイルをダブルクリックで起動
    4. 下記のような画面が表示されることを確認
       ![awsim_ubuntu](../images/setup/awsim_ubuntu.png)
         
+#### Dockerコンテナ内でのAWSIM起動
+DockerコンテナからAWSIMを起動したい場合は、Dockerイメージの準備手順(後述)に従ってDockerイメージを導入した後、以下の手順で行ってください。
+  1. `aichallenge2023-sim/autoware`内に大会用実行ファイルを展開(以下、`aichallenge2023-sim/autoware/AWSIM/AWSIM.x86_64`に配置されているものとします。)
+  2. Dockerコンテナを起動
+    ```
+    cd aichallenge2023-sim
+    rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2023-sim/autoware-universe-cuda:v1
+    ```
+  3. コンテナ内で以下を実行
+    ```
+    export ROS_LOCALHOST_ONLY=1
+    export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+    export RCUTILS_COLORIZED_OUTPUT=1
+    source /autoware/install/setup.bash
+    /aichallenge/AWSIM/AWSIM.x86_64
+    ```
+
 ### AWSIM(Windows)
-  1. 大会用の実行ファイルを[ダウンロード](dokka)し、解凍
+  1. 大会用の実行ファイルを[ダウンロード](https://drive.google.com/file/d/1L6jr9wttxA2aLl8IqC3xDXIuQUfjMTAJ/view?usp=sharing)し、解凍
+  ※チュートリアル用
   2. ファイルをダブルクリックで起動
   3. 下記のような画面が表示されることを確認
     ![awsim_win](../images/setup/awsim_win.png)
@@ -89,22 +108,22 @@
 * Dockerイメージの準備・起動 〜 Autowareの準備
    1. Dockerイメージを入手
     ```
-   docker pull ghcr.io/automotiveaichallenge/aichallenge2022-sim/autoware-universe-cuda:3.1
+   docker pull ghcr.io/automotiveaichallenge/aichallenge2023-sim/autoware-universe-cuda:v1
     ```
     ※上記の方法では長時間かかってしまう方・タイムアウトしてしまう方↓  
-　[こちら](dokka)に、イメージをtarにまとめたものを置きましたので、下記コマンドよりご利用ください
+　[こちら](https://drive.google.com/file/d/1mOEpiN36UPe70NqiibloDcd_ewgMr_5P/view?usp=sharing)に、イメージをtarにまとめたものを置きましたので、下記コマンドよりご利用ください
    ```
-   docker load < aichallenge2022_sim_autoware_v3.1.tar.gz
+   docker load < autoware-universe-cuda_v1.tar.gz
    ```
     2. 大会用データのダウンロード
     ```
     sudo apt install -y git-lfs
-    git lfs clone https://github.com/AutomotiveAIChallenge/aichallenge2022-sim
+    git lfs clone https://github.com/AutomotiveAIChallenge/aichallenge2023-sim
     ```
     3. rockerを起動
     ```
-    cd ./aichallenge2022-sim
-    rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2022-sim/autoware-universe-cuda:3.1
+    cd aichallenge2023-sim
+    rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2023-sim/autoware-universe-cuda:v1
     ```
       
  * Autowareの動作確認  
@@ -113,28 +132,23 @@
    2. Autowareを起動
    ```
    # Rockerコンテナ内で
-	cd /aichallenge
-	ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=sample_vehicle sensor_model:=awsim_sensor_kit map_path:=nishishinjuku_autoware_map
+   export ROS_LOCALHOST_ONLY=1
+   export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+   export RCUTILS_COLORIZED_OUTPUT=1
+	 cd /aichallenge/aichallenge_ws
+	 colcon build 
+	 source install/setup.bash
+   ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=golfcart sensor_model:=awsim_sensor_kit map_path:=/aichallenge/mapfile
    ```
    3. 下記のような画面(Rviz2)が表示されることを確認  
    ![autoware1](../images/setup/autoware1.png)   
      
-   4. RvizのタブにあるPanelからadd new Panelを開き、AutowareStatePanelを追加  
-   ![autoware2](../images/setup/autoware2.png)   
-   ![autoware3](../images/setup/autoware3.png)   
-     
-    5. 自己位置推定ができていることを確認  
-    ![autoware4](../images/setup/autoware4.png)   
-      
-    6. 正しく推定できていなければ、タブにある2D Pose Estimateを選択し、実際の車両の位置をドラッグで指定  
-    ![autoware5](../images/setup/autoware5.png)      
-      
-    7. タブにある2D Goal Poseを選択し、ゴールポジションをドラッグで指定  
-     ![autoware6](../images/setup/autoware6.png)         
+   4. 自己位置推定ができていることを確認。正しく推定できていなければ、タブにある2D Pose Estimateを選択し、実際の車両の位置をドラッグで指定  
+    ![autoware2](../images/setup/autoware2.png)   
+            
+   5. タブにある2D Goal Poseを選択し、ゴールポジションをドラッグで指定。画像のように、ルートが表示されている かつ `Routing`が`UNSET`から`SET`に変わっていることを確認（指定してから少し時間がかかります）  
+     ![autoware3](../images/setup/autoware3.png)         
        
-     8. 画像のように、ルートが表示されている かつ 「waiting for engage」状態になっていることを確認（指定してから少し時間がかかります）
-     ![autoware7](../images/setup/autoware7.png)   
-       
-     9. engageボタンを押下し、自動運転が開始されることを確認  
-     ![autoware8](../images/setup/autoware8.png)   
+   6. `OperationMode`の`AUTO`ボタンを押下し、自動運転が開始されることを確認  
+     ![autoware4](../images/setup/autoware4.png)   
         
