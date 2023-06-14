@@ -85,6 +85,16 @@
     },
     {
       "type": "Resource",
+      "source_relative_path": "images/setup/autoware.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/setup/autoware.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
       "source_relative_path": "images/setup/autoware1.png",
       "output": {
         "resource": {

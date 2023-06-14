@@ -209,28 +209,26 @@ AWSIMを用いて、Autowareの動作確認を行う方法を記します。</p>
 <li>Autowareを起動</li>
 </ol>
 <pre><code># Rockerコンテナ内で
+export ROS_LOCALHOST_ONLY=1
+export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+export RCUTILS_COLORIZED_OUTPUT=1
  cd /aichallenge/aichallenge_ws
  colcon build 
  source install/setup.bash
- cd /aichallenge
- ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=sample_vehicle sensor_model:=awsim_sensor_kit map_path:=mapfile
+ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=golfcart sensor_model:=awsim_sensor_kit map_path:=/aichallenge/mapfile
 </code></pre>
 <ol start="3">
 <li><p>下記のような画面(Rviz2)が表示されることを確認<br>
 <img src="../images/setup/autoware1.png" alt="autoware1"></p>
 </li>
-<li><p>RvizのタブにあるPanelからadd new Panelを開き、AutowareStatePanelを追加<br>
-<img src="../images/setup/autoware2.png" alt="autoware2"><br>
-<img src="../images/setup/autoware3.png" alt="autoware3"></p>
-</li>
 <li><p>自己位置推定ができていることを確認<br>
-<img src="../images/setup/autoware4.png" alt="autoware4"></p>
+<img src="../images/setup/autoware2.png" alt="autoware2"></p>
 </li>
 <li><p>正しく推定できていなければ、タブにある2D Pose Estimateを選択し、実際の車両の位置をドラッグで指定<br>
-<img src="../images/setup/autoware5.png" alt="autoware5"></p>
+<img src="../images/setup/autoware3.png" alt="autoware3"></p>
 </li>
 <li><p>タブにある2D Goal Poseを選択し、ゴールポジションをドラッグで指定<br>
-<img src="../images/setup/autoware6.png" alt="autoware6"></p>
+<img src="../images/setup/autoware4.png" alt="autoware4"></p>
 </li>
 <li><p>画像のように、ルートが表示されている かつ 「waiting for engage」状態になっていることを確認（指定してから少し時間がかかります）
 <img src="../images/setup/autoware7.png" alt="autoware7"></p>
