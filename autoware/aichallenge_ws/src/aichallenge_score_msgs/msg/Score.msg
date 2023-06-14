@@ -1,6 +1,0 @@
-int64 score
-bool has_finished
-bool has_collided
-bool has_park_failed
-bool has_exceeded_speed_limit
-int64 check_point_count

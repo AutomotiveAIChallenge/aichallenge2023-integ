@@ -74,6 +74,23 @@ If they are located in the same network, topic communication between PCs is basi
    4. confirm that the following screen is displayed
       ![awsim_ubuntu](../images/setup/awsim_ubuntu.png)
         
+#### Starting AWSIM in a Docker container
+If you want to start AWSIM from a Docker container, please follow the steps below after installing a Docker image according to the Docker image preparation procedure (see below).
+  1. extract the executable file for the convention in `aichallenge2023-sim/autoware` (Hereinafter, it is assumed to be located in `aichallenge2023-sim/autoware/AWSIM/AWSIM.x86_64`)
+  2. launch the Docker container
+    ```
+    cd aichallenge2023-sim
+    rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2023-sim/ autoware-universe-cuda:v1
+    ```
+  3. execute the following in the container
+    ```
+    export ROS_LOCALHOST_ONLY=1
+    export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+    export RCUTILS_COLORIZED_OUTPUT=1
+    source /autoware/install/setup.bash
+    /aichallenge/AWSIM/AWSIM.x86_64
+    ````
+
 ### AWSIM(Windows)
   1. [Download](https://drive.google.com/file/d/1L6jr9wttxA2aLl8IqC3xDXIuQUfjMTAJ/view?usp=sharing) the executable file for the convention and unzip it.   
   ※Tutorial Environment
@@ -88,7 +105,7 @@ Docker image of Autoware (using CUDA) is available for this competition.
 Please install the following.
   * [docker](https://docs.docker.com/engine/install/ubuntu/)
   * [rocker](https://github.com/osrf/rocker) 
-     * [docker]() * [rocker]() is used to use GUI such as Rviz and rqt in Docker container.
+     * [docker](https://docs.docker.com/engine/install/ubuntu/) * [rocker](https://github.com/osrf/rocker) is used to use GUI such as Rviz and rqt in Docker container.
   * [Nvidia Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
   * [git lfs](https://packagecloud.io/github/git-lfs/install)
   * [ROS2](https://docs.ros.org/en/humble/index.html) (video confirmed version: Humble)
@@ -120,31 +137,23 @@ Please install the following.
    2. Start Autoware.
    ````
    # In the Rocker container
+   export ROS_LOCALHOST_ONLY=1
+   export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+   export RCUTILS_COLORIZED_OUTPUT=1
 	cd /aichallenge/aichallenge_ws
 	colcon build 
 	source install/setup.bash
 	cd /aichallenge
-	ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=sample_vehicle sensor_model:=awsim_sensor_kit map_path:=mapfile
+   ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=golfcart sensor_model:=awsim_sensor_kit map_path:=/aichallenge/mapfile
    ```` 
    3. Confirm that the following screen (Rviz2) is displayed.  
-![autoware1](../images/setup/autoware1.png)   
+   ![autoware1](../images/setup/autoware1.png)   
      
-   4. Open ``add new Panel`` from Panel in Rviz tab and add AutowareStatePanel.  
+   4. Confirm that self-position estimation is done. If it is not estimated correctly, select `2D Pose Estimate` in the tab and drag the actual position of the vehicle.
    ![autoware2](../images/setup/autoware2.png)   
-   ![autoware3](../images/setup/autoware2.png) 
-     
-    5. Confirmation of self-location estimation  
-    ![autoware4](../images/setup/autoware4.png) 
       
-    6. If it is not estimated correctly, select 2D Pose Estimate in the tab, and drag the actual position of the vehicle.  
-    ![autoware5](../images/setup/autoware5.png)       
-      
-    7. Select 2D Goal Pose in the tab and drag to specify the goal position.  
-     ![autoware6](../images/setup/autoware6.png)          
+   5. Select the `2D Goal Pose` in the `Goal Pose` tab and drag to specify the goal position. Confirm that the route is displayed and `Routing` changes from `UNSET` to `SET` as shown in the image (it takes a little time after you specify it). 
+   ![autoware3](../images/setup/autoware3.png)          
        
-     8. check that the route is displayed and "waiting for engage" as shown in the image (it takes a little time after specifying the route)
-     ![autoware7](../images/setup/autoware7.png) 
-       
-     9. press the "engage" button and confirm that the automatic operation starts  
-     ![autoware8](../images/setup/autoware8.png)   
-        
+   6. Press the `AUTO` button in `OperationMode` and confirm that self driving is started.
+   ![autoware4](../images/setup/autoware4.png) 

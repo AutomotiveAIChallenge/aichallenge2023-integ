@@ -69,6 +69,23 @@
    4. 下記のような画面が表示されることを確認
       ![awsim_ubuntu](../images/setup/awsim_ubuntu.png)
         
+#### Dockerコンテナ内でのAWSIM起動
+DockerコンテナからAWSIMを起動したい場合は、Dockerイメージの準備手順(後述)に従ってDockerイメージを導入した後、以下の手順で行ってください。
+  1. `aichallenge2023-sim/autoware`内に大会用実行ファイルを展開(以下、`aichallenge2023-sim/autoware/AWSIM/AWSIM.x86_64`に配置されているものとします。)
+  2. Dockerコンテナを起動
+    ```
+    cd aichallenge2023-sim
+    rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2023-sim/autoware-universe-cuda:v1
+    ```
+  3. コンテナ内で以下を実行
+    ```
+    export ROS_LOCALHOST_ONLY=1
+    export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+    export RCUTILS_COLORIZED_OUTPUT=1
+    source /autoware/install/setup.bash
+    /aichallenge/AWSIM/AWSIM.x86_64
+    ```
+
 ### AWSIM(Windows)
   1. 大会用の実行ファイルを[ダウンロード](https://drive.google.com/file/d/1L6jr9wttxA2aLl8IqC3xDXIuQUfjMTAJ/view?usp=sharing)し、解凍
   ※チュートリアル用
@@ -105,7 +122,7 @@
     ```
     3. rockerを起動
     ```
-    cd ./aichallenge2023-sim
+    cd aichallenge2023-sim
     rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2023-sim/autoware-universe-cuda:v1
     ```
       
@@ -115,31 +132,23 @@
    2. Autowareを起動
    ```
    # Rockerコンテナ内で
-	cd /aichallenge/aichallenge_ws
-	colcon build 
-	source install/setup.bash
-	cd /aichallenge
-	ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=sample_vehicle sensor_model:=awsim_sensor_kit map_path:=mapfile
+   export ROS_LOCALHOST_ONLY=1
+   export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+   export RCUTILS_COLORIZED_OUTPUT=1
+	 cd /aichallenge/aichallenge_ws
+	 colcon build 
+	 source install/setup.bash
+   ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=golfcart sensor_model:=awsim_sensor_kit map_path:=/aichallenge/mapfile
    ```
    3. 下記のような画面(Rviz2)が表示されることを確認  
    ![autoware1](../images/setup/autoware1.png)   
      
-   4. RvizのタブにあるPanelからadd new Panelを開き、AutowareStatePanelを追加  
-   ![autoware2](../images/setup/autoware2.png)   
-   ![autoware3](../images/setup/autoware3.png)   
-     
-    5. 自己位置推定ができていることを確認  
-    ![autoware4](../images/setup/autoware4.png)   
-      
-    6. 正しく推定できていなければ、タブにある2D Pose Estimateを選択し、実際の車両の位置をドラッグで指定  
-    ![autoware5](../images/setup/autoware5.png)      
-      
-    7. タブにある2D Goal Poseを選択し、ゴールポジションをドラッグで指定  
-     ![autoware6](../images/setup/autoware6.png)         
+   4. 自己位置推定ができていることを確認。正しく推定できていなければ、タブにある2D Pose Estimateを選択し、実際の車両の位置をドラッグで指定  
+    ![autoware2](../images/setup/autoware2.png)   
+            
+   5. タブにある2D Goal Poseを選択し、ゴールポジションをドラッグで指定。画像のように、ルートが表示されている かつ `Routing`が`UNSET`から`SET`に変わっていることを確認（指定してから少し時間がかかります）  
+     ![autoware3](../images/setup/autoware3.png)         
        
-     8. 画像のように、ルートが表示されている かつ 「waiting for engage」状態になっていることを確認（指定してから少し時間がかかります）
-     ![autoware7](../images/setup/autoware7.png)   
-       
-     9. engageボタンを押下し、自動運転が開始されることを確認  
-     ![autoware8](../images/setup/autoware8.png)   
+   6. `OperationMode`の`AUTO`ボタンを押下し、自動運転が開始されることを確認  
+     ![autoware4](../images/setup/autoware4.png)   
         
