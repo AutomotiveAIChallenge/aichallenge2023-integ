@@ -12,7 +12,7 @@
 上記のスペックを満たすPCをご用意できない方は、下記の「PC2台で参加する方向け」のスペックをご参照ください。
 #### 2台のPCを使用する方向け
 #### Autoware PC
-* OS: Ubuntu 20.04
+* OS: Ubuntu 22.04
 * CPU: Intel Corei7 (8 cores) or higher
 * GPU: NVIDIA Geforce GTX 1080 or higher
 * Memory: 16 GB or higher
@@ -67,34 +67,48 @@
    ![パーミッション変更の様子](../images/setup/permmision.png)  
    3. ファイルをダブルクリックで起動
    4. 下記のような画面が表示されることを確認
-      ![awsim_ubuntu](../images/setup/awsim_ubuntu.png)
+      ![awsim](../images/setup/awsim.png)
         
 #### Dockerコンテナ内でのAWSIM起動
 DockerコンテナからAWSIMを起動したい場合は、Dockerイメージの準備手順(後述)に従ってDockerイメージを導入した後、以下の手順で行ってください。
   1. `aichallenge2023-sim/autoware`内に大会用実行ファイルを展開(以下、`aichallenge2023-sim/autoware/AWSIM/AWSIM.x86_64`に配置されているものとします。)
   2. Dockerコンテナを起動
-    ```
+   ```
     cd aichallenge2023-sim
     rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2023-sim/autoware-universe-cuda:v1
-    ```
+   ```
   3. コンテナ内で以下を実行
-    ```
+   ```
     export ROS_LOCALHOST_ONLY=1
     export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
     export RCUTILS_COLORIZED_OUTPUT=1
     source /autoware/install/setup.bash
     /aichallenge/AWSIM/AWSIM.x86_64
-    ```
+   ```
 
 ### AWSIM(Windows)
   1. 大会用の実行ファイルを[ダウンロード](https://drive.google.com/file/d/1L6jr9wttxA2aLl8IqC3xDXIuQUfjMTAJ/view?usp=sharing)し、解凍
   ※チュートリアル用
   2. ファイルをダブルクリックで起動
   3. 下記のような画面が表示されることを確認
-    ![awsim_win](../images/setup/awsim_win.png)
-    
+    ![awsim](../images/setup/awsim.png)
+
+### 地図データ(pcd, osm)のコピー
+
+![mapfiles](../images/setup/mapfiles.png)
+
+地図データはAWSIMの圧縮ファイル内に格納されています。`AWSIM_Data/StreamingAssets/kashiwanoha2023_integ`に配置されているosmファイルとpcdファイルを`aichallenge2023-sim/autoware/mapfile`にコピーして、ファイル構成が以下になるように配置してください。
+```
+aichallenge2023-sim
+└ autoware
+ └ mapfile
+  ├ .gitkeep
+  ├ lanelet2_map.osm
+  └ pointcloud_map.pcd
+```
+
 ### Autoware
-本大会用にAutowareの Docker イメージ(CUDA利用）を用意しておりますので、ご利用ください。
+本大会用にAutowareの Docker イメージ(CUDA利用)を用意しておりますので、ご利用ください。
   
 * 事前準備  
 下記のインストールをお願いします。
@@ -135,9 +149,9 @@ DockerコンテナからAWSIMを起動したい場合は、Dockerイメージの
    export ROS_LOCALHOST_ONLY=1
    export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
    export RCUTILS_COLORIZED_OUTPUT=1
-	 cd /aichallenge/aichallenge_ws
-	 colcon build 
-	 source install/setup.bash
+   cd /aichallenge/aichallenge_ws
+   colcon build 
+   source install/setup.bash
    ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=golfcart sensor_model:=awsim_sensor_kit map_path:=/aichallenge/mapfile
    ```
    3. 下記のような画面(Rviz2)が表示されることを確認  

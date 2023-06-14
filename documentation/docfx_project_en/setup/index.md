@@ -15,7 +15,7 @@ We recommend the following PC operating environment for this tournament.
 If you are unable to prepare a PC that meets the above specifications, please refer to the "For participants with two PCs" below.
 #### For participants with two PCs
 #### Autoware PC
-* OS: Ubuntu 20.04
+* OS: Ubuntu 22.04
 * CPU: Intel Corei7 (8 cores) or higher
 * GPU: NVIDIA Geforce GTX 1080 or higher
 * Memory: 16 GB or higher
@@ -72,32 +72,46 @@ If they are located in the same network, topic communication between PCs is basi
    ![Change the permissions as shown in the figure ](../images/setup/permmision.png)  
    Double-click the file to launch it.
    4. confirm that the following screen is displayed
-      ![awsim_ubuntu](../images/setup/awsim_ubuntu.png)
+      ![awsim](../images/setup/awsim.png)
         
 #### Starting AWSIM in a Docker container
 If you want to start AWSIM from a Docker container, please follow the steps below after installing a Docker image according to the Docker image preparation procedure (see below).
   1. extract the executable file for the convention in `aichallenge2023-sim/autoware` (Hereinafter, it is assumed to be located in `aichallenge2023-sim/autoware/AWSIM/AWSIM.x86_64`)
   2. launch the Docker container
-    ```
+   ```
     cd aichallenge2023-sim
     rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2023-sim/ autoware-universe-cuda:v1
-    ```
+   ```
   3. execute the following in the container
-    ```
+   ```
     export ROS_LOCALHOST_ONLY=1
     export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
     export RCUTILS_COLORIZED_OUTPUT=1
     source /autoware/install/setup.bash
     /aichallenge/AWSIM/AWSIM.x86_64
-    ````
+   ```
 
 ### AWSIM(Windows)
   1. [Download](https://drive.google.com/file/d/1L6jr9wttxA2aLl8IqC3xDXIuQUfjMTAJ/view?usp=sharing) the executable file for the convention and unzip it.   
   ※Tutorial Environment
   3. double-click the file to start it
   Confirm that the following screen is displayed.
-    ![Confirm that a screen similar to the following appears](../images/setup/awsim_win.png)
-    
+    ![awsim](../images/setup/awsim.png)
+
+### Copy map data (pcd, osm)
+
+![mapfiles](../images/setup/mapfiles.png)
+
+Map data is stored in AWSIM compressed files. Copy the osm and pcd files located in `AWSIM_Data/StreamingAssets/kashiwanoha2023_integ` to `aichallenge2023-sim/autoware/mapfile` and arrange them so that the file structure is as follows:
+```
+aichallenge2023-sim
+└ autoware
+ └ mapfile
+  ├ .gitkeep
+  ├ lanelet2_map.osm
+  └ pointcloud_map.pcd
+```
+
 ### Autoware
 Docker image of Autoware (using CUDA) is available for this competition.
   
@@ -117,16 +131,16 @@ Please install the following.
     ```
     If the above method takes a long time or times out, you can use the following method.  
 　We have placed a tarball of the image at [here](https://drive.google.com/file/d/1mOEpiN36UPe70NqiibloDcd_ewgMr_5P/view?usp=sharing). Please use the following command
-   ````
+   ```
    docker load < autoware-universe-cuda_v1.tar.gz
-   ```` 
+   ``` 
     2. download the data for the competition
     ```
     sudo apt install -y git-lfs
     git lfs clone https://github.com/AutomotiveAIChallenge/aichallenge2023-sim
     ```
     3. start rocker
-    ````
+    ```
     cd . /aichallenge2023-sim
     rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2023-sim/ autoware-universe-cuda:v1
     ```
@@ -135,17 +149,17 @@ Please install the following.
    This section describes how to check the operation of Autoware using AWSIM. 
    1. Start AWSIM. 
    2. Start Autoware.
-   ````
+   ```
    # In the Rocker container
    export ROS_LOCALHOST_ONLY=1
    export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
    export RCUTILS_COLORIZED_OUTPUT=1
-	cd /aichallenge/aichallenge_ws
-	colcon build 
-	source install/setup.bash
-	cd /aichallenge
+   cd /aichallenge/aichallenge_ws
+   colcon build 
+   source install/setup.bash
+   cd /aichallenge
    ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=golfcart sensor_model:=awsim_sensor_kit map_path:=/aichallenge/mapfile
-   ```` 
+   ```
    3. Confirm that the following screen (Rviz2) is displayed.  
    ![autoware1](../images/setup/autoware1.png)   
      
