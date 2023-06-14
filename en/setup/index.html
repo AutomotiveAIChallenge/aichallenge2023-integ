@@ -15,7 +15,7 @@
       
       
       
-      <meta name="docfx:docurl" content="https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/blob/fix/doc/documentation/docfx_project_en/setup/index.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/blob/main/documentation/docfx_project_en/setup/index.md/#L1">
   </head>
 
   <script type="module">
@@ -87,7 +87,7 @@
 <h4 id="for-participants-with-two-pcs">For participants with two PCs</h4>
 <h4 id="autoware-pc">Autoware PC</h4>
 <ul>
-<li>OS: Ubuntu 20.04</li>
+<li>OS: Ubuntu 22.04</li>
 <li>CPU: Intel Corei7 (8 cores) or higher</li>
 <li>GPU: NVIDIA Geforce GTX 1080 or higher</li>
 <li>Memory: 16 GB or higher</li>
@@ -162,98 +162,110 @@ Double-click the file to launch it.</li>
 </ol>
 <pre><code> cd aichallenge2023-sim
  rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2023-sim/ autoware-universe-cuda:v1
- ```
-3. execute the following in the container
 </code></pre>
-<pre><code>export ROS_LOCALHOST_ONLY=1
-export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
-export RCUTILS_COLORIZED_OUTPUT=1
-source /autoware/install/setup.bash
-/aichallenge/AWSIM/AWSIM.x86_64
+<ol start="3">
+<li>execute the following in the container</li>
+</ol>
+<pre><code> export ROS_LOCALHOST_ONLY=1
+ export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+ export RCUTILS_COLORIZED_OUTPUT=1
+ source /autoware/install/setup.bash
+ /aichallenge/AWSIM/AWSIM.x86_64
 </code></pre>
-<pre><code>
-### AWSIM(Windows)
-1. [Download](https://drive.google.com/file/d/1L6jr9wttxA2aLl8IqC3xDXIuQUfjMTAJ/view?usp=sharing) the executable file for the convention and unzip it.   
-※Tutorial Environment
-3. double-click the file to start it
+<h3 id="awsimwindows">AWSIM(Windows)</h3>
+<ol>
+<li><a href="https://drive.google.com/file/d/1L6jr9wttxA2aLl8IqC3xDXIuQUfjMTAJ/view?usp=sharing">Download</a> the executable file for the convention and unzip it.<br>
+※Tutorial Environment</li>
+<li>double-click the file to start it
 Confirm that the following screen is displayed.
- ![awsim](../images/setup/awsim.png)
-
-### Copy map data (pcd, osm)
-
-! [mapfiles](... /images/setup/mapfiles.png)
-
-Map data is stored in AWSIM compressed files. Copy the osm and pcd files located in `AWSIM_Data/StreamingAssets/kashiwanoha2023_integ` to `aichallenge2023-sim/autoware/mapfile` and arrange them so that the file structure is as follows:
-</code></pre>
-<p>aichallenge2023-sim
+<img src="../images/setup/awsim.png" alt="awsim"></li>
+</ol>
+<h3 id="copy-map-data-pcd-osm">Copy map data (pcd, osm)</h3>
+<p><img src="../images/setup/mapfiles.png" alt="mapfiles"></p>
+<p>Map data is stored in AWSIM compressed files. Copy the osm and pcd files located in <code>AWSIM_Data/StreamingAssets/kashiwanoha2023_integ</code> to <code>aichallenge2023-sim/autoware/mapfile</code> and arrange them so that the file structure is as follows:</p>
+<pre><code>aichallenge2023-sim
 └ autoware
-└ mapfile
-├ .gitkeep
-├ lanelet2_map.osm
-└ pointcloud_map.pcd</p>
-<pre><code>
-### Autoware
-Docker image of Autoware (using CUDA) is available for this competition.
-  
-* Preparation  
-Please install the following.
-  * [docker](https://docs.docker.com/engine/install/ubuntu/)
-  * [rocker](https://github.com/osrf/rocker) 
-     * [docker](https://docs.docker.com/engine/install/ubuntu/) * [rocker](https://github.com/osrf/rocker) is used to use GUI such as Rviz and rqt in Docker container.
-  * [Nvidia Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
-  * [git lfs](https://packagecloud.io/github/git-lfs/install)
-  * [ROS2](https://docs.ros.org/en/humble/index.html) (video confirmed version: Humble)
-  
-* Prepare and launch Docker image - Prepare Autoware
-   1. get a Docker image
-    ```
-   docker pull ghcr.io/automotiveaichallenge/aichallenge2023-sim/autoware-universe-cuda:v1
-    ```
-    If the above method takes a long time or times out, you can use the following method.  
-　We have placed a tarball of the image at [here](https://drive.google.com/file/d/1mOEpiN36UPe70NqiibloDcd_ewgMr_5P/view?usp=sharing). Please use the following command
+ └ mapfile
+  ├ .gitkeep
+  ├ lanelet2_map.osm
+  └ pointcloud_map.pcd
 </code></pre>
-<p>docker load &lt; autoware-universe-cuda_v1.tar.gz</p>
-<pre><code> 2. download the data for the competition
- ```
- sudo apt install -y git-lfs
- git lfs clone https://github.com/AutomotiveAIChallenge/aichallenge2023-sim
- ```
- 3. start rocker
- ```
- cd . /aichallenge2023-sim
- rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2023-sim/ autoware-universe-cuda:v1
- ```
-   
-* Verify Autoware operation  
-This section describes how to check the operation of Autoware using AWSIM. 
-1. Start AWSIM. 
-2. Start Autoware.
+<h3 id="autoware">Autoware</h3>
+<p>Docker image of Autoware (using CUDA) is available for this competition.</p>
+<ul>
+<li><p>Preparation<br>
+Please install the following.</p>
+<ul>
+<li><a href="https://docs.docker.com/engine/install/ubuntu/">docker</a></li>
+<li><a href="https://github.com/osrf/rocker">rocker</a>
+<ul>
+<li><a href="https://docs.docker.com/engine/install/ubuntu/">docker</a> * <a href="https://github.com/osrf/rocker">rocker</a> is used to use GUI such as Rviz and rqt in Docker container.</li>
+</ul>
+</li>
+<li><a href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html">Nvidia Container Toolkit</a></li>
+<li><a href="https://packagecloud.io/github/git-lfs/install">git lfs</a></li>
+<li><a href="https://docs.ros.org/en/humble/index.html">ROS2</a> (video confirmed version: Humble)</li>
+</ul>
+</li>
+<li><p>Prepare and launch Docker image - Prepare Autoware</p>
+<ol>
+<li>get a Docker image</li>
+</ol>
+<pre><code>docker pull ghcr.io/automotiveaichallenge/aichallenge2023-sim/autoware-universe-cuda:v1
 </code></pre>
-<h1 id="in-the-rocker-container">In the Rocker container</h1>
-<p>export ROS_LOCALHOST_ONLY=1
+<p>If the above method takes a long time or times out, you can use the following method.<br>
+We have placed a tarball of the image at <a href="https://drive.google.com/file/d/1mOEpiN36UPe70NqiibloDcd_ewgMr_5P/view?usp=sharing">here</a>. Please use the following command</p>
+<pre><code>docker load &lt; autoware-universe-cuda_v1.tar.gz
+</code></pre>
+<ol start="2">
+<li>download the data for the competition</li>
+</ol>
+<pre><code>sudo apt install -y git-lfs
+git lfs clone https://github.com/AutomotiveAIChallenge/aichallenge2023-sim
+</code></pre>
+<ol start="3">
+<li>start rocker</li>
+</ol>
+<pre><code>cd . /aichallenge2023-sim
+rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2023-sim/ autoware-universe-cuda:v1
+</code></pre>
+</li>
+<li><p>Verify Autoware operation<br>
+This section describes how to check the operation of Autoware using AWSIM.</p>
+<ol>
+<li>Start AWSIM.</li>
+<li>Start Autoware.</li>
+</ol>
+<pre><code># In the Rocker container
+export ROS_LOCALHOST_ONLY=1
 export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 export RCUTILS_COLORIZED_OUTPUT=1
 cd /aichallenge/aichallenge_ws
-colcon build
+colcon build 
 source install/setup.bash
 cd /aichallenge
-ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=golfcart sensor_model:=awsim_sensor_kit map_path:=/aichallenge/mapfile</p>
-<pre><code>3. Confirm that the following screen (Rviz2) is displayed.  
-![autoware1](../images/setup/autoware1.png)   
-  
-4. Confirm that self-position estimation is done. If it is not estimated correctly, select `2D Pose Estimate` in the tab and drag the actual position of the vehicle.
-![autoware2](../images/setup/autoware2.png)   
-   
-5. Select the `2D Goal Pose` in the `Goal Pose` tab and drag to specify the goal position. Confirm that the route is displayed and `Routing` changes from `UNSET` to `SET` as shown in the image (it takes a little time after you specify it). 
-![autoware3](../images/setup/autoware3.png)          
-    
-6. Press the `AUTO` button in `OperationMode` and confirm that self driving is started.
-![autoware4](../images/setup/autoware4.png) 
+ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=golfcart sensor_model:=awsim_sensor_kit map_path:=/aichallenge/mapfile
 </code></pre>
+<ol start="3">
+<li><p>Confirm that the following screen (Rviz2) is displayed.<br>
+<img src="../images/setup/autoware1.png" alt="autoware1"></p>
+</li>
+<li><p>Confirm that self-position estimation is done. If it is not estimated correctly, select <code>2D Pose Estimate</code> in the tab and drag the actual position of the vehicle.
+<img src="../images/setup/autoware2.png" alt="autoware2"></p>
+</li>
+<li><p>Select the <code>2D Goal Pose</code> in the <code>Goal Pose</code> tab and drag to specify the goal position. Confirm that the route is displayed and <code>Routing</code> changes from <code>UNSET</code> to <code>SET</code> as shown in the image (it takes a little time after you specify it).
+<img src="../images/setup/autoware3.png" alt="autoware3"></p>
+</li>
+<li><p>Press the <code>AUTO</code> button in <code>OperationMode</code> and confirm that self driving is started.
+<img src="../images/setup/autoware4.png" alt="autoware4"></p>
+</li>
+</ol>
+</li>
+</ul>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/blob/fix/doc/documentation/docfx_project_en/setup/index.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/blob/main/documentation/docfx_project_en/setup/index.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

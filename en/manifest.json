@@ -125,6 +125,16 @@
     },
     {
       "type": "Resource",
+      "source_relative_path": "images/setup/mapfiles.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/setup/mapfiles.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
       "source_relative_path": "images/setup/nvidia-smi.png",
       "output": {
         "resource": {
