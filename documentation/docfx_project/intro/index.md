@@ -20,7 +20,7 @@
 ## About AWSIM
  &emsp;AWSIMはUnity上で動作するオープンソースの自動運転用シミュレータになります。ROS2 nativeに対応していること、WindowsやUbuntuに対応していることから、誰でも簡単に自動運転アルゴリズムのシミュレーションを行うことが可能です。
   &emsp;AutowareでAWSIMを活用した場合、AutowareのノードがAWSIMからセンシングデータをSubscribeし、受け取ったデータを各モジュールで処理を行い、その結果（車両制御情報）をAWSIMにPublishすることで、AWSIM上の車両を制御します。詳細は[こちら](https://github.com/tier4/AWSIM)をご確認ください。
- ![awsim](/images/intro/awsim.png)
+ ![awsim](../images/intro/awsim.png)
  
 ## Related Documentations
  * [自動運転Aiチャレンジ公式HP](https://www.jsae.or.jp/jaaic/)
