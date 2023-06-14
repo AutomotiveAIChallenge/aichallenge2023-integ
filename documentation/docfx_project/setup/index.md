@@ -12,7 +12,7 @@
 上記のスペックを満たすPCをご用意できない方は、下記の「PC2台で参加する方向け」のスペックをご参照ください。
 #### 2台のPCを使用する方向け
 #### Autoware PC
-* OS: Ubuntu 20.04
+* OS: Ubuntu 22.04
 * CPU: Intel Corei7 (8 cores) or higher
 * GPU: NVIDIA Geforce GTX 1080 or higher
 * Memory: 16 GB or higher

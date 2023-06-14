@@ -15,7 +15,7 @@ We recommend the following PC operating environment for this tournament.
 If you are unable to prepare a PC that meets the above specifications, please refer to the "For participants with two PCs" below.
 #### For participants with two PCs
 #### Autoware PC
-* OS: Ubuntu 20.04
+* OS: Ubuntu 22.04
 * CPU: Intel Corei7 (8 cores) or higher
 * GPU: NVIDIA Geforce GTX 1080 or higher
 * Memory: 16 GB or higher
@@ -81,7 +81,7 @@ If you want to start AWSIM from a Docker container, please follow the steps belo
    ```
     cd aichallenge2023-sim
     rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2023-sim/ autoware-universe-cuda:v1
-    ```
+   ```
   3. execute the following in the container
    ```
     export ROS_LOCALHOST_ONLY=1
@@ -100,7 +100,7 @@ If you want to start AWSIM from a Docker container, please follow the steps belo
 
 ### Copy map data (pcd, osm)
 
-! [mapfiles](... /images/setup/mapfiles.png)
+![mapfiles](../images/setup/mapfiles.png)
 
 Map data is stored in AWSIM compressed files. Copy the osm and pcd files located in `AWSIM_Data/StreamingAssets/kashiwanoha2023_integ` to `aichallenge2023-sim/autoware/mapfile` and arrange them so that the file structure is as follows:
 ```
