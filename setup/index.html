@@ -15,7 +15,7 @@
       
       
       
-      <meta name="docfx:docurl" content="https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/blob/main/documentation/docfx_project/setup/index.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/blob/fix/doc/documentation/docfx_project/setup/index.md/#L1">
   </head>
 
   <script type="module">
@@ -150,7 +150,7 @@
 <img src="../images/setup/permmision.png" alt="パーミッション変更の様子"></li>
 <li>ファイルをダブルクリックで起動</li>
 <li>下記のような画面が表示されることを確認
-<img src="../images/setup/awsim_ubuntu.png" alt="awsim_ubuntu"></li>
+<img src="../images/setup/awsim.png" alt="awsim"></li>
 </ol>
 </li>
 </ul>
@@ -158,21 +158,40 @@
 <p>DockerコンテナからAWSIMを起動したい場合は、Dockerイメージの準備手順(後述)に従ってDockerイメージを導入した後、以下の手順で行ってください。</p>
 <ol>
 <li><code>aichallenge2023-sim/autoware</code>内に大会用実行ファイルを展開(以下、<code>aichallenge2023-sim/autoware/AWSIM/AWSIM.x86_64</code>に配置されているものとします。)</li>
-<li>Dockerコンテナを起動
-<code>cd aichallenge2023-sim rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2023-sim/autoware-universe-cuda:v1</code></li>
-<li>コンテナ内で以下を実行
-<code>export ROS_LOCALHOST_ONLY=1 export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp export RCUTILS_COLORIZED_OUTPUT=1 source /autoware/install/setup.bash /aichallenge/AWSIM/AWSIM.x86_64</code></li>
+<li>Dockerコンテナを起動</li>
 </ol>
+<pre><code> cd aichallenge2023-sim
+ rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2023-sim/autoware-universe-cuda:v1
+</code></pre>
+<ol start="3">
+<li>コンテナ内で以下を実行</li>
+</ol>
+<pre><code> export ROS_LOCALHOST_ONLY=1
+ export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+ export RCUTILS_COLORIZED_OUTPUT=1
+ source /autoware/install/setup.bash
+ /aichallenge/AWSIM/AWSIM.x86_64
+</code></pre>
 <h3 id="awsimwindows">AWSIM(Windows)</h3>
 <ol>
 <li>大会用の実行ファイルを<a href="https://drive.google.com/file/d/1L6jr9wttxA2aLl8IqC3xDXIuQUfjMTAJ/view?usp=sharing">ダウンロード</a>し、解凍
 ※チュートリアル用</li>
 <li>ファイルをダブルクリックで起動</li>
 <li>下記のような画面が表示されることを確認
-<img src="../images/setup/awsim_win.png" alt="awsim_win"></li>
+<img src="../images/setup/awsim.png" alt="awsim"></li>
 </ol>
+<h3 id="地図データpcd-osmのコピー">地図データ(pcd, osm)のコピー</h3>
+<p><img src="../images/setup/mapfiles.png" alt="mapfiles"></p>
+<p>地図データはAWSIMの圧縮ファイル内に格納されています。<code>AWSIM_Data/StreamingAssets/kashiwanoha2023_integ</code>に配置されているosmファイルとpcdファイルを<code>aichallenge2023-sim/autoware/mapfile</code>にコピーして、ファイル構成が以下になるように配置してください。</p>
+<pre><code>aichallenge2023-sim
+└ autoware
+ └ mapfile
+  ├ .gitkeep
+  ├ lanelet2_map.osm
+  └ pointcloud_map.pcd
+</code></pre>
 <h3 id="autoware">Autoware</h3>
-<p>本大会用にAutowareの Docker イメージ(CUDA利用）を用意しておりますので、ご利用ください。</p>
+<p>本大会用にAutowareの Docker イメージ(CUDA利用)を用意しておりますので、ご利用ください。</p>
 <ul>
 <li><p>事前準備<br>
 下記のインストールをお願いします。</p>
@@ -221,9 +240,9 @@ AWSIMを用いて、Autowareの動作確認を行う方法を記します。</p>
 export ROS_LOCALHOST_ONLY=1
 export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 export RCUTILS_COLORIZED_OUTPUT=1
-  cd /aichallenge/aichallenge_ws
-  colcon build 
-  source install/setup.bash
+cd /aichallenge/aichallenge_ws
+colcon build 
+source install/setup.bash
 ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=golfcart sensor_model:=awsim_sensor_kit map_path:=/aichallenge/mapfile
 </code></pre>
 <ol start="3">
@@ -245,7 +264,7 @@ ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=golfcart sen
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/blob/main/documentation/docfx_project/setup/index.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/blob/fix/doc/documentation/docfx_project/setup/index.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

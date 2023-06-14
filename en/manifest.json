@@ -115,20 +115,10 @@
     },
     {
       "type": "Resource",
-      "source_relative_path": "images/setup/awsim_ubuntu.png",
+      "source_relative_path": "images/setup/awsim.png",
       "output": {
         "resource": {
-          "relative_path": "images/setup/awsim_ubuntu.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "images/setup/awsim_win.png",
-      "output": {
-        "resource": {
-          "relative_path": "images/setup/awsim_win.png"
+          "relative_path": "images/setup/awsim.png"
         }
       },
       "version": ""
