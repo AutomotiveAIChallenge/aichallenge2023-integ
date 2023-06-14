@@ -85,16 +85,6 @@
     },
     {
       "type": "Resource",
-      "source_relative_path": "images/setup/autoware.png",
-      "output": {
-        "resource": {
-          "relative_path": "images/setup/autoware.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
       "source_relative_path": "images/setup/autoware1.png",
       "output": {
         "resource": {
@@ -129,46 +119,6 @@
       "output": {
         "resource": {
           "relative_path": "images/setup/autoware4.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "images/setup/autoware5.png",
-      "output": {
-        "resource": {
-          "relative_path": "images/setup/autoware5.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "images/setup/autoware6.png",
-      "output": {
-        "resource": {
-          "relative_path": "images/setup/autoware6.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "images/setup/autoware7.png",
-      "output": {
-        "resource": {
-          "relative_path": "images/setup/autoware7.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "images/setup/autoware8.png",
-      "output": {
-        "resource": {
-          "relative_path": "images/setup/autoware8.png"
         }
       },
       "version": ""
