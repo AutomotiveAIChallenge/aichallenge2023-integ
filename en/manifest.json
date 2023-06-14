@@ -125,46 +125,6 @@
     },
     {
       "type": "Resource",
-      "source_relative_path": "images/setup/autoware5.png",
-      "output": {
-        "resource": {
-          "relative_path": "images/setup/autoware5.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "images/setup/autoware6.png",
-      "output": {
-        "resource": {
-          "relative_path": "images/setup/autoware6.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "images/setup/autoware7.png",
-      "output": {
-        "resource": {
-          "relative_path": "images/setup/autoware7.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
-      "source_relative_path": "images/setup/autoware8.png",
-      "output": {
-        "resource": {
-          "relative_path": "images/setup/autoware8.png"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Resource",
       "source_relative_path": "images/setup/awsim_ubuntu.png",
       "output": {
         "resource": {
