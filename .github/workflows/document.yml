@@ -3,7 +3,7 @@ name: Documentation
 on:
   push:
     branches:
-      - main
+      - fix/doc
 
 jobs:
   publish-docs:
