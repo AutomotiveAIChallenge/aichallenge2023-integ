@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    <!-- Evaluation -->
+    <include file="$(find-pkg-share aichallenge_scoring)/launch/aichallenge_scoring.launch.xml">
+        <arg name="result_score_topic" value="/aichallenge/score" />
+    </include>
+
+    <node pkg="aichallenge_scoring_result" exec="score" name="score" output="screen" />
+
+    <!-- Submitted Package -->
+    <include file="$(find-pkg-share aichallenge_submit_launch)/launch/aichallenge_submit.launch.xml" />
+
+    <!-- RViz -->
+    <!--<node pkg="rviz2" exec="rviz2" name="rviz2" output="screen" args="-d $(var rviz_config) -s $(find-pkg-share autoware_launch)/rviz/image/autoware.png"/>-->
+
+</launch>
