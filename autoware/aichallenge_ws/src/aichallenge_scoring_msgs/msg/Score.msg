@@ -1,0 +1,11 @@
+float32 distance_score
+float32 task3_duration
+bool is_outside_lane
+bool is_doing_task3
+bool is_stopped
+bool has_finished_task1
+bool has_finished_task2
+bool has_finished_task3
+float32 total_duration
+bool has_exceeded_speed_limit
+bool is_timeout
