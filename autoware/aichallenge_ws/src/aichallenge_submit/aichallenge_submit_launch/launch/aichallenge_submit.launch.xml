@@ -5,6 +5,8 @@
         <arg name="vehicle_model" value="golfcart"/>
         <arg name="sensor_model" value="awsim_sensor_kit"/>
         <arg name="map_path" value="/aichallenge/mapfile"/>
-        <arg name="rviz" value="false"/>
+        <arg name="rviz" value="true"/>
     </include>
+
+    <!-- <node pkg="sample_code_cpp" exec="sample" name="sample" output="screen" /> -->
 </launch>

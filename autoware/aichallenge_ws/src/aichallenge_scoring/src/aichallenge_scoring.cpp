@@ -79,7 +79,7 @@ namespace aichallenge_scoring {
   }
 
   void AIChallengeScoringNode::onTimer() {
-    constexpr std::string total_duration_timer_name = "total_duration";
+    static const std::string total_duration_timer_name = "total_duration";
 
     if (!isDataReady()) {
       return;
@@ -119,20 +119,20 @@ namespace aichallenge_scoring {
     }
 
     // Update total duration
+    auto total_duration = 0.0f;
     if (has_started_driving_) {
-      score_msg.total_duration = stop_watch_ptr_.toc(total_duration_timer_name, false);
+      total_duration = stop_watch_ptr_.toc(total_duration_timer_name, false);
     }
-    const auto timeout_time = 5.0 * 60.0;
-    score_msg.is_timeout = score_msg.total_duration > timeout_time;
+    const auto timeout_time = 5.0f * 60.0f;
+    auto is_timeout = total_duration > timeout_time;
 
     // Check speed limit
-    const auto speed_limit = 7.0 * 60.0 * 60.0 / 1000.0;
+    const auto speed_limit = 7.0 * 1000.0 / 60.0 / 60.0;
     if (linear_twist > speed_limit && !has_exceeded_speed_limit_) {
       RCLCPP_INFO(this->get_logger(), "Vehicle speed exceeds the speed limit");
 
       has_exceeded_speed_limit_ = true;
     }
-    score_msg.has_exceeded_speed_limit = has_exceeded_speed_limit_;
 
     // task1 completed or not 
      if (distance_score >= task1_start_distance_ && distance_score <= task1_end_distance_) {
@@ -172,6 +172,9 @@ namespace aichallenge_scoring {
     score_msg.is_doing_task3 = is_doing_task3_;
     score_msg.has_finished_task1 = has_finished_task1_;
     score_msg.has_finished_task3 = has_finished_task3_;
+    score_msg.total_duration = total_duration;
+    score_msg.is_timeout = is_timeout;
+    score_msg.has_exceeded_speed_limit = has_exceeded_speed_limit_;
 
     // Check if vehicle is inside lane
     createVehicleFootprint(vehicle_info_);
