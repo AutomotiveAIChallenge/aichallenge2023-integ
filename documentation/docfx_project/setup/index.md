@@ -68,11 +68,41 @@
    3. ファイルをダブルクリックで起動
    4. 下記のような画面が表示されることを確認
       ![awsim](../images/setup/awsim.png)
-        
+
+### Dockerの事前準備  
+下記のインストールをお願いします。
+  * [docker](https://docs.docker.com/engine/install/ubuntu/)
+  * [rocker](https://github.com/osrf/rocker) 
+     * Dockerコンテナ内のRviz、rqtなどのGUIを使用するために用います。
+  * [Nvidia Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
+  * [git lfs](https://packagecloud.io/github/git-lfs/install)
+  * [ROS2](https://docs.ros.org/en/humble/index.html) (動画確認済バージョン: Humble)
+  
+* Dockerイメージの準備・起動 〜 Autowareの準備
+   1. Dockerイメージを入手
+    ```
+   docker pull ghcr.io/automotiveaichallenge/aichallenge2023-sim/autoware-universe-cuda:v1
+    ```
+    ※上記の方法では長時間かかってしまう方・タイムアウトしてしまう方↓  
+　[こちら](https://drive.google.com/file/d/1mOEpiN36UPe70NqiibloDcd_ewgMr_5P/view?usp=sharing)に、イメージをtarにまとめたものを置きましたので、下記コマンドよりご利用ください
+   ```
+   docker load < autoware-universe-cuda_v1.tar.gz
+   ```
+    2. 大会用データのダウンロード
+    ```
+    sudo apt install -y git-lfs
+    git lfs clone https://github.com/AutomotiveAIChallenge/aichallenge2023-sim
+    ```
+    3. rockerを起動
+    ```
+    cd aichallenge2023-sim
+    rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2023-sim/autoware-universe-cuda:v1
+    ```
+
 #### Dockerコンテナ内でのAWSIM起動
-DockerコンテナからAWSIMを起動したい場合は、Dockerイメージの準備手順(後述)に従ってDockerイメージを導入した後、以下の手順で行ってください。
-  1. `aichallenge2023-sim/autoware`内に大会用実行ファイルを展開(以下、`aichallenge2023-sim/autoware/AWSIM/AWSIM.x86_64`に配置されているものとします。)
-  2. Dockerコンテナを起動
+DockerコンテナからAWSIMを起動したい場合は、Dockerイメージの準備手順(前述)に従ってDockerイメージを導入した後、以下の手順で行ってください。
+  1. `aichallenge2023-sim/autoware`内に大会用AWSIM実行ファイルを展開(以下、`aichallenge2023-sim/autoware/AWSIM/AWSIM.x86_64`に配置されているものとします。)
+  2. rockerを起動 (`docker container ls` でdocker が存在していることを確認してください）
    ```
     cd aichallenge2023-sim
     rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2023-sim/autoware-universe-cuda:v1
@@ -107,39 +137,7 @@ aichallenge2023-sim
   └ pointcloud_map.pcd
 ```
 
-### Autoware
-本大会用にAutowareの Docker イメージ(CUDA利用)を用意しておりますので、ご利用ください。
-  
-* 事前準備  
-下記のインストールをお願いします。
-  * [docker](https://docs.docker.com/engine/install/ubuntu/)
-  * [rocker](https://github.com/osrf/rocker) 
-     * Dockerコンテナ内のRviz、rqtなどのGUIを使用するために用います。
-  * [Nvidia Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
-  * [git lfs](https://packagecloud.io/github/git-lfs/install)
-  * [ROS2](https://docs.ros.org/en/humble/index.html) (動画確認済バージョン: Humble)
-  
-* Dockerイメージの準備・起動 〜 Autowareの準備
-   1. Dockerイメージを入手
-    ```
-   docker pull ghcr.io/automotiveaichallenge/aichallenge2023-sim/autoware-universe-cuda:v1
-    ```
-    ※上記の方法では長時間かかってしまう方・タイムアウトしてしまう方↓  
-　[こちら](https://drive.google.com/file/d/1mOEpiN36UPe70NqiibloDcd_ewgMr_5P/view?usp=sharing)に、イメージをtarにまとめたものを置きましたので、下記コマンドよりご利用ください
-   ```
-   docker load < autoware-universe-cuda_v1.tar.gz
-   ```
-    2. 大会用データのダウンロード
-    ```
-    sudo apt install -y git-lfs
-    git lfs clone https://github.com/AutomotiveAIChallenge/aichallenge2023-sim
-    ```
-    3. rockerを起動
-    ```
-    cd aichallenge2023-sim
-    rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2023-sim/autoware-universe-cuda:v1
-    ```
-      
+### Autoware      
  * Autowareの動作確認  
    AWSIMを用いて、Autowareの動作確認を行う方法を記します。
    1. AWSIMを起動
