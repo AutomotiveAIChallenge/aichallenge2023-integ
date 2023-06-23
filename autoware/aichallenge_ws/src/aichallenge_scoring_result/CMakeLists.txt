@@ -16,13 +16,13 @@ find_package(aichallenge_scoring_msgs REQUIRED)
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
-add_executable(score src/score.cpp)
+add_executable(scoring_result src/scoring_result.cpp)
 
-ament_target_dependencies(score rclcpp std_msgs geometry_msgs aichallenge_scoring_msgs)
+ament_target_dependencies(scoring_result rclcpp std_msgs geometry_msgs aichallenge_scoring_msgs)
 
 
 install(TARGETS
-  score
+  scoring_result
   DESTINATION lib/${PROJECT_NAME})
 
 ament_package()

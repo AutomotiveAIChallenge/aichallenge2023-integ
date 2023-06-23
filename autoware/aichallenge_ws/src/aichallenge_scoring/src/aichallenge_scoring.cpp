@@ -160,14 +160,15 @@ namespace aichallenge_scoring {
 
     // Prepare message to publish
     aichallenge_scoring_msgs::msg::Score score_msg;
-    score_msg.distance_score = distance_score;
+    score_msg.distance_score = std::min(distance_score, task3_end_distance_);
     if (is_doing_task3_) {
       score_msg.task3_duration = stop_watch_ptr_.toc("task3_duration", false);
-    } else if(has_finished_task3_) {
+    } else if (has_finished_task3_) {
       score_msg.task3_duration = task3_duration_;
     } else {
       score_msg.task3_duration = 0.0;
     }
+    score_msg.is_distance_score_maxed_out = distance_score >= task3_end_distance_;
     score_msg.is_stopped = is_stopped;
     score_msg.is_doing_task3 = is_doing_task3_;
     score_msg.has_finished_task1 = has_finished_task1_;
