@@ -1,0 +1,6 @@
+<launch>
+  <group>
+    <push-ros-namespace namespace="default_ad_api/helpers"/>
+    <node pkg="initialpose_publisher" exec="initialpose_publisher" name="initialpose_publisher"/>
+  </group>
+</launch>
