@@ -154,11 +154,51 @@
 </ol>
 </li>
 </ul>
-<h4 id="dockerコンテナ内でのawsim起動">Dockerコンテナ内でのAWSIM起動</h4>
-<p>DockerコンテナからAWSIMを起動したい場合は、Dockerイメージの準備手順(後述)に従ってDockerイメージを導入した後、以下の手順で行ってください。</p>
+<h3 id="dockerの事前準備">Dockerの事前準備</h3>
+<p>下記のインストールをお願いします。</p>
+<ul>
+<li><p><a href="https://docs.docker.com/engine/install/ubuntu/">docker</a></p>
+</li>
+<li><p><a href="https://github.com/osrf/rocker">rocker</a></p>
+<ul>
+<li>Dockerコンテナ内のRviz、rqtなどのGUIを使用するために用います。</li>
+</ul>
+</li>
+<li><p><a href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html">Nvidia Container Toolkit</a></p>
+</li>
+<li><p><a href="https://packagecloud.io/github/git-lfs/install">git lfs</a></p>
+</li>
+<li><p><a href="https://docs.ros.org/en/humble/index.html">ROS2</a> (動画確認済バージョン: Humble)</p>
+</li>
+<li><p>Dockerイメージの準備・起動 〜 Autowareの準備</p>
 <ol>
-<li><code>aichallenge2023-sim/autoware</code>内に大会用実行ファイルを展開(以下、<code>aichallenge2023-sim/autoware/AWSIM/AWSIM.x86_64</code>に配置されているものとします。)</li>
-<li>Dockerコンテナを起動</li>
+<li>Dockerイメージを入手</li>
+</ol>
+<pre><code>docker pull ghcr.io/automotiveaichallenge/aichallenge2023-sim/autoware-universe-cuda:v1
+</code></pre>
+<p>※上記の方法では長時間かかってしまう方・タイムアウトしてしまう方↓<br>
+<a href="https://drive.google.com/file/d/1mOEpiN36UPe70NqiibloDcd_ewgMr_5P/view?usp=sharing">こちら</a>に、イメージをtarにまとめたものを置きましたので、下記コマンドよりご利用ください</p>
+<pre><code>docker load &lt; autoware-universe-cuda_v1.tar.gz
+</code></pre>
+<ol start="2">
+<li>大会用データのダウンロード</li>
+</ol>
+<pre><code>sudo apt install -y git-lfs
+git lfs clone https://github.com/AutomotiveAIChallenge/aichallenge2023-sim
+</code></pre>
+<ol start="3">
+<li>rockerを起動</li>
+</ol>
+<pre><code>cd aichallenge2023-sim
+rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2023-sim/autoware-universe-cuda:v1
+</code></pre>
+</li>
+</ul>
+<h4 id="dockerコンテナ内でのawsim起動">Dockerコンテナ内でのAWSIM起動</h4>
+<p>DockerコンテナからAWSIMを起動したい場合は、Dockerイメージの準備手順(前述)に従ってDockerイメージを導入した後、以下の手順で行ってください。</p>
+<ol>
+<li><code>aichallenge2023-sim/autoware</code>内に大会用AWSIM実行ファイルを展開(以下、<code>aichallenge2023-sim/autoware/AWSIM/AWSIM.x86_64</code>に配置されているものとします。)</li>
+<li>rockerを起動 (<code>docker container ls</code> でdocker が存在していることを確認してください）</li>
 </ol>
 <pre><code> cd aichallenge2023-sim
  rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2023-sim/autoware-universe-cuda:v1
@@ -191,47 +231,9 @@
   └ pointcloud_map.pcd
 </code></pre>
 <h3 id="autoware">Autoware</h3>
-<p>本大会用にAutowareの Docker イメージ(CUDA利用)を用意しておりますので、ご利用ください。</p>
 <ul>
-<li><p>事前準備<br>
-下記のインストールをお願いします。</p>
-<ul>
-<li><a href="https://docs.docker.com/engine/install/ubuntu/">docker</a></li>
-<li><a href="https://github.com/osrf/rocker">rocker</a>
-<ul>
-<li>Dockerコンテナ内のRviz、rqtなどのGUIを使用するために用います。</li>
-</ul>
-</li>
-<li><a href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html">Nvidia Container Toolkit</a></li>
-<li><a href="https://packagecloud.io/github/git-lfs/install">git lfs</a></li>
-<li><a href="https://docs.ros.org/en/humble/index.html">ROS2</a> (動画確認済バージョン: Humble)</li>
-</ul>
-</li>
-<li><p>Dockerイメージの準備・起動 〜 Autowareの準備</p>
-<ol>
-<li>Dockerイメージを入手</li>
-</ol>
-<pre><code>docker pull ghcr.io/automotiveaichallenge/aichallenge2023-sim/autoware-universe-cuda:v1
-</code></pre>
-<p>※上記の方法では長時間かかってしまう方・タイムアウトしてしまう方↓<br>
-<a href="https://drive.google.com/file/d/1mOEpiN36UPe70NqiibloDcd_ewgMr_5P/view?usp=sharing">こちら</a>に、イメージをtarにまとめたものを置きましたので、下記コマンドよりご利用ください</p>
-<pre><code>docker load &lt; autoware-universe-cuda_v1.tar.gz
-</code></pre>
-<ol start="2">
-<li>大会用データのダウンロード</li>
-</ol>
-<pre><code>sudo apt install -y git-lfs
-git lfs clone https://github.com/AutomotiveAIChallenge/aichallenge2023-sim
-</code></pre>
-<ol start="3">
-<li>rockerを起動</li>
-</ol>
-<pre><code>cd aichallenge2023-sim
-rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2023-sim/autoware-universe-cuda:v1
-</code></pre>
-</li>
-<li><p>Autowareの動作確認<br>
-AWSIMを用いて、Autowareの動作確認を行う方法を記します。</p>
+<li>Autowareの動作確認<br>
+AWSIMを用いて、Autowareの動作確認を行う方法を記します。
 <ol>
 <li>AWSIMを起動</li>
 <li>Autowareを起動</li>
