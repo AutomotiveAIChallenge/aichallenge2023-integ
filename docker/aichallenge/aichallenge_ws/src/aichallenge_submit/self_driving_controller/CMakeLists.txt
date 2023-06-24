@@ -1,30 +1,25 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.14)
 project(self_driving_controller)
 
-if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  add_compile_options(-Wall -Wextra -Wpedantic)
-endif()
+find_package(autoware_cmake REQUIRED)
+autoware_package()
+# find_package(autoware_auto_system_msgs REQUIRED)
 
-# find dependencies
-find_package(ament_cmake REQUIRED)
-find_package(rclcpp REQUIRED)
-find_package(std_msgs REQUIRED)
-find_package(geometry_msgs REQUIRED)
-find_package(autoware_auto_system_msgs REQUIRED)
-find_package(autoware_auto_vehicle_msgs REQUIRED)
-find_package(autoware_auto_perception_msgs REQUIRED)
+ament_auto_add_executable(self_driving_controller
+  src/self_driving_controller.cpp
+)
 
-# uncomment the following section in order to fill in
-# further dependencies manually.
-# find_package(<dependency> REQUIRED)
+# ament_target_dependencies(self_driving_controller autoware_auto_system_msgs)
+
+ament_auto_package(INSTALL_TO_SHARE launch)
+
+# find_package(autoware_auto_vehicle_msgs REQUIRED)
+# find_package(autoware_auto_perception_msgs REQUIRED)
 
 
-add_executable(self_driving_controller src/self_driving_controller.cpp)
-ament_target_dependencies(self_driving_controller rclcpp std_msgs geometry_msgs autoware_auto_system_msgs autoware_auto_vehicle_msgs autoware_auto_perception_msgs)
 
+# install(TARGETS
+#   self_driving_controller
+#   DESTINATION lib/${PROJECT_NAME})
 
-install(TARGETS
-  self_driving_controller
-  DESTINATION lib/${PROJECT_NAME})
-
-ament_package()
+# ament_package()

@@ -5,7 +5,7 @@ find_package(autoware_cmake REQUIRED)
 autoware_package()
 
 ament_auto_add_executable(initialpose_publisher
-  src/automatic_pose_initializer.cpp
+  src/initialpose_publisher.cpp
 )
 
 ament_auto_package(INSTALL_TO_SHARE launch)

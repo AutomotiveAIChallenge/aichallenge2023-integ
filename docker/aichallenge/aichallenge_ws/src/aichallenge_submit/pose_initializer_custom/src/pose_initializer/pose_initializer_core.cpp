@@ -43,9 +43,8 @@ PoseInitializer::PoseInitializer() : Node("pose_initializer")
   }
   if (declare_parameter<bool>("ndt_enabled")) {
     ndt_ = std::make_unique<NdtModule>(this);
+    ndt_localization_trigger_ = std::make_unique<NdtLocalizationTriggerModule>(this);
   }
-  std::cout << "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" <<std::endl;
-  ndt_localization_trigger_ = std::make_unique<NdtLocalizationTriggerModule>(this);
   if (declare_parameter<bool>("stop_check_enabled")) {
     // Add 1.0 sec margin for twist buffer.
     stop_check_duration_ = declare_parameter<double>("stop_check_duration");

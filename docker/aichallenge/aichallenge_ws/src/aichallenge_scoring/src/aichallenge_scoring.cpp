@@ -32,7 +32,7 @@ namespace aichallenge_scoring {
     task1_start_distance_ = declare_parameter<double>("task1_start_distance");
     task1_end_distance_ = declare_parameter<double>("task1_end_distance");
 
-    // Subscribers
+    // Subscriberstic
     sub_odom_ = create_subscription<Odometry>("/localization/kinematic_state", rclcpp::QoS(1), std::bind(&AIChallengeScoringNode::onOdom, this, _1));
     sub_map_ = create_subscription<HADMapBin>("/map/vector_map", rclcpp::QoS{1}.transient_local(), std::bind(&AIChallengeScoringNode::onMap, this, _1));
 
@@ -119,11 +119,11 @@ namespace aichallenge_scoring {
     }
 
     // Update total duration
-    auto total_duration = 0.0f;
+    auto total_duration = 0.0;
     if (has_started_driving_) {
       total_duration = stop_watch_ptr_.toc(total_duration_timer_name, false);
     }
-    const auto timeout_time = 5.0f * 60.0f;
+    const auto timeout_time = 5.0 * 60.0;
     auto is_timeout = total_duration > timeout_time;
 
     // Check speed limit

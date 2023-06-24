@@ -15,7 +15,7 @@
   <group>
     <include file="$(find-pkg-share pose_initializer_custom)/launch/pose_initializer.launch.xml">
       <arg name="gnss_enabled" value="false"/>
-      <arg name="ndt_enabled" value="false"/>
+      <arg name="ndt_enabled" value="true"/>
       <arg name="ekf_enabled" value="true"/>
       <arg name="stop_check_enabled" value="true"/>
     </include>

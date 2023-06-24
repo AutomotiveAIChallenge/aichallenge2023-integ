@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    <node pkg="self_driving_controller" exec="self_driving_controller" name="self_driving_controller" />
+</launch>

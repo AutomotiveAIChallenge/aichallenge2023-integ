@@ -12,10 +12,6 @@ find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(aichallenge_scoring_msgs REQUIRED)
 
-# uncomment the following section in order to fill in
-# further dependencies manually.
-# find_package(<dependency> REQUIRED)
-
 add_executable(scoring_result src/scoring_result.cpp)
 
 ament_target_dependencies(scoring_result rclcpp std_msgs geometry_msgs aichallenge_scoring_msgs)

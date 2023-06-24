@@ -2,12 +2,10 @@
 
 #include "autoware_auto_system_msgs/msg/autoware_state.hpp"
 #include "autoware_auto_vehicle_msgs/msg/engage.hpp"
-#include "autoware_auto_perception_msgs/msg/predicted_objects.hpp"
 
 #include <std_msgs/msg/string.hpp>
 #include <geometry_msgs/msg/pose_stamped.hpp>
 #include <geometry_msgs/msg/pose_with_covariance_stamped.hpp>
-#include <sensor_msgs/msg/point_cloud2.hpp>
 
 #include <cstdio>
 

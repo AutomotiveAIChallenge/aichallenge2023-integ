@@ -8,7 +8,7 @@
         <arg name="rviz" value="false"/>
     </include>
 
-    <include file="$(find-pkg-share initialpose_publisher)/launch/automatic_pose_initializer.launch.xml" />
+    <include file="$(find-pkg-share initialpose_publisher)/launch/initialpose_publisher.launch.xml" />
 
-    <node pkg="self_driving_controller" exec="self_driving_controller" name="self_driving_controller" output="screen" />
+    <include file="$(find-pkg-share self_driving_controller)/launch/self_driving_controller.launch.xml" />
 </launch>

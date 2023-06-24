@@ -12,20 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef AUTOMATIC_POSE_INITIALIZER_HPP_
-#define AUTOMATIC_POSE_INITIALIZER_HPP_
+#ifndef INITIALPOSE_PUBLISHER_HPP_
+#define INITIALPOSE_PUBLISHER_HPP_
 
 #include <autoware_ad_api_specs/localization.hpp>
 #include <component_interface_utils/rclcpp.hpp>
 #include <rclcpp/rclcpp.hpp>
 
-namespace automatic_pose_initializer
-{
-
-class AutomaticPoseInitializer : public rclcpp::Node
+class InitialposePublisher : public rclcpp::Node
 {
 public:
-  AutomaticPoseInitializer();
+  InitialposePublisher();
 
 private:
   void on_timer();
@@ -39,6 +36,4 @@ private:
   State::Message state_;
 };
 
-}  // namespace automatic_pose_initializer
-
-#endif  // AUTOMATIC_POSE_INITIALIZER_HPP_
+#endif  // INITIALPOSE_PUBLISHER_HPP_
