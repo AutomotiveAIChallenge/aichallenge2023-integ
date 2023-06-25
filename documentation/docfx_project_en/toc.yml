@@ -4,6 +4,12 @@
   href: intro/index.html
 - name: Setup
   href: setup/index.html
+- name: Rule
+  href: rule/index.html
+- name: LocalEnvironment
+  href: local/index.html
+- name: OnlineEnvironment
+  href: online/index.html
 - name: To Japanese Page
   href: ../index.html
 

@@ -30,5 +30,9 @@
 ## Page Links
  * [Introduction](../intro)  予選大会について
  * [Setup](../setup)  環境構築手順について
+ * [Rule](../rule)  大会ルールについて
+ * [LocalEnvrionment](../local)  ローカル環境について
+ * [OnlineEnvrionment](../online)  オンライン環境について
+ * [Other](../other)  問い合わせ方法などについて
  
  
