@@ -15,10 +15,15 @@
 * aichallenge_submit
     * All ROS2 packages implemented by participants should be placed in this directory, as only the contents of this directory will be submitted at the time of submission.
     * Please modify this launch file accordingly to configure the ROS2 nodes you have implemented to be launched. Please modify this launch file accordingly and configure it so that your ROS2 node will be activated.
+    * initialpose_publisher
+      * Since the default initial position estimation may result in initial position deviations, this function provides the ability to set the vehicle position at a pre-defined initial position.
+    * pose_initializer_custom
+      * The pose_initializer package in autoware.universe has been modified to discard the posture calculated by Monte-Carlo and NDT Matching and set it with the posture sent by the `initialpose_publisher`.
     * self_driving_controlloer
-        * This is a sample of automatic driving.
+        * Provides the ability to set GoalPose and engage required to start automatic operation.
     * autoware_launch
-        * Autoware launch configuration repository. It contains node configurations and their parameters. If you wish to make changes to Autoware's behavior, please check here first.
+        * We have copied and partially edited the launch, config-related packages of Autoware; Autoware in the Docker image has removed the packages included here. You can modify the behavior of Autoware by editing here.
+        * If you want to use the files before the modification, please copy the files from [autoware_launch](https://github.com/autowarefoundation/autoware_launch/tree/awsim-stable), [autoware_universe's launch directory](https://github.com/autowarefoundation/autoware.universe/tree/awsim-stable/launch).
 
 ### Docker Image Build
 ```
