@@ -22,23 +22,26 @@ public:
 private:
 
   void scoreCallback(const aichallenge_scoring_msgs::msg::Score& msg) {
-    if (is_result_generated)
+    if (is_result_generated_)
       return;
     
-    const auto has_finished = msg.is_outside_lane || msg.is_timeout || msg.has_exceeded_speed_limit || msg.has_finished_task3;
+    const auto has_finished =
+      msg.is_outside_lane || msg.is_timeout ||
+      msg.has_exceeded_speed_limit || msg.has_finished_task3 ||
+      has_collided_;
     if (!has_finished)
       return;
 
     std::cout << "Scoring completed." << std::endl;
     writeResultJson(msg);
 
-    is_result_generated = true;
+    is_result_generated_ = true;
   }
 
   void collisionCallback(const geometry_msgs::msg::Point& msg) {
     RCLCPP_INFO(this->get_logger(), "Collision occured at: (%f, %f, %f)", msg.x, msg.y, msg.z);
 
-    has_collided = true;
+    has_collided_ = true;
   }
 
   float calculateDistanceScore(const aichallenge_scoring_msgs::msg::Score& score_msg) {
@@ -51,7 +54,7 @@ private:
       penalty_ratio -= 0.05f;
 
     // Add penalty if the vehicle goes out of lane or collides after it runs course totally.
-    if (score_msg.is_distance_score_maxed_out && (score_msg.is_outside_lane || has_collided))
+    if (score_msg.is_distance_score_maxed_out && (score_msg.is_outside_lane || has_collided_))
       penalty_ratio -= 0.05f;
 
     return score_msg.distance_score * penalty_ratio;
@@ -65,7 +68,7 @@ private:
     ofs << "  \"task3Duration\": " << score_msg.task3_duration << "," << std::endl;
     ofs << std::boolalpha << "  \"isOutsideLane\": " << score_msg.is_outside_lane << "," << std::endl;
     ofs << std::boolalpha << "  \"isTimeout\": " << score_msg.is_timeout << "," << std::endl;
-    ofs << std::boolalpha << "  \"hasCollided\": " << has_collided << "," << std::endl;
+    ofs << std::boolalpha << "  \"hasCollided\": " << has_collided_ << "," << std::endl;
     ofs << std::boolalpha << "  \"hasExceededSpeedLimit\": " << score_msg.has_exceeded_speed_limit << "," << std::endl;
     ofs << std::boolalpha << "  \"hasFinishedTask1\": " << score_msg.has_finished_task1 << "," << std::endl;
     ofs << std::boolalpha << "  \"hasFinishedTask2\": " << score_msg.has_finished_task2 << "," << std::endl;
@@ -81,10 +84,10 @@ private:
   rclcpp::TimerBase::SharedPtr timer;
 
   // AWSIM
-  bool has_collided = false;
+  bool has_collided_ = false;
 
   // Internal states
-  bool is_result_generated = false;
+  bool is_result_generated_ = false;
 };
 
 int main(int argc, char ** argv) {
