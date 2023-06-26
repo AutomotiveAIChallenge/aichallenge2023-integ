@@ -111,9 +111,19 @@ Please install the following.
 If you want to start AWSIM from a Docker container, please follow the steps below after installing a Docker image according to the Docker image preparation procedure (see below).
   1. extract the executable file for the convention in `aichallenge2023-sim/autoware` (Hereinafter, it is assumed to be located in `aichallenge2023-sim/autoware/AWSIM/AWSIM.x86_64`)
   2. launch the Docker container (please verify with `docker container ls` that container exists)
+   Please confirm the existence of the following docker image using other terminal by using the `docker image ls` command. below is an example.
+   ```
+   ghcr.io/automotiveaichallenge/aichallenge2023-sim/autoware-universe-cuda        v1                            f5f05f758f55   2 weeks ago      14.9GB
+   ```
+   Once confirmed, launch rocker with the following command.
    ```
     cd ./aichallenge2023-sim
     rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2023-sim/autoware-universe-cuda:v1
+   ```
+   Open a new terminal and confirm the existence of the docker container by using the `docker container ls` command. below is an example.
+   ```
+   CONTAINER ID   IMAGE          COMMAND       CREATED          STATUS          PORTS     NAMES
+   fdbe7cb05782   1f3d763bc501   "/bin/bash"   15 minutes ago   Up 15 minutes             elegant_hellman
    ```
   3. execute the following in the container
    ```

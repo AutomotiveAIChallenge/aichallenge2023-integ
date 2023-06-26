@@ -102,10 +102,20 @@
 #### Dockerコンテナ内でのAWSIM起動
 DockerコンテナからAWSIMを起動したい場合は、Dockerイメージの準備手順(前述)に従ってDockerイメージを導入した後、以下の手順で行ってください。
   1. `aichallenge2023-sim/autoware`内に大会用AWSIM実行ファイルを展開(以下、`aichallenge2023-sim/autoware/AWSIM/AWSIM.x86_64`に配置されているものとします。)
-  2. rockerを起動 (`docker container ls` でdocker が存在していることを確認してください）
+  2. rockerを起動
+   新たにterminalを開いて`docker image ls`で以下のようなdockerが存在していることを確認してください。
+   ```
+   ghcr.io/automotiveaichallenge/aichallenge2023-sim/autoware-universe-cuda        v1                            f5f05f758f55   2 weeks ago      14.9GB
+   ```
+   確認ができたら以下のコマンドでrockerを起動してください。
    ```
     cd ./aichallenge2023-sim
     rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2023-sim/autoware-universe-cuda:v1
+   ```
+   新たに開いたterminalで`docker container ls` で以下のようにdocker が存在していることを確認してください。
+   ```
+   CONTAINER ID   IMAGE          COMMAND       CREATED          STATUS          PORTS     NAMES
+   fdbe7cb05782   1f3d763bc501   "/bin/bash"   15 minutes ago   Up 15 minutes             elegant_hellman
    ```
   3. コンテナ内で以下を実行
    ```
