@@ -112,6 +112,7 @@ DockerコンテナからAWSIMを起動したい場合は、Dockerイメージの
     export ROS_LOCALHOST_ONLY=1
     export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
     export RCUTILS_COLORIZED_OUTPUT=1
+    sudo ip link set multicast on lo
     source /autoware/install/setup.bash
     /aichallenge/AWSIM/AWSIM.x86_64
    ```
@@ -147,6 +148,7 @@ aichallenge2023-sim
    export ROS_LOCALHOST_ONLY=1
    export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
    export RCUTILS_COLORIZED_OUTPUT=1
+   sudo ip link set multicast on lo
    cd /aichallenge/aichallenge_ws
    colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
    source install/setup.bash
