@@ -20,7 +20,6 @@ InitialposePublisher::InitialposePublisher() : Node("initialpose_publisher")
 {
   const auto adaptor = component_interface_utils::NodeAdaptor(this);
   group_cli_ = create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
-  // adaptor.init_pub(pub_state_);
   adaptor.init_cli(cli_initialize_, group_cli_);
   adaptor.init_sub(sub_state_, [this](const State::Message::ConstSharedPtr msg) { state_ = *msg; });
 
@@ -29,6 +28,14 @@ InitialposePublisher::InitialposePublisher() : Node("initialpose_publisher")
 
   state_.stamp = now();
   state_.state = State::Message::UNKNOWN;
+
+  initialpose_.pose.pose.position.x = declare_parameter<double>("initialpose.position.x", 0.0);
+  initialpose_.pose.pose.position.y = declare_parameter<double>("initialpose.position.y", 0.0);
+  initialpose_.pose.pose.position.z = declare_parameter<double>("initialpose.position.z", 0.0);
+  initialpose_.pose.pose.orientation.x = declare_parameter<double>("initialpose.orientation.x", 0.0);
+  initialpose_.pose.pose.orientation.y = declare_parameter<double>("initialpose.orientation.y", 0.0);
+  initialpose_.pose.pose.orientation.z = declare_parameter<double>("initialpose.orientation.z", 0.0);
+  initialpose_.pose.pose.orientation.w = declare_parameter<double>("initialpose.orientation.w", 1.0);
 }
 
 void InitialposePublisher::on_timer()
@@ -39,18 +46,10 @@ void InitialposePublisher::on_timer()
     try {
       auto initialpose_publisher = this->create_publisher<geometry_msgs::msg::PoseWithCovarianceStamped>("/initialpose", 1);
 
-      auto msg = geometry_msgs::msg::PoseWithCovarianceStamped();
-      msg.header.frame_id = "map";
-      msg.header.stamp = now();
-      msg.pose.pose.position.x = 3827.6742619127863;
-      msg.pose.pose.position.y = 73776.76156678918;
-      msg.pose.pose.position.z = 19.626154385244764;
-      msg.pose.pose.orientation.x = -0.0008439598631592582;
-      msg.pose.pose.orientation.y = -0.0010035230204519293;
-      msg.pose.pose.orientation.z = -0.9705418231711431;
-      msg.pose.pose.orientation.w = 0.24092913926906093;
+      initialpose_.header.frame_id = "map";
+      initialpose_.header.stamp = now();
 
-      initialpose_publisher->publish(msg);
+      initialpose_publisher->publish(initialpose_);
     } catch (const component_interface_utils::ServiceException & error) {
     }
   }

@@ -85,7 +85,8 @@ void PoseInitializer::on_initialize(
     }
     auto pose = req->pose.empty() ? get_gnss_pose() : req->pose.front();
     if (ndt_) {
-      pose = ndt_->align_pose(pose);
+      // Discard result of ndt align pose.
+      ndt_->align_pose(pose);
     }
     pose.pose.covariance = output_pose_covariance_;
     pub_reset_->publish(pose);

@@ -26,14 +26,17 @@ public:
 
 private:
   void on_timer();
+  
   using Initialize = autoware_ad_api::localization::Initialize;
   using State = autoware_ad_api::localization::InitializationState;
+
   rclcpp::CallbackGroup::SharedPtr group_cli_;
   rclcpp::TimerBase::SharedPtr timer_;
   component_interface_utils::Client<Initialize>::SharedPtr cli_initialize_;
-  component_interface_utils::Publisher<State>::SharedPtr pub_state_;
   component_interface_utils::Subscription<State>::SharedPtr sub_state_;
+
   State::Message state_;
+  geometry_msgs::msg::PoseWithCovarianceStamped initialpose_;
 };
 
 #endif  // INITIALPOSE_PUBLISHER_HPP_

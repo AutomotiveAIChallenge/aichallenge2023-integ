@@ -1,3 +1,5 @@
+#include "self_driving_controller.hpp"
+
 #include "rclcpp/rclcpp.hpp"
 
 #include "autoware_auto_system_msgs/msg/autoware_state.hpp"
@@ -9,109 +11,81 @@
 
 #include <cstdio>
 
-class SampleCode : public rclcpp::Node
-{
-public:
-  SampleCode() : Node("sample_code")
+namespace {
+  using AutowareState = autoware_auto_system_msgs::msg::AutowareState;
+  using Engage = autoware_auto_vehicle_msgs::msg::Engage;
+  using PoseStamped = geometry_msgs::msg::PoseStamped;
+
+  Engage createEngageMessage()
   {
-    // Publishers
-    engage_publisher =
-      this->create_publisher<autoware_auto_vehicle_msgs::msg::Engage>("/autoware/engage", 1);
-    goal_pos_publisher =
-      this->create_publisher<geometry_msgs::msg::PoseStamped>("/planning/mission_planning/goal", 1);
-
-    // Subscribers
-    state_subscriber = this->create_subscription<autoware_auto_system_msgs::msg::AutowareState>(
-      "/autoware/state", 1, std::bind(&SampleCode::stateCallback, this, std::placeholders::_1));
-
-    // msg
-    goal_info_msg = setUpMsgGoalInfo();
-    engage_msg = setUpMsgEngage();
-
-    // other
-    stepCounter = 0;
-    state = 0;
-  }
-
-private:
-  void stateCallback(const autoware_auto_system_msgs::msg::AutowareState& msg) {
-    state = msg.state;
-    // std::cout << state << std::endl;
-
-    // ego vehicle base
-    // Goal Pos Pub --> Check Point Pub --> Engage Pub
-
-    //  Publish the Goal Point Info
-    if (state == 2 && stepCounter == 0) {
-      stepCounter++;
-
-      // publish
-      goal_pos_publisher->publish(goal_info_msg);
-      std::cout << "Publish the Goal Point Info" << std::endl;
-
-      // Publish the Check Point Info
-    } else if (state == 4 && stepCounter == 1) {
-      stepCounter++;
-
-      // publish
-      //check_pos_publisher->publish(check_info_msg);
-      //std::cout << "Publish the Check Point Info" << std::endl;
-
-      // Publish the Engage, Vehicle drive
-    } else if (state == 4 && stepCounter == 2) {
-      stepCounter++;
-      // publish
-      std::cout << "Publish the Engage" << std::endl;
-      engage_publisher->publish(engage_msg);
-    } else if (state == 3) {
-      std::cout << "Planning....." << std::endl;
-    }
-  }
-
-  // setup msg(engage)
-  autoware_auto_vehicle_msgs::msg::Engage setUpMsgEngage()
-  {
-    auto msg = autoware_auto_vehicle_msgs::msg::Engage();
+    auto msg = Engage();
     msg.engage = true;
     return msg;
   }
 
-  // setup msg(goal info)
-  geometry_msgs::msg::PoseStamped setUpMsgGoalInfo()
+  PoseStamped createGoalPoseMessage()
   {
-    auto msg = geometry_msgs::msg::PoseStamped();
+    auto msg = PoseStamped();
+
     msg.header.frame_id = "map";
-    msg.pose.position.x = 3724.036376953125;
-    msg.pose.position.y = 73754.75;
+    msg.pose.position.x = 3702.773681640625;
+    msg.pose.position.y = 73742.1796875;
     msg.pose.position.z = 0.0;
     msg.pose.orientation.x = 0.0;
     msg.pose.orientation.y = 0.0;
-    msg.pose.orientation.z = -0.9778378972163333;
-    msg.pose.orientation.w = 0.2093634322596469;
+    msg.pose.orientation.z = 0.8623958339931682;
+    msg.pose.orientation.w = 0.5062345558248941;
     return msg;
   }
+}
 
+SelfDrivingController::SelfDrivingController()
+ : Node("self_driving_controller")
+ , step_counter_(0)
+{
   // Publishers
-  rclcpp::Publisher<autoware_auto_vehicle_msgs::msg::Engage>::SharedPtr engage_publisher;
-  rclcpp::Publisher<geometry_msgs::msg::PoseStamped>::SharedPtr goal_pos_publisher;
+  engage_publisher =
+    this->create_publisher<Engage>("output/engage", 1);
+  goal_pos_publisher =
+    this->create_publisher<PoseStamped>("output/goal", 1);
 
   // Subscribers
-  rclcpp::Subscription<autoware_auto_system_msgs::msg::AutowareState>::SharedPtr state_subscriber;
+  state_subscriber = this->create_subscription<AutowareState>(
+    "input/state", 1, std::bind(&SelfDrivingController::stateCallback, this, std::placeholders::_1));
+}
 
-  // msg
-  geometry_msgs::msg::PoseStamped goal_info_msg = geometry_msgs::msg::PoseStamped();
-  autoware_auto_vehicle_msgs::msg::Engage engage_msg = autoware_auto_vehicle_msgs::msg::Engage();
+void SelfDrivingController::stateCallback(const AutowareState& msg) {
+  switch (msg.state) {
+    case AutowareState::WAITING_FOR_ROUTE:
+      if (step_counter_ != 0)
+        break;
 
-  // Internal states
-  int stepCounter;
-  int state;
-  bool is_pose_initialized_ = false;
-};
+      RCLCPP_INFO(this->get_logger(), "[AIChallengeSample]: Publishing goal pose.");
+      goal_pos_publisher->publish(createGoalPoseMessage());
+
+      ++step_counter_;
+      break;
+    case AutowareState::PLANNING:
+      RCLCPP_INFO(this->get_logger(), "[AIChallengeSample]: Planning...");
+      break;
+    case AutowareState::WAITING_FOR_ENGAGE:
+      if (step_counter_ != 1)
+        break;
+
+      RCLCPP_INFO(this->get_logger(), "[AIChallengeSample]: Publishing engage message.");
+      engage_publisher->publish(createEngageMessage());
+
+      ++step_counter_;
+      break;
+    default:
+      break;
+  }
+}
 
 int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
-  rclcpp::spin(std::make_shared<SampleCode>());
+  rclcpp::spin(std::make_shared<SelfDrivingController>());
   rclcpp::shutdown();
   return 0;
 }
