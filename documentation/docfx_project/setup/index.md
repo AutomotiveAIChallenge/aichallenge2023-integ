@@ -95,7 +95,7 @@
     ```
     3. rockerを起動
     ```
-    cd aichallenge2023-sim
+    cd ./aichallenge2023-sim
     rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2023-sim/autoware-universe-cuda:v1
     ```
 
@@ -104,7 +104,7 @@ DockerコンテナからAWSIMを起動したい場合は、Dockerイメージの
   1. `aichallenge2023-sim/autoware`内に大会用AWSIM実行ファイルを展開(以下、`aichallenge2023-sim/autoware/AWSIM/AWSIM.x86_64`に配置されているものとします。)
   2. rockerを起動 (`docker container ls` でdocker が存在していることを確認してください）
    ```
-    cd aichallenge2023-sim
+    cd ./aichallenge2023-sim
     rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2023-sim/autoware-universe-cuda:v1
    ```
   3. コンテナ内で以下を実行
