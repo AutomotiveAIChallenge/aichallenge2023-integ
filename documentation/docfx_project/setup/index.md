@@ -122,6 +122,7 @@ DockerコンテナからAWSIMを起動したい場合は、Dockerイメージの
    ```
   3. コンテナ内で以下を実行
    ```
+    sudo ip link set multicast on lo
     source /autoware/install/setup.bash
     /aichallenge/AWSIM/AWSIM.x86_64
    ```
@@ -154,6 +155,7 @@ aichallenge2023-sim
    2. Autowareを起動
    ```
    # Rockerコンテナ内で
+   sudo ip link set multicast on lo
    cd /aichallenge
    bash build.sh
    source aichallenge_ws/install/setup.bash
