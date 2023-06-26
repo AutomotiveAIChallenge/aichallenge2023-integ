@@ -27,7 +27,9 @@ The aim is to build a framework that will contribute to the further development 
 ## About this site
 &emsp; This website contains the rules, environment construction, and participation procedures for the preliminary round of the Integration Competition.
 Please check each page before participating.  
- * [Introduction](./intro) About the Preliminary Round
- * [Setup](./setup) About the environment setup procedure
-
- 
+ * [Introduction](./intro) About the Qualifying Competition
+ * [Setup](./setup) Setup procedure
+ * [Rule](./rule) About the rules of the tournament
+ * [LocalEnvrionment](./local) About local environment
+ * [OnlineEnvrionment](./online) About online environment
+ * [Other](./other) How to contact us, etc.

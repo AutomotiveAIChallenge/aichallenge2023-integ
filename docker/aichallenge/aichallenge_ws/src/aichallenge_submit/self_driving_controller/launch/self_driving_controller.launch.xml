@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+  <node pkg="self_driving_controller" exec="self_driving_controller" name="self_driving_controller">
+    <remap from="input/state" to="/autoware/state" />
+    <remap from="output/engage" to="/autoware/engage" />
+    <remap from="output/goal" to="/planning/mission_planning/goal" />
+  </node>
+</launch>

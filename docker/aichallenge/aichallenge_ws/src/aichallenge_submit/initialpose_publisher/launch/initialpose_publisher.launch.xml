@@ -1,0 +1,9 @@
+<launch>
+  <arg name="initialpose_publisher_param" default="$(find-pkg-share initialpose_publisher)/config/initialpose_publisher.param.yaml"/>
+
+  <group>
+    <node pkg="initialpose_publisher" exec="initialpose_publisher" name="initialpose_publisher">
+      <param from="$(var initialpose_publisher_param)"/>
+    </node>
+  </group>
+</launch>
