@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Local Enviroment </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Local Enviroment ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/blob/main/documentation/docfx_project/local/index.md/#L1">
+  </head>
+
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="local-enviroment">Local Enviroment</h1>
+
+<p> 参加者の皆様にはシナリオを遂行するROS2パッケージを作成していただきますが、本リポジトリ内でそのベースとなるサンプルコードとしてaichallenge2023-sim/docker/aichallenge/aichallenge_ws/srcに以下のROS2パッケージを提供しております。
+ 作成していただいたROS2パッケージは、aichallenge_ws/src/aichallenge_submit以下に配置していただき、下記手順でビルド・実行できるようにしてください。</p>
+<h2 id="sample-code">Sample Code</h2>
+<p> aichallenge2023-sim/docker/aichallenge/aichallenge_ws/src配下の構成を一部示します。</p>
+<ul>
+<li>aichallenge_launch
+<ul>
+<li>大元のlaunchファイルaichallenge.launch.xmlを含んでいます。すべてのROS2ノードはこのlaunchファイルから起動されます。</li>
+</ul>
+</li>
+<li>aichallenge_scoring
+<ul>
+<li>AI チャレンジの参加者のスコアリングとランキングに必要なタスクを担当します。</li>
+</ul>
+</li>
+<li>aichallenge_scoring_msgs
+<ul>
+<li>スコアリング用のmsg</li>
+</ul>
+</li>
+<li>aichallenge_scoring_result
+<ul>
+<li>/aichallenge/scoreと/aichallenge/collisionからスコアを算出します。</li>
+</ul>
+</li>
+<li>aichallenge_submit
+<ul>
+<li>提出時にはこのディレクトリの内容のみ提出していただきますので、参加者の皆さまが実装されたROS2パッケージはすべてこのディレクトリ内に配置してください。</li>
+<li>aichallenge_submit_launch.launch.xmlが大元のlaunchファイルaichallenge.launch.xmlから呼び出されますので、このlaunchファイルを適宜改修して皆様が実装されたROS2ノードが起動されるように設定してください。</li>
+<li>initialpose_publisher
+<ul>
+<li>デフォルトの初期位置推定では初期位置がずれてしまう場合があるため、予め設定された初期位置で車両位置を設定する機能を提供します。</li>
+</ul>
+</li>
+<li>pose_initializer_custom
+<ul>
+<li>autoware.universeのpose_initializerパッケージを改変し、Monte-CarloとNDT Matchingによって算出された姿勢を破棄して<code>initialpose_publisher</code>から送られた姿勢で設定するように変更しています。</li>
+</ul>
+</li>
+<li>self_driving_controller
+<ul>
+<li>自動運転の開始に必要なGoal Poseの設定とengageを行う機能を提供します。</li>
+</ul>
+</li>
+<li>autoware_launch, autoware_universe_launch
+<ul>
+<li>Autowareのlaunch, config関連のパッケージをコピーして一部編集しています。Dockerイメージ内のAutowareにはここに含まれているパッケージが削除されています。こちらを編集することでAutowareの動作の変更を行うことが出来ます。</li>
+<li>改変前のファイルを利用したい場合は、<a href="https://github.com/autowarefoundation/autoware_launch/tree/awsim-stable">autoware_launch</a>, <a href="https://github.com/autowarefoundation/autoware.universe/tree/awsim-stable/launch">autoware_universeのlaunchディレクトリ</a>をご利用ください。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="docker-image-build">Docker Image Build</h3>
+<pre><code>#aichallenge2023-simディレクトリで
+cd docker
+bash build.sh
+</code></pre>
+<h3 id="docker-container-run">Docker Container Run</h3>
+<pre><code>#aichallenge2023-simディレクトリで
+cd docker
+bash run_container.sh
+</code></pre>
+<h3 id="code-build">Code Build</h3>
+<pre><code># Rockerコンテナ内で
+cd /aichallenge
+bash build.sh
+</code></pre>
+<h3 id="sample-code-run">Sample Code Run</h3>
+<pre><code># Rockerコンテナ内で
+cd /aichallenge
+bash run.sh
+</code></pre>
+<p> ここまででAutoware側の設定・実行は完了です。セットアップが正常に行われていれば、rvizには点群地図が表示され、自動運転が開始されます。</p>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/blob/main/documentation/docfx_project/local/index.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

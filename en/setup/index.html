@@ -130,7 +130,7 @@ If they are located in the same network, topic communication between PCs is basi
 </code></pre>
 <p><img src="../images/setup/nvidia-smi.png" alt="nvidia-smi"></p>
 </li>
-<li><p>Install Vulkun</p>
+<li><p>Install Vulkan</p>
 <ol>
 <li>update package list</li>
 </ol>
@@ -144,8 +144,7 @@ If they are located in the same network, topic communication between PCs is basi
 </li>
 <li><p>Prepare the course</p>
 <ol>
-<li><a href="https://drive.google.com/file/d/1aduBKhYGI0mhhRbgu4B05pBTyFXcZsGN/view?usp=sharing">Download</a> the executable file for the competition and unzip it<br>
-※Tutorial Environment</li>
+<li>Download latest <code>AWSIM_AIChallenge_Ubuntu_v*.*.zip</code> from <a href="https://drive.google.com/drive/folders/1zONmvBjqMzveemkZmNdd4icbpwnDYvTq?usp=sharing">GoogleDrive</a> and unzip it</li>
 <li>change permissions as shown in the figure<br>
 <img src="../images/setup/permmision.png" alt="Change the permissions as shown in the figure "><br>
 Double-click the file to launch it.</li>
@@ -188,25 +187,30 @@ We have placed a tarball of the image at <a href="https://drive.google.com/file/
 git lfs clone https://github.com/AutomotiveAIChallenge/aichallenge2023-sim
 </code></pre>
 <ol start="3">
+<li>build docker image for competition</li>
+</ol>
+<pre><code>cd ./aichallenge2023-sim/docker
+bash build.sh
+</code></pre>
+<ol start="4">
 <li>start rocker</li>
 </ol>
-<pre><code>cd ./aichallenge2023-sim
-rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2023-sim/autoware-universe-cuda:v1
+<pre><code>bash run_container.sh
 </code></pre>
 </li>
 </ul>
 <h4 id="starting-awsim-in-a-docker-container">Starting AWSIM in a Docker container</h4>
 <p>If you want to start AWSIM from a Docker container, please follow the steps below after installing a Docker image according to the Docker image preparation procedure (see below).</p>
 <ol>
-<li>extract the executable file for the convention in <code>aichallenge2023-sim/autoware</code> (Hereinafter, it is assumed to be located in <code>aichallenge2023-sim/autoware/AWSIM/AWSIM.x86_64</code>)</li>
+<li>extract the executable file for the convention in <code>aichallenge2023-sim/docker/aichallenge</code> (Hereinafter, it is assumed to be located in <code>aichallenge2023-sim/docer/aichallenge/AWSIM/AWSIM.x86_64</code>)</li>
 <li>launch the Docker container (please verify with <code>docker container ls</code> that container exists)
 Please confirm the existence of the following docker image using other terminal by using the <code>docker image ls</code> command. below is an example.</li>
 </ol>
-<pre><code>ghcr.io/automotiveaichallenge/aichallenge2023-sim/autoware-universe-cuda        v1                            f5f05f758f55   2 weeks ago      14.9GB
+<pre><code>aichallenge-train        latest                            f5f05f758f55   2 weeks ago      14.9GB
 </code></pre>
 <p>Once confirmed, launch rocker with the following command.</p>
-<pre><code> cd ./aichallenge2023-sim
- rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2023-sim/autoware-universe-cuda:v1
+<pre><code> cd ./aichallenge2023-sim/docker
+ bash run_container.sh
 </code></pre>
 <p>Open a new terminal and confirm the existence of the docker container by using the <code>docker container ls</code> command. below is an example.</p>
 <pre><code>CONTAINER ID   IMAGE          COMMAND       CREATED          STATUS          PORTS     NAMES
@@ -215,30 +219,27 @@ fdbe7cb05782   1f3d763bc501   &quot;/bin/bash&quot;   15 minutes ago   Up 15 min
 <ol start="3">
 <li>execute the following in the container</li>
 </ol>
-<pre><code> export ROS_LOCALHOST_ONLY=1
- export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
- export RCUTILS_COLORIZED_OUTPUT=1
- sudo ip link set multicast on lo
+<pre><code> sudo ip link set multicast on lo
  source /autoware/install/setup.bash
  /aichallenge/AWSIM/AWSIM.x86_64
 </code></pre>
 <h3 id="awsimwindows">AWSIM(Windows)</h3>
 <ol>
-<li><a href="https://drive.google.com/file/d/1L6jr9wttxA2aLl8IqC3xDXIuQUfjMTAJ/view?usp=sharing">Download</a> the executable file for the convention and unzip it.<br>
-※Tutorial Environment</li>
+<li>Download latest <code>AWSIM_AIChallenge_Windows_v*.*.zip</code> from <a href="https://drive.google.com/drive/folders/1p-_rZLDVncssgYTwjBmLKMyGQxOKHV5Q?usp=sharing">GoogleDrive</a> and unzip it.</li>
 <li>double-click the file to start it
 Confirm that the following screen is displayed.
 <img src="../images/setup/awsim.png" alt="awsim"></li>
 </ol>
 <h3 id="copy-map-data-pcd-osm">Copy map data (pcd, osm)</h3>
 <p><img src="../images/setup/mapfiles.png" alt="mapfiles"></p>
-<p>Map data is stored in AWSIM compressed files. Copy the osm and pcd files located in <code>AWSIM_Data/StreamingAssets/kashiwanoha2023_integ</code> to <code>aichallenge2023-sim/autoware/mapfile</code> and arrange them so that the file structure is as follows:</p>
+<p>Map data is stored in AWSIM compressed files. Copy the osm and pcd files located in <code>AWSIM_Data/StreamingAssets/kashiwanoha2023_integ</code> to <code>aichallenge2023-sim/docker/aichallenge/mapfile</code> and arrange them so that the file structure is as follows:</p>
 <pre><code>aichallenge2023-sim
-└ autoware
- └ mapfile
-  ├ .gitkeep
-  ├ lanelet2_map.osm
-  └ pointcloud_map.pcd
+└ docker
+ └ aichallenge
+  └ mapfile
+   ├ .gitkeep
+   ├ lanelet2_map.osm
+   └ pointcloud_map.pcd
 </code></pre>
 <h3 id="autoware">Autoware</h3>
 <ul>
@@ -249,14 +250,10 @@ This section describes how to check the operation of Autoware using AWSIM.
 <li>Start Autoware.</li>
 </ol>
 <pre><code># In the Rocker container
-export ROS_LOCALHOST_ONLY=1
-export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
-export RCUTILS_COLORIZED_OUTPUT=1
 sudo ip link set multicast on lo
-cd /aichallenge/aichallenge_ws
-colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
-source install/setup.bash
 cd /aichallenge
+bash build.sh
+source aichallenge_ws/install/setup.bash
 ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=golfcart sensor_model:=awsim_sensor_kit map_path:=/aichallenge/mapfile
 </code></pre>
 <ol start="3">

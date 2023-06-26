@@ -4,6 +4,16 @@
   "xrefmap": "xrefmap.yml",
   "files": [
     {
+      "type": "Conceptual",
+      "source_relative_path": "README.md",
+      "output": {
+        ".html": {
+          "relative_path": "README.html"
+        }
+      },
+      "version": ""
+    },
+    {
       "type": "Resource",
       "source_relative_path": "images/intro/awsim.png",
       "output": {
@@ -115,20 +125,60 @@
     },
     {
       "type": "Resource",
-      "source_relative_path": "images/setup/awsim.png",
+      "source_relative_path": "images/setup/autoware5.png",
       "output": {
         "resource": {
-          "relative_path": "images/setup/awsim.png"
+          "relative_path": "images/setup/autoware5.png"
         }
       },
       "version": ""
     },
     {
       "type": "Resource",
-      "source_relative_path": "images/setup/mapfiles.png",
+      "source_relative_path": "images/setup/autoware6.png",
       "output": {
         "resource": {
-          "relative_path": "images/setup/mapfiles.png"
+          "relative_path": "images/setup/autoware6.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/setup/autoware7.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/setup/autoware7.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/setup/autoware8.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/setup/autoware8.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/setup/awsim_ubuntu.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/setup/awsim_ubuntu.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/setup/awsim_win.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/setup/awsim_win.png"
         }
       },
       "version": ""
@@ -256,6 +306,116 @@
       "version": ""
     },
     {
+      "type": "Conceptual",
+      "source_relative_path": "local/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "local/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Toc",
+      "source_relative_path": "local/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "local/toc.html"
+        },
+        ".json": {
+          "relative_path": "local/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "online/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "online/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Toc",
+      "source_relative_path": "online/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "online/toc.html"
+        },
+        ".json": {
+          "relative_path": "online/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "other/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "other/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Toc",
+      "source_relative_path": "other/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "other/toc.html"
+        },
+        ".json": {
+          "relative_path": "other/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Conceptual",
+      "source_relative_path": "rule/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "rule/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Toc",
+      "source_relative_path": "rule/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "rule/toc.html"
+        },
+        ".json": {
+          "relative_path": "rule/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
       "type": "Conceptual",
       "source_relative_path": "setup/index.md",
       "output": {
