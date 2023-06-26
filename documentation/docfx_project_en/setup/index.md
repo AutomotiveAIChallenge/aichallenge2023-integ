@@ -56,7 +56,7 @@ If they are located in the same network, topic communication between PCs is basi
   ```
   ![nvidia-smi](../images/setup/nvidia-smi.png)
  
- * Install Vulkun
+ * Install Vulkan
     1. update package list
     ```
     sudo apt update
@@ -66,12 +66,11 @@ If they are located in the same network, topic communication between PCs is basi
     sudo apt install libvulkan1
     ```
  * Prepare the course
-   1. [Download](https://drive.google.com/file/d/1aduBKhYGI0mhhRbgu4B05pBTyFXcZsGN/view?usp=sharing) the executable file for the competition and unzip it    
-   ※Tutorial Environment
-   3. change permissions as shown in the figure    
+   1. Download latest `AWSIM_AIChallenge_Ubuntu_v*.*.zip` from [GoogleDrive](https://drive.google.com/drive/folders/1zONmvBjqMzveemkZmNdd4icbpwnDYvTq?usp=sharing) and unzip it
+   2. change permissions as shown in the figure    
    ![Change the permissions as shown in the figure ](../images/setup/permmision.png)  
    Double-click the file to launch it.
-   4. confirm that the following screen is displayed
+   3. confirm that the following screen is displayed
       ![awsim](../images/setup/awsim.png)
   
 #### Preparation of Docker
@@ -100,25 +99,29 @@ Please install the following.
     sudo apt install -y git-lfs
     git lfs clone https://github.com/AutomotiveAIChallenge/aichallenge2023-sim
     ```
-    3. start rocker
+    3. build docker image for competition
     ```
-    cd ./aichallenge2023-sim
-    rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2023-sim/autoware-universe-cuda:v1
+    cd ./aichallenge2023-sim/docker
+    bash build.sh
+    ```
+    4. start rocker
+    ```
+    bash run_container.sh
     ```
 
         
 #### Starting AWSIM in a Docker container
 If you want to start AWSIM from a Docker container, please follow the steps below after installing a Docker image according to the Docker image preparation procedure (see below).
-  1. extract the executable file for the convention in `aichallenge2023-sim/autoware` (Hereinafter, it is assumed to be located in `aichallenge2023-sim/autoware/AWSIM/AWSIM.x86_64`)
+  1. extract the executable file for the convention in `aichallenge2023-sim/docker/aichallenge` (Hereinafter, it is assumed to be located in `aichallenge2023-sim/docer/aichallenge/AWSIM/AWSIM.x86_64`)
   2. launch the Docker container (please verify with `docker container ls` that container exists)
    Please confirm the existence of the following docker image using other terminal by using the `docker image ls` command. below is an example.
    ```
-   ghcr.io/automotiveaichallenge/aichallenge2023-sim/autoware-universe-cuda        v1                            f5f05f758f55   2 weeks ago      14.9GB
+   aichallenge-train        latest                            f5f05f758f55   2 weeks ago      14.9GB
    ```
    Once confirmed, launch rocker with the following command.
    ```
-    cd ./aichallenge2023-sim
-    rocker --nvidia --x11 --user --net host --privileged --volume autoware:/aichallenge -- ghcr.io/automotiveaichallenge/aichallenge2023-sim/autoware-universe-cuda:v1
+    cd ./aichallenge2023-sim/docker
+    bash run_container.sh
    ```
    Open a new terminal and confirm the existence of the docker container by using the `docker container ls` command. below is an example.
    ```
@@ -127,18 +130,13 @@ If you want to start AWSIM from a Docker container, please follow the steps belo
    ```
   3. execute the following in the container
    ```
-    export ROS_LOCALHOST_ONLY=1
-    export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
-    export RCUTILS_COLORIZED_OUTPUT=1
-    sudo ip link set multicast on lo
     source /autoware/install/setup.bash
     /aichallenge/AWSIM/AWSIM.x86_64
    ```
 
 ### AWSIM(Windows)
-  1. [Download](https://drive.google.com/file/d/1L6jr9wttxA2aLl8IqC3xDXIuQUfjMTAJ/view?usp=sharing) the executable file for the convention and unzip it.   
-  ※Tutorial Environment
-  3. double-click the file to start it
+  1. Download latest `AWSIM_AIChallenge_Windows_v*.*.zip` from [GoogleDrive](https://drive.google.com/drive/folders/1p-_rZLDVncssgYTwjBmLKMyGQxOKHV5Q?usp=sharing) and unzip it.   
+  2. double-click the file to start it
   Confirm that the following screen is displayed.
     ![awsim](../images/setup/awsim.png)
 
@@ -146,14 +144,15 @@ If you want to start AWSIM from a Docker container, please follow the steps belo
 
 ![mapfiles](../images/setup/mapfiles.png)
 
-Map data is stored in AWSIM compressed files. Copy the osm and pcd files located in `AWSIM_Data/StreamingAssets/kashiwanoha2023_integ` to `aichallenge2023-sim/autoware/mapfile` and arrange them so that the file structure is as follows:
+Map data is stored in AWSIM compressed files. Copy the osm and pcd files located in `AWSIM_Data/StreamingAssets/kashiwanoha2023_integ` to `aichallenge2023-sim/docker/aichallenge/mapfile` and arrange them so that the file structure is as follows:
 ```
 aichallenge2023-sim
-└ autoware
- └ mapfile
-  ├ .gitkeep
-  ├ lanelet2_map.osm
-  └ pointcloud_map.pcd
+└ docker
+ └ aichallenge
+  └ mapfile
+   ├ .gitkeep
+   ├ lanelet2_map.osm
+   └ pointcloud_map.pcd
 ```
 
 ### Autoware      
@@ -163,14 +162,9 @@ aichallenge2023-sim
    2. Start Autoware.
    ```
    # In the Rocker container
-   export ROS_LOCALHOST_ONLY=1
-   export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
-   export RCUTILS_COLORIZED_OUTPUT=1
-   sudo ip link set multicast on lo
-   cd /aichallenge/aichallenge_ws
-   colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
-   source install/setup.bash
    cd /aichallenge
+   bash build.sh
+   source aichallenge_ws/install/setup.bash
    ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=golfcart sensor_model:=awsim_sensor_kit map_path:=/aichallenge/mapfile
    ```
    3. Confirm that the following screen (Rviz2) is displayed.  
