@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Rule </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Rule ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      
+  </head>
+
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="rule">Rule</h1>
+
+<p> Participants will drive an automated vehicle using the automated driving software they have developed, and compete in terms of <code>distance points</code> calculated from the results.<br>
+For details of the competition and course specifications, please refer to the following.</p>
+<h2 id="detail-of-rule">Detail of Rule</h2>
+<h3 id="ranking-system">Ranking System</h3>
+<ul>
+<li>Rankings are determined by distance points.<br>
+<code>Distance points: min(overall distance from the starting point (m), distance of the entire course) * (1.0 - assignment 1 penalty - assignment 2 penalty - assignment 3 penalty)</code>.</li>
+<li>If the distance points are the same, the Competitor with the shortest running time in the Task 3 area will be placed higher (if he/she runs to the end of the task).</li>
+</ul>
+<h3 id="limitation">Limitation</h3>
+<ul>
+<li>Travel speed is 0~5km/h</li>
+<li>If the speed limit is exceeded by more than 2km/h, the competitor will be disqualified = 0 points.</li>
+<li>Time limit is 5 minutes (to accommodate the case where the vehicle stops in the middle of the route).</li>
+<li>Time from when the vehicle starts is measured.</li>
+<li>The placement of the vehicles may be somewhat random.</li>
+<li>Need to add a handling of collision after reaching the goal.</li>
+</ul>
+<h2 id="vehicle">Vehicle</h2>
+<p>The vehicle to be used is the golf cart shown here.
+<img src="../../images/rule/vehicle.png" width="70%"></p>
+<h2 id="course">Course</h2>
+<p>You will be challenged with 3 tasks in this course.
+<img src="../../images/rule/course.png" width="70%"></p>
+<h3 id="task-1--obstacle-detection-stop-cardboard">Task 1 : Obstacle detection stop (cardboard)</h3>
+<p>Clear condition:<br>
+ ・Obstacle detection stop (cardboard)<br>
+ ・The vehicle head must stop at a position between 3m and 6m from the obstacle.<br>
+Penalty:<br>
+ ・the vehicle head must be between 3m and 6m from the obstacle.<br>
+ ・If the vehicle fails to stop, 5% points will be deducted from the distance points.<br>
+<img src="../../images/rule/kadai1.png" width="70%"></p>
+<h3 id="task-2-driving-in-the-presence-of-smoke">Task 2: Driving in the presence of smoke</h3>
+<p>Clear condition:<br>
+  ・Do not stop within the section of Task 2.<br>
+Penalty:<br>
+ ・Do not stop within the section of Task 2.<br>
+ ・If you stop, 5% points will be deducted from the distance points.<br>
+<img src="../../images/rule/kadai2.png" width="70%"></p>
+<h3 id="task-3-1-narrow-road-driving-slalom">Task 3-1: Narrow road driving (slalom)</h3>
+<p>Clear condition:<br>
+ ・Do not collide with a cardboard box.<br>
+ ・Do not stray from the designated route.<br>
+Penalty:<br>
+ ・If the vehicle collides with a cardboard box or strays from the designated path, the driving will be terminated.</p>
+<h3 id="task-3-2-narrow-road-driving-l-shaped-crank">Task 3-2: Narrow road driving (L-shaped crank)</h3>
+<p>Clear condition:<br>
+ ・Do not collide with a cardboard box.<br>
+ ・Do not stray from the designated route.<br>
+ ・Stop after completing the race.<br>
+Penalty:<br>
+ ・If you collide with a cardboard box or run out of the designated path, the race will be terminated.<br>
+ ・Collision or going out of the path after finishing the race, 5% point deduction will be given.<br>
+<img src="../../images/rule/kadai3.png" width="70%"></p>
+<h3 id="how-to-check-results">How to check results</h3>
+<p>  When the run is completed, <code>result.json</code> will be output based on <code>/aichallenge/score topic</code> and <code>/aichallenge/collision topic</code>. See below to check the results.</p>
+<pre><code>{
+  &quot;rawDistanceScore&quot;: float32, // distance points without penalty
+  &quot;distanceScore&quot;: float32, // distance points reflected in the ranking
+  &quot;task3Duration&quot;: float32, // time spent on task 3
+  &quot;isOutsideLane&quot;: bool, // lane outside lane
+  &quot;isTimeout&quot;: bool, // timeout
+  &quot;hasCollided&quot;: bool, // collision
+  &quot;hasExceededSpeedLimit&quot;: bool, // speed limit exceeded
+  &quot;hasFinishedTask1&quot;: bool, // has Task 1 been completed successfully
+  &quot;hasFinishedTask2&quot;: bool, // has Task 2 been completed successfully
+  &quot;hasFinishedTask3&quot;: bool // has Task 3 been completed successfully?
+}
+</code></pre>
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

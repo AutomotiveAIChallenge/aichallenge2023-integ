@@ -28,9 +28,9 @@
 ## 本サイトについて
 &emsp;本サイトには、インテグレーション大会の予選大会に関するルールや環境構築、参加方法などが記されております。
 各ページをご確認のうえ、ご参加ください。  
- * [Introduction](./intro)  予選大会について
- * [Setup](./setup)  環境構築手順について
- * [Rule](./rule)  大会ルールについて
- * [LocalEnvrionment](./local)  ローカル環境について
- * [OnlineEnvrionment](./online)  オンライン環境について
- * [Other](./other)  問い合わせ方法などについて
+ * [Introduction](/intro/index.html)  予選大会について
+ * [Setup](/setup/index.html)  環境構築手順について
+ * [Rule](/rule/index.html)  大会ルールについて
+ * [LocalEnvrionment](/local/index.html)  ローカル環境について
+ * [OnlineEnvrionment](/online/index.html)  オンライン環境について
+ * [Other](/other/index.html)  問い合わせ方法などについて

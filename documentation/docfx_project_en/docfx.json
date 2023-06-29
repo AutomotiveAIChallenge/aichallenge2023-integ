@@ -63,13 +63,6 @@
         ]
       }
     ],
-    "resource": [
-      {
-        "files": [
-          "images/**"
-        ]
-      }
-    ],
     "output": "_site",
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],

@@ -54,7 +54,7 @@ If they are located in the same network, topic communication between PCs is basi
   ```
   nvidia-smi
   ```
-  ![nvidia-smi](../images/setup/nvidia-smi.png)
+  ![nvidia-smi](../../images/setup/nvidia-smi.png)
  
  * Install Vulkan
     1. update package list
@@ -68,10 +68,10 @@ If they are located in the same network, topic communication between PCs is basi
  * Prepare the course
    1. Download latest `AWSIM_AIChallenge_Ubuntu_v*.*.zip` from [GoogleDrive](https://drive.google.com/drive/folders/1zONmvBjqMzveemkZmNdd4icbpwnDYvTq?usp=sharing) and unzip it
    2. change permissions as shown in the figure    
-   ![Change the permissions as shown in the figure ](../images/setup/permmision.png)  
+   ![Change the permissions as shown in the figure ](../../images/setup/permmision.png)  
    Double-click the file to launch it.
    3. confirm that the following screen is displayed
-      ![awsim](../images/setup/awsim.png)
+      ![awsim](../../images/setup/awsim.png)
   
 #### Preparation of Docker
 Docker image of Autoware (using CUDA) is available for this competition.
@@ -139,11 +139,11 @@ If you want to start AWSIM from a Docker container, please follow the steps belo
   1. Download latest `AWSIM_AIChallenge_Windows_v*.*.zip` from [GoogleDrive](https://drive.google.com/drive/folders/1p-_rZLDVncssgYTwjBmLKMyGQxOKHV5Q?usp=sharing) and unzip it.   
   2. double-click the file to start it
   Confirm that the following screen is displayed.
-    ![awsim](../images/setup/awsim.png)
+    ![awsim](../../images/setup/awsim.png)
 
 ### Copy map data (pcd, osm)
 
-![mapfiles](../images/setup/mapfiles.png)
+![mapfiles](../../images/setup/mapfiles.png)
 
 Map data is stored in AWSIM compressed files. Copy the osm and pcd files located in `AWSIM_Data/StreamingAssets/kashiwanoha2023_integ` to `aichallenge2023-sim/docker/aichallenge/mapfile` and arrange them so that the file structure is as follows:
 ```
@@ -170,13 +170,13 @@ aichallenge2023-sim
    ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=golfcart sensor_model:=awsim_sensor_kit map_path:=/aichallenge/mapfile
    ```
    3. Confirm that the following screen (Rviz2) is displayed.  
-   ![autoware1](../images/setup/autoware1.png)   
+   ![autoware1](../../images/setup/autoware1.png)   
      
    4. Confirm that self-position estimation is done. If it is not estimated correctly, select `2D Pose Estimate` in the tab and drag the actual position of the vehicle.
-   ![autoware2](../images/setup/autoware2.png)   
+   ![autoware2](../../images/setup/autoware2.png)   
       
    5. Select the `2D Goal Pose` in the `Goal Pose` tab and drag to specify the goal position. Confirm that the route is displayed and `Routing` changes from `UNSET` to `SET` as shown in the image (it takes a little time after you specify it). 
-   ![autoware3](../images/setup/autoware3.png)          
+   ![autoware3](../../images/setup/autoware3.png)          
        
    6. Press the `AUTO` button in `OperationMode` and confirm that self driving is started.
-   ![autoware4](../images/setup/autoware4.png) 
+   ![autoware4](../../images/setup/autoware4.png) 

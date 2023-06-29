@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Local Enviroment. </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Local Enviroment. ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      
+  </head>
+
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="local-enviroment">Local Enviroment.</h1>
+
+<p>  Participants will be asked to create a ROS2 package to carry out the scenario, and the following ROS2 package is provided in aichallenge2023-sim/docker/aichallenge/aichallenge_ws/src as sample code to serve as a base for this in this repository The following ROS2 package is provided.<br>
+  Please place the ROS2 package you created under aichallenge_ws/src/aichallenge_submit and follow the steps below to build and run it.</p>
+<h2 id="sample-code">Sample Code</h2>
+<p>The following is a partial configuration under  aichallenge2023-sim/docker/aichallenge/aichallenge_ws/src.</p>
+<ul>
+<li>aichallenge_launch
+<ul>
+<li>Contains the main launch file aichallenge.launch.xml. All ROS2 nodes are launched from this launch file.</li>
+</ul>
+</li>
+<li>aichallenge_scoring
+<ul>
+<li>aichallenge_scoring is responsible for the tasks required for scoring and ranking the AI Challenge participants.</li>
+</ul>
+</li>
+<li>aichallenge_scoring_msgs
+<ul>
+<li>msgs for scoring</li>
+</ul>
+</li>
+<li>aichallenge_scoring_result
+<ul>
+<li>Calculate scores from /aichallenge/score and /aichallenge/collision.</li>
+</ul>
+</li>
+<li>aichallenge_submit
+<ul>
+<li>All ROS2 packages implemented by participants should be placed in this directory, as only the contents of this directory will be submitted at the time of submission.</li>
+<li>Please modify this launch file accordingly to configure the ROS2 nodes you have implemented to be launched. Please modify this launch file accordingly and configure it so that your ROS2 node will be activated.</li>
+<li>initialpose_publisher
+<ul>
+<li>Since the default initial position estimation may result in initial position deviations, this function provides the ability to set the vehicle position at a pre-defined initial position.</li>
+</ul>
+</li>
+<li>pose_initializer_custom
+<ul>
+<li>The pose_initializer package in autoware.universe has been modified to discard the posture calculated by Monte-Carlo and NDT Matching and set it with the posture sent by the <code>initialpose_publisher</code>.</li>
+</ul>
+</li>
+<li>self_driving_controlloer
+<ul>
+<li>Provides the ability to set GoalPose and engage required to start automatic operation.</li>
+</ul>
+</li>
+<li>autoware_launch
+<ul>
+<li>We have copied and partially edited the launch, config-related packages of Autoware; Autoware in the Docker image has removed the packages included here. You can modify the behavior of Autoware by editing here.</li>
+<li>If you want to use the files before the modification, please copy the files from <a href="https://github.com/autowarefoundation/autoware_launch/tree/awsim-stable">autoware_launch</a>, <a href="https://github.com/autowarefoundation/autoware.universe/tree/awsim-stable/launch">autoware_universe's launch directory</a>.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="steps-to-execution">Steps to Execution</h3>
+<ol>
+<li>Docker Image Build</li>
+</ol>
+<pre><code>#In the aichallenge2023-sim directory
+cd docker
+bash build.sh
+</code></pre>
+<ol start="2">
+<li>Docker Container Run</li>
+</ol>
+<pre><code>#In the aichallenge2023-sim directory
+cd docker
+bash run_container.sh
+</code></pre>
+<ol start="3">
+<li>Code Build</li>
+</ol>
+<pre><code># In the Rocker container
+cd /aichallenge
+bash build.sh
+</code></pre>
+<ol start="4">
+<li><p>Start AWSIM<br>
+Start AWSIM by referring to <a href="../setup/index.html">Setup page</a>.</p>
+</li>
+<li><p>Sample Code Run</p>
+</li>
+</ol>
+<pre><code># In the Rocker container
+cd /aichallenge
+bash run.sh
+</code></pre>
+<p>  If setup is successful, rviz will display a point cloud map and begin automatic operation.</p>
+<h2 id="how-to-customize-and-use-autoware-packages">How to customize and use Autoware packages</h2>
+<ol>
+<li>Copy the original package and change the following
+<ul>
+<li>package name</li>
+<li>Folder name</li>
+<li>code</li>
+<li>package.xml</li>
+<li>CMakeLists.txt</li>
+</ul>
+</li>
+<li>place in aichallenge_submit</li>
+<li>modify launch file called from autoware_universe_launch
+<ul>
+<li>Reference example: pose_initializer_custom (called from autoware_universe_launch/tier4_localization_launch/launch/util/util.launch.xml)</li>
+</ul>
+</li>
+</ol>
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

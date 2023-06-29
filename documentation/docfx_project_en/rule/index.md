@@ -18,11 +18,11 @@ For details of the competition and course specifications, please refer to the fo
 
 ## Vehicle
 The vehicle to be used is the golf cart shown here.
-<img src="../images/rule/vehicle.png" width="70%">  
+<img src="../../images/rule/vehicle.png" width="70%">  
 
 ## Course   
 You will be challenged with 3 tasks in this course.
-<img src="../images/rule/kadai.png" width="70%">  
+<img src="../../images/rule/course.png" width="70%">  
 
 ### Task 1 : Obstacle detection stop (cardboard)
 Clear condition:   
@@ -31,7 +31,7 @@ Clear condition:
 Penalty:   
 &emsp;・the vehicle head must be between 3m and 6m from the obstacle.      
 &emsp;・If the vehicle fails to stop, 5% points will be deducted from the distance points.    
-<img src="../images/rule/kadai1.png" width="70%">  
+<img src="../../images/rule/kadai1.png" width="70%">  
 
 ### Task 2: Driving in the presence of smoke  
 Clear condition:   
@@ -39,7 +39,7 @@ Clear condition:
 Penalty:   
 &emsp;・Do not stop within the section of Task 2.    
 &emsp;・If you stop, 5% points will be deducted from the distance points.    
-<img src="../images/rule/kadai2.png" width="70%">  
+<img src="../../images/rule/kadai2.png" width="70%">  
 
 ### Task 3-1: Narrow road driving (slalom)
 Clear condition:     
@@ -56,7 +56,7 @@ Clear condition:
 Penalty:      
 &emsp;・If you collide with a cardboard box or run out of the designated path, the race will be terminated.      
 &emsp;・Collision or going out of the path after finishing the race, 5% point deduction will be given.        
-<img src="../images/rule/kadai3.png" width="70%">
+<img src="../../images/rule/kadai3.png" width="70%">
 
 ### How to check results
 &emsp; When the run is completed, `result.json` will be output based on `/aichallenge/score topic` and `/aichallenge/collision topic`. See below to check the results.  

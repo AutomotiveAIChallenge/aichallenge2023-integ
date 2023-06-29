@@ -1,5 +1,5 @@
 # Local Enviroment.
- &emsp; Participants will be asked to create a ROS2 package to carry out the scenario, and the following ROS2 package is provided in aichallenge2023-sim/docker/aichallenge/aichallenge_ws/src as sample code to serve as a base for this in this repository The following ROS2 package is provided.
+ &emsp; Participants will be asked to create a ROS2 package to carry out the scenario, and the following ROS2 package is provided in aichallenge2023-sim/docker/aichallenge/aichallenge_ws/src as sample code to serve as a base for this in this repository The following ROS2 package is provided.  
  &emsp; Please place the ROS2 package you created under aichallenge_ws/src/aichallenge_submit and follow the steps below to build and run it.
   
 ## Sample Code
@@ -25,33 +25,45 @@
         * We have copied and partially edited the launch, config-related packages of Autoware; Autoware in the Docker image has removed the packages included here. You can modify the behavior of Autoware by editing here.
         * If you want to use the files before the modification, please copy the files from [autoware_launch](https://github.com/autowarefoundation/autoware_launch/tree/awsim-stable), [autoware_universe's launch directory](https://github.com/autowarefoundation/autoware.universe/tree/awsim-stable/launch).
 
-### Docker Image Build
+### Steps to Execution
+1. Docker Image Build
 ```
 #In the aichallenge2023-sim directory
 cd docker
 bash build.sh
 ```
 
-### Docker Container Run
+2. Docker Container Run
 ```
 #In the aichallenge2023-sim directory
 cd docker
 bash run_container.sh
 ```
 
-### Code Build
+3. Code Build
 ```
 # In the Rocker container
 cd /aichallenge
 bash build.sh
  ```
- 
-### Sample Code Run
+ 4. Start AWSIM  
+Start AWSIM by referring to [Setup page](../setup/index.html).
+
+5. Sample Code Run
  ```
 # In the Rocker container
 cd /aichallenge
 bash run.sh
 ```
-
-
- &emsp; At this point, the setup and execution on the Autoware side is complete. If the setup was successful, rviz will display a point cloud map and start automatic operation.
+ &emsp; If setup is successful, rviz will display a point cloud map and begin automatic operation.
+ 
+## How to customize and use Autoware packages  
+1. Copy the original package and change the following  
+     * package name
+     * Folder name
+     * code 
+     * package.xml
+    * CMakeLists.txt
+2. place in aichallenge_submit    
+3. modify launch file called from autoware_universe_launch    
+    * Reference example: pose_initializer_custom (called from autoware_universe_launch/tier4_localization_launch/launch/util/util.launch.xml)
