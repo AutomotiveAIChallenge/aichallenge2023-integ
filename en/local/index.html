@@ -74,7 +74,7 @@
         <article data-uid="">
 <h1 id="local-enviroment">Local Enviroment.</h1>
 
-<p>  Participants will be asked to create a ROS2 package to carry out the scenario, and the following ROS2 package is provided in aichallenge2023-sim/docker/aichallenge/aichallenge_ws/src as sample code to serve as a base for this in this repository The following ROS2 package is provided.
+<p>  Participants will be asked to create a ROS2 package to carry out the scenario, and the following ROS2 package is provided in aichallenge2023-sim/docker/aichallenge/aichallenge_ws/src as sample code to serve as a base for this in this repository The following ROS2 package is provided.<br>
   Please place the ROS2 package you created under aichallenge_ws/src/aichallenge_submit and follow the steps below to build and run it.</p>
 <h2 id="sample-code">Sample Code</h2>
 <p>The following is a partial configuration under  aichallenge2023-sim/docker/aichallenge/aichallenge_ws/src.</p>
@@ -127,27 +127,58 @@
 </ul>
 </li>
 </ul>
-<h3 id="docker-image-build">Docker Image Build</h3>
+<h3 id="steps-to-execution">Steps to Execution</h3>
+<ol>
+<li>Docker Image Build</li>
+</ol>
 <pre><code>#In the aichallenge2023-sim directory
 cd docker
 bash build.sh
 </code></pre>
-<h3 id="docker-container-run">Docker Container Run</h3>
+<ol start="2">
+<li>Docker Container Run</li>
+</ol>
 <pre><code>#In the aichallenge2023-sim directory
 cd docker
 bash run_container.sh
 </code></pre>
-<h3 id="code-build">Code Build</h3>
+<ol start="3">
+<li>Code Build</li>
+</ol>
 <pre><code># In the Rocker container
 cd /aichallenge
 bash build.sh
 </code></pre>
-<h3 id="sample-code-run">Sample Code Run</h3>
+<ol start="4">
+<li><p>Start AWSIM<br>
+Start AWSIM by referring to <a href="../setup/index.html">Setup page</a>.</p>
+</li>
+<li><p>Sample Code Run</p>
+</li>
+</ol>
 <pre><code># In the Rocker container
 cd /aichallenge
 bash run.sh
 </code></pre>
-<p>  At this point, the setup and execution on the Autoware side is complete. If the setup was successful, rviz will display a point cloud map and start automatic operation.</p>
+<p>  If setup is successful, rviz will display a point cloud map and begin automatic operation.</p>
+<h2 id="how-to-customize-and-use-autoware-packages">How to customize and use Autoware packages</h2>
+<ol>
+<li>Copy the original package and change the following
+<ul>
+<li>package name</li>
+<li>Folder name</li>
+<li>code</li>
+<li>package.xml</li>
+<li>CMakeLists.txt</li>
+</ul>
+</li>
+<li>place in aichallenge_submit</li>
+<li>modify launch file called from autoware_universe_launch
+<ul>
+<li>Reference example: pose_initializer_custom (called from autoware_universe_launch/tier4_localization_launch/launch/util/util.launch.xml)</li>
+</ul>
+</li>
+</ol>
 </article>
 
         <div class="contribution d-print-none">

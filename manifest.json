@@ -25,6 +25,16 @@
     },
     {
       "type": "Resource",
+      "source_relative_path": "images/rule/Thumbs.db",
+      "output": {
+        "resource": {
+          "relative_path": "images/rule/Thumbs.db"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
       "source_relative_path": "images/rule/course.png",
       "output": {
         "resource": {
@@ -224,9 +234,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "InvalidFileLink"
-      ],
       "type": "Conceptual",
       "source_relative_path": "index.md",
       "output": {
@@ -237,9 +244,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "InvalidFileLink"
-      ],
       "type": "Conceptual",
       "source_relative_path": "intro/index.md",
       "output": {

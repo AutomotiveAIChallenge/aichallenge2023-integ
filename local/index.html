@@ -74,7 +74,7 @@
         <article data-uid="">
 <h1 id="local-enviroment">Local Enviroment</h1>
 
-<p> 参加者の皆様にはシナリオを遂行するROS2パッケージを作成していただきますが、本リポジトリ内でそのベースとなるサンプルコードとしてaichallenge2023-sim/docker/aichallenge/aichallenge_ws/srcに以下のROS2パッケージを提供しております。
+<p> 参加者の皆様にはシナリオを遂行するROS2パッケージを作成していただきますが、本リポジトリ内でそのベースとなるサンプルコードとしてaichallenge2023-sim/docker/aichallenge/aichallenge_ws/srcに以下のROS2パッケージを提供しております。<br>
  作成していただいたROS2パッケージは、aichallenge_ws/src/aichallenge_submit以下に配置していただき、下記手順でビルド・実行できるようにしてください。</p>
 <h2 id="sample-code">Sample Code</h2>
 <p> aichallenge2023-sim/docker/aichallenge/aichallenge_ws/src配下の構成を一部示します。</p>
@@ -127,27 +127,58 @@
 </ul>
 </li>
 </ul>
-<h3 id="docker-image-build">Docker Image Build</h3>
+<h3 id="steps-to-execution">Steps to Execution</h3>
+<ol>
+<li>Docker Image Build</li>
+</ol>
 <pre><code>#aichallenge2023-simディレクトリで
 cd docker
 bash build.sh
 </code></pre>
-<h3 id="docker-container-run">Docker Container Run</h3>
+<ol start="2">
+<li>Docker Container Run</li>
+</ol>
 <pre><code>#aichallenge2023-simディレクトリで
 cd docker
 bash run_container.sh
 </code></pre>
-<h3 id="code-build">Code Build</h3>
+<ol start="3">
+<li>Code Build</li>
+</ol>
 <pre><code># Rockerコンテナ内で
 cd /aichallenge
 bash build.sh
 </code></pre>
-<h3 id="sample-code-run">Sample Code Run</h3>
+<ol start="4">
+<li><p>AWSIMの起動<br>
+<a href="/setup/index.html">Setupページ</a>を参考に起動。</p>
+</li>
+<li><p>Sample Code Run</p>
+</li>
+</ol>
 <pre><code># Rockerコンテナ内で
 cd /aichallenge
 bash run.sh
 </code></pre>
-<p> ここまででAutoware側の設定・実行は完了です。セットアップが正常に行われていれば、rvizには点群地図が表示され、自動運転が開始されます。</p>
+<p> セットアップが正常に行われていれば、rvizには点群地図が表示され、自動運転が開始されます。</p>
+<h2 id="how-to-customize-and-use-autoware-packages">How to customize and use Autoware packages</h2>
+<ol>
+<li>元のパッケージをコピーして、下記を変更
+<ul>
+<li>パッケージ名</li>
+<li>フォルダ名</li>
+<li>コード</li>
+<li>package.xml</li>
+<li>CMakeLists.txt</li>
+</ul>
+</li>
+<li>aichallenge_submitの中に配置</li>
+<li>autoware_universe_launchから呼び出されるlaunchファイルを変更
+<ul>
+<li>参考例：pose_initializer_custom（ autoware_universe_launch/tier4_localization_launch/launch/util/util.launch.xmlから呼び出しております）</li>
+</ul>
+</li>
+</ol>
 </article>
 
         <div class="contribution d-print-none">
