@@ -172,6 +172,7 @@ namespace aichallenge_scoring {
     score_msg.is_stopped = is_stopped;
     score_msg.is_doing_task3 = is_doing_task3_;
     score_msg.has_finished_task1 = has_finished_task1_;
+    score_msg.has_finished_task2 = true;
     score_msg.has_finished_task3 = has_finished_task3_;
     score_msg.total_duration = total_duration;
     score_msg.is_timeout = is_timeout;
