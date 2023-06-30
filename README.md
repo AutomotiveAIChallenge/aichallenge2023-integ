@@ -1,5 +1,4 @@
 # aichallenge2023-sim
-***現状公開されているファイル・ドキュメントは開発途中のものであり、大会開始までに追加・変更されます***
 
 [![.github/workflows/document.yml](https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/actions/workflows/document.yml/badge.svg?branch=feature%2Fen)](https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/actions/workflows/document.yml)
 
