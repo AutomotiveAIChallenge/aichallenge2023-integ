@@ -22,7 +22,7 @@
 
 ## Course   
 3つの課題が用意されたこちらのコースに挑戦していただきます。
-<img src="../images/rule/kadai.png" width="70%">  
+<img src="../images/rule/course.png" width="70%">  
 
 ###  Task 1 : Obstacle detection stop (cardboard)
 クリア条件:     

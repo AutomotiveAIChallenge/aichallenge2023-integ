@@ -1,5 +1,5 @@
 # Local Enviroment
- &emsp;参加者の皆様にはシナリオを遂行するROS2パッケージを作成していただきますが、本リポジトリ内でそのベースとなるサンプルコードとしてaichallenge2023-sim/docker/aichallenge/aichallenge_ws/srcに以下のROS2パッケージを提供しております。
+ &emsp;参加者の皆様にはシナリオを遂行するROS2パッケージを作成していただきますが、本リポジトリ内でそのベースとなるサンプルコードとしてaichallenge2023-sim/docker/aichallenge/aichallenge_ws/srcに以下のROS2パッケージを提供しております。  
  &emsp;作成していただいたROS2パッケージは、aichallenge_ws/src/aichallenge_submit以下に配置していただき、下記手順でビルド・実行できるようにしてください。
   
 ## Sample Code
@@ -25,33 +25,45 @@
     * Autowareのlaunch, config関連のパッケージをコピーして一部編集しています。Dockerイメージ内のAutowareにはここに含まれているパッケージが削除されています。こちらを編集することでAutowareの動作の変更を行うことが出来ます。
     * 改変前のファイルを利用したい場合は、[autoware_launch](https://github.com/autowarefoundation/autoware_launch/tree/awsim-stable), [autoware_universeのlaunchディレクトリ](https://github.com/autowarefoundation/autoware.universe/tree/awsim-stable/launch)をご利用ください。
 
-### Docker Image Build
+### Steps to Execution
+1. Docker Image Build
 ```
 #aichallenge2023-simディレクトリで
 cd docker
 bash build.sh
 ```
 
-### Docker Container Run
+2. Docker Container Run
 ```
 #aichallenge2023-simディレクトリで
 cd docker
 bash run_container.sh
 ```
 
-### Code Build
+3. Code Build
 ```
 # Rockerコンテナ内で
 cd /aichallenge
 bash build.sh
 ```
+4. AWSIMの起動  
+[Setupページ](/setup/index.html)を参考に起動。
 
-### Sample Code Run
+5. Sample Code Run
 ```
 # Rockerコンテナ内で
 cd /aichallenge
 bash run.sh
 ```
-
-
- &emsp;ここまででAutoware側の設定・実行は完了です。セットアップが正常に行われていれば、rvizには点群地図が表示され、自動運転が開始されます。
+ &emsp;セットアップが正常に行われていれば、rvizには点群地図が表示され、自動運転が開始されます。
+ 
+## How to customize and use Autoware packages
+1. 元のパッケージをコピーして、下記を変更
+     * パッケージ名
+     * フォルダ名
+     * コード
+    *  package.xml
+    * CMakeLists.txt
+2. aichallenge_submitの中に配置
+3. autoware_universe_launchから呼び出されるlaunchファイルを変更  
+    * 参考例：pose_initializer_custom（ autoware_universe_launch/tier4_localization_launch/launch/util/util.launch.xmlから呼び出しております）

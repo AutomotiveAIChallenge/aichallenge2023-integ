@@ -1,7 +1,7 @@
 ## AI Challenge 2023 Integration Competition Preliminary Round
 
 ## Introduction
-As in the Automated AI Challenge 2022 simulation competition held last year, the qualifying competition for the Automated AI Challenge 2023 Integration Competition will use the Autoware.universe automated driving software and the AWSIM automated driving simulator. The [Setup page](./setup) and participate in the competition.
+As in the Automated AI Challenge 2022 simulation competition held last year, the qualifying competition for the Automated AI Challenge 2023 Integration Competition will use the Autoware.universe automated driving software and the AWSIM automated driving simulator. The [Setup page](../setup) and participate in the competition.
   
 ## About Competition
 &emsp; You are required to follow the following steps to participate in the competition.
@@ -20,7 +20,7 @@ As in the Automated AI Challenge 2022 simulation competition held last year, the
 ## About AWSIM
  &emsp;AWSIM is an open source self-driving simulator that runs on Unity, ROS2 native, and supports Windows and Ubuntu, making it easy for anyone to simulate self-driving algorithms.
   When utilizing AWSIM in&emsp;Autoware, Autoware nodes subscribe to sensing data from AWSIM, process the received data in each module, and publish the results (vehicle control information) to AWSIM to The vehicle is controlled on AWSIM. For more information, please check [here](https://github.com/tier4/AWSIM).
- ![awsim](../images/intro/awsim.png)
+ ![awsim](../../images/intro/awsim.png)
  
 ## Related Documentations.
  * [Official website of the Automated Ai Challenge](https://www.jsae.or.jp/jaaic/)
