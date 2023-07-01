@@ -162,14 +162,14 @@ aichallenge2023-sim
    ros2 launch autoware_launch e2e_simulator.launch.xml vehicle_model:=golfcart sensor_model:=awsim_sensor_kit map_path:=/aichallenge/mapfile
    ```
    3. 下記のような画面(Rviz2)が表示されることを確認  
-   ![autoware1](/images/setup/autoware1.png)   
+   ![autoware1](../images/setup/autoware1.png)   
      
    4. 自己位置推定ができていることを確認。正しく推定できていなければ、タブにある2D Pose Estimateを選択し、実際の車両の位置をドラッグで指定  
-    ![autoware2](/images/setup/autoware2.png)   
+    ![autoware2](../images/setup/autoware2.png)   
             
    5. タブにある2D Goal Poseを選択し、ゴールポジションをドラッグで指定。画像のように、ルートが表示されている かつ `Routing`が`UNSET`から`SET`に変わっていることを確認（指定してから少し時間がかかります）  
-     ![autoware3](/images/setup/autoware3.png)         
+     ![autoware3](../images/setup/autoware3.png)         
        
    6. `OperationMode`の`AUTO`ボタンを押下し、自動運転が開始されることを確認  
-     ![autoware4](/images/setup/autoware4.png)   
+     ![autoware4](../images/setup/autoware4.png)   
         
