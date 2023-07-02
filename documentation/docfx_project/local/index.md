@@ -47,7 +47,7 @@ cd /aichallenge
 bash build.sh
 ```
 4. AWSIMの起動  
-[Setupページ](/setup/index.html)を参考に起動。
+[Setupページ](../setup/index.html)を参考に起動。
 
 5. Sample Code Run
 ```
