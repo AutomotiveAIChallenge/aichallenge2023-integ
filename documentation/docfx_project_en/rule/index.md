@@ -1,4 +1,14 @@
 # Rule
+
+<br>
+
+> [!REGISTER]
+> Register from here!
+> [https://www.jsae.or.jp/jaaic/en/index.php](https://www.jsae.or.jp/jaaic/en/index.php)
+
+
+<br>
+
 &emsp;Participants will drive an automated vehicle using the automated driving software they have developed, and compete in terms of `distance points` calculated from the results.  
 For details of the competition and course specifications, please refer to the following.
 

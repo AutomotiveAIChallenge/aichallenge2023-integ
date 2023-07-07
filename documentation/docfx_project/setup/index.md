@@ -1,5 +1,13 @@
 # SetUp
 
+<br>
+
+> [!REGISTER]
+> こちらから参加登録!
+> [https://www.jsae.or.jp/jaaic/en/index.php](https://www.jsae.or.jp/jaaic/en/index.php)
+
+<br>
+
 ## Minimum Hardware Requirements
 本大会で使用していただくPCの動作環境として以下を推奨しております。
 

@@ -1,5 +1,13 @@
 # AIチャレンジ2023インテグレーション大会 予選
 
+<br>
+
+> [!REGISTER]
+> こちらから参加登録!
+> [https://www.jsae.or.jp/jaaic/en/index.php](https://www.jsae.or.jp/jaaic/en/index.php)
+
+<br>
+
 ## Introduction
 &emsp;昨年度行った、自動運転AIチャレンジ2022シミュレーション大会と同様に、自動運転AIチャレンジ2023インテグレーション大会の予選大会では自動運転ソフトウェアAutoware.universeと自動運転シミュレータAWSIMを使用します。[Setupページ](../setup/index.html)記載の手順に沿って環境を構築し、大会へご参加ください。
   
