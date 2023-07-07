@@ -1,4 +1,13 @@
 # Rule
+
+<br>
+
+> [!REGISTER]
+> こちらから参加登録!
+> [https://www.jsae.or.jp/jaaic/en/index.php](https://www.jsae.or.jp/jaaic/en/index.php)
+
+<br>
+
 &emsp;参加者の皆様が開発した自動運転ソフトウェアを用いて自動運転車両を走行させ、その結果から算出される`距離点`で競い合っていただきます。  
 &emsp;競技の詳細やコースの仕様などについては、下記をご参照ください。
 
