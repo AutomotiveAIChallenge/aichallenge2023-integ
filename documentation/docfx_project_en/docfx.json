@@ -72,6 +72,11 @@
     ],
     "postProcessors": [],
     "keepFileLink": false,
-    "disableGitFeatures": false
+    "disableGitFeatures": false,
+    "markdownEngineProperties": {
+      "alerts": {
+        "REGISTER": "alert alert-success"
+      }
+    }
   }
 }
