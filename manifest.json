@@ -234,6 +234,16 @@
       "version": ""
     },
     {
+      "type": "Resource",
+      "source_relative_path": "images/top/schedule_2023_en.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/top/schedule_2023_en.png"
+        }
+      },
+      "version": ""
+    },
+    {
       "log_codes": [
         "InvalidFileLink"
       ],
