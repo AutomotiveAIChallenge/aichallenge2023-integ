@@ -1,4 +1,4 @@
-# Local Enviroment
+# Local Environment
  &emsp;参加者の皆様にはシナリオを遂行するROS2パッケージを作成していただきますが、本リポジトリ内でそのベースとなるサンプルコードとしてaichallenge2023-sim/docker/aichallenge/aichallenge_ws/srcに以下のROS2パッケージを提供しております。  
  &emsp;作成していただいたROS2パッケージは、aichallenge_ws/src/aichallenge_submit以下に配置していただき、下記手順でビルド・実行できるようにしてください。
   
