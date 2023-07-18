@@ -1,14 +1,14 @@
 /**:
   ros__parameters:
     launch_stop_line: true
-    launch_crosswalk: true
-    launch_traffic_light: true
-    launch_intersection: true
-    launch_blind_spot: true
-    launch_detection_area: true
-    launch_virtual_traffic_light: true
+    launch_crosswalk: false
+    launch_traffic_light: false
+    launch_intersection: false
+    launch_blind_spot: false
+    launch_detection_area: false
+    launch_virtual_traffic_light: false
     launch_occlusion_spot: false
-    launch_no_stopping_area: true
+    launch_no_stopping_area: false
     launch_run_out: false
     launch_speed_bump: false
     forward_path_length: 1000.0
