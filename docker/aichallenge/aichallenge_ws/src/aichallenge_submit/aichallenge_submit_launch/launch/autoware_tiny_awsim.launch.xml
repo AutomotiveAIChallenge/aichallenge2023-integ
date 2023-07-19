@@ -371,9 +371,87 @@
     <!-- object_recognition -->
     <group>
       <push-ros-namespace namespace="object_recognition"/>
-      <node pkg="dummy_perception_publisher" exec="empty_objects_publisher" name="empty_objects_publisher" output="screen">
+
+
+      <!-- detection -->
+      <group>
+        <push-ros-namespace namespace="detection"/>
+        
+        <!-- euclidean_cluster -->
+        <group>
+          <!-- euclidean_cluster_container -->
+          <node_container pkg="rclcpp_components" exec="component_container" name="euclidean_cluster_container" namespace="">
+
+            <!-- euclidean_cluster::VoxelGridBasedEuclideanClusterNode -->
+            <composable_node pkg="euclidean_cluster" plugin="euclidean_cluster::VoxelGridBasedEuclideanClusterNode" name="euclidean_cluster" namespace="">
+              <remap from="input" to="/perception/obstacle_segmentation/pointcloud" />
+              <remap from="output" to="/perception/object_recognition/detection/clustering/clusters" />
+              <param from="$(find-pkg-share euclidean_cluster)/config/voxel_grid_based_euclidean_cluster.param.yaml" />
+              <extra_arg name="use_intra_process_comms" value="false" />
+            </composable_node>
+
+          </node_container> <!-- euclidean_cluster_container -->
+
+        </group>
+
+        <!-- shape_estimation -->
+        <group>
+          <node pkg="shape_estimation" exec="shape_estimation" name="shape_estimation" output="screen">
+            <remap from="input" to="/perception/object_recognition/detection/clustering/clusters"/> <!-- tier4_perception_msgs/DetectedObjectsWithFeature -->
+            <remap from="objects" to="/perception/object_recognition/detection/objects_with_feature"/> <!-- tier4_perception_msgs/DetectedObjectsWithFeature -->
+            <param name="use_filter" value="true"/>
+            <param name="use_corrector" value="true"/>
+            <param name="use_vehicle_reference_yaw" value="false"/>
+            <param name="use_boost_bbox_optimizer" value="false"/>
+          </node>
+
+        </group>
+
+        <!-- detected_object_feature_remover -->
+        <group>
+          <node pkg="detected_object_feature_remover" exec="detected_object_feature_remover" name="detected_object_feature_remover" output="screen">
+            <remap from="~/input" to="/perception/object_recognition/detection/objects_with_feature"/> <!-- tier4_perception_msgs/DetectedObjectsWithFeature -->
+            <remap from="~/output" to="/perception/object_recognition/detection/objects"/> <!-- autoware_auto_perception_msgs/DetectedObjects -->
+          </node>
+        </group>
+
+      </group> <!-- detection -->
+
+      <!-- tracking -->
+      <group>
+        <push-ros-namespace namespace="tracking"/>
+
+        <!-- multi_object_tracker -->
+        <node pkg="multi_object_tracker" exec="multi_object_tracker" name="multi_object_tracker" output="screen">
+          <remap from="input" to="/perception/object_recognition/detection/objects"/> <!-- autoware_auto_perception_msgs/DetectedObjects -->
+          <remap from="output" to="objects"/> <!-- autoware_auto_perception_msgs/TrackedObjects -->
+          <param name="world_frame_id" value="map"/>
+          <param name="publish_rate" value="10.0"/>
+          <param name="enable_delay_compensation" value="false"/>
+          <param from="$(find-pkg-share multi_object_tracker)/config/default_tracker.param.yaml"/>
+          <param from="$(find-pkg-share multi_object_tracker)/config/data_association_matrix.param.yaml"/>
+        </node>
+
+      </group> <!-- tracking -->
+
+      <!-- prediction -->
+      <group>
+        <push-ros-namespace namespace="prediction"/>
+
+        <!-- map_based_prediction -->
+        <node pkg="map_based_prediction" exec="map_based_prediction" name="map_based_prediction" output="screen">
+          <remap from="/vector_map" to="/map/vector_map"/>
+          <remap from="objects" to="/perception/object_recognition/objects"/> <!-- autoware_auto_perception_msgs/PredictedObjects -->
+          <param from="$(find-pkg-share map_based_prediction)/config/map_based_prediction.param.yaml"/>
+        </node>
+
+      </group> <!-- prediction -->
+      
+      <!-- dummy_perception_publisher -->
+      <!-- <node pkg="dummy_perception_publisher" exec="empty_objects_publisher" name="empty_objects_publisher" output="screen">
         <remap from="~/output/objects" to="/perception/object_recognition/objects"/>
-      </node>
+      </node> -->
+
     </group>
     
   </group> <!-- Perception -->
@@ -427,7 +505,7 @@
             <composable_node pkg="behavior_path_planner" plugin="behavior_path_planner::BehaviorPathPlannerNode" name="behavior_path_planner" namespace="">
               <remap from="~/input/route" to="/planning/mission_planning/route" />
               <remap from="~/input/vector_map" to="/map/vector_map" />
-              <remap from="~/input/perception" to="/perception/object_recognition/objects" />
+              <remap from="~/input/perception" to="/perception/object_recognition/objects" /> <!-- autoware_auto_perception_msgs/PredictedObjects -->
               <remap from="~/input/occupancy_grid_map" to="/perception/occupancy_grid_map/map" />
               <remap from="~/input/costmap" to="/planning/scenario_planning/parking/costmap_generator/occupancy_grid" />
               <remap from="~/input/odometry" to="/localization/kinematic_state" />
@@ -459,7 +537,7 @@
               <remap from="~/input/vector_map" to="/map/vector_map" />
               <remap from="~/input/vehicle_odometry" to="/localization/kinematic_state" />
               <remap from="~/input/accel" to="/localization/acceleration" />
-              <remap from="~/input/dynamic_objects" to="/perception/object_recognition/objects" />
+              <remap from="~/input/dynamic_objects" to="/perception/object_recognition/objects" /> <!-- autoware_auto_perception_msgs/PredictedObjects -->
               <remap from="~/input/no_ground_pointcloud" to="/perception/obstacle_segmentation/pointcloud" />
               <remap from="~/input/compare_map_filtered_pointcloud" to="/perception/obstacle_segmentation/pointcloud" />
               <remap from="~/input/vector_map_inside_area_filtered_pointcloud" to="/perception/obstacle_segmentation/pointcloud" />
@@ -506,8 +584,28 @@
             <composable_node pkg="obstacle_avoidance_planner" plugin="obstacle_avoidance_planner::ObstacleAvoidancePlanner" name="obstacle_avoidance_planner" namespace="">
               <remap from="~/input/path" to="/planning/scenario_planning/lane_driving/behavior_planning/path" />
               <remap from="~/input/odometry" to="/localization/kinematic_state" />
-              <remap from="~/output/path" to="/planning/scenario_planning/trajectory" />
+              <remap from="~/output/path" to="obstacle_avoidance_planner/trajectory" />
               <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/lane_driving/motion_planning/obstacle_avoidance_planner/obstacle_avoidance_planner.param.yaml" />
+              <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/common/nearest_search.param.yaml" />
+              <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/common/common.param.yaml" />
+              <param from="$(find-pkg-share $(var vehicle_model)_description)/config/vehicle_info.param.yaml" />
+              <extra_arg name="use_intra_process_comms" value="false" />
+            </composable_node>
+
+            <!-- motion_planning::ObstacleStopPlannerNode -->
+            <composable_node pkg="obstacle_stop_planner" plugin="motion_planning::ObstacleStopPlannerNode" name="obstacle_stop_planner" namespace="">
+              <remap from="~/input/acceleration" to="/localization/acceleration" />
+              <remap from="~/input/pointcloud" to="/perception/obstacle_segmentation/pointcloud" />
+              <remap from="~/input/objects" to="/perception/object_recognition/objects" />
+              <remap from="~/input/odometry" to="/localization/kinematic_state" />
+              <remap from="~/input/trajectory" to="obstacle_avoidance_planner/trajectory" />
+              <remap from="~/output/trajectory" to="/planning/scenario_planning/trajectory" />
+              <remap from="~/output/velocity_limit_clear_command" to="/planning/scenario_planning/clear_velocity_limit" />
+              <remap from="~/output/max_velocity" to="/planning/scenario_planning/max_velocity_candidates" />
+              <remap from="~/output/stop_reasons" to="/planning/scenario_planning/status/stop_reasons" />
+              <remap from="~/output/stop_reason" to="/planning/scenario_planning/status/stop_reason" />
+              <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/lane_driving/motion_planning/obstacle_stop_planner/obstacle_stop_planner.param.yaml" />
+              <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/lane_driving/motion_planning/obstacle_stop_planner/adaptive_cruise_control.param.yaml" />
               <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/common/nearest_search.param.yaml" />
               <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/common/common.param.yaml" />
               <param from="$(find-pkg-share $(var vehicle_model)_description)/config/vehicle_info.param.yaml" />
