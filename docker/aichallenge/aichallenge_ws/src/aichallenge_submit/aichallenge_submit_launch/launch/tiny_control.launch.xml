@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+  <!-- Essential parameters -->
+  <arg name="vehicle_model" default="golfcart" description="vehicle model name"/>
+  <arg name="sensor_model" default = "awsim_sensor_kit" description="sensor model name"/>
+  <arg name="vehicle_id" default="$(env VEHICLE_ID default)" description="vehicle specific ID"/>
+
+  <!-- Optional parameters -->
+  <!-- Map -->
+  <arg name="lanelet2_map_file" default="lanelet2_map.osm" description="lanelet2 map file name"/>
+  <arg name="pointcloud_map_file" default="pointcloud_map.pcd" description="pointcloud map file name"/>
+  <!-- Control -->
+  <!-- Vehicle -->
+  <arg name="launch_vehicle_interface" default="false"/>
+  <!-- System -->
+  <arg name="launch_system_monitor" default="false" description="launch system monitor"/>
+  <arg name="launch_dummy_diag_publisher" default="false" description="launch dummy diag publisher"/>
+
+  <arg name="use_sim_time" default="true"/>
+
+
+  <!-- Control -->
+  <group>
+    <arg name="lateral_controller_mode" default="mpc"/>
+    <arg name="longitudinal_controller_mode" default="pid"/>
+    <node_container pkg="rclcpp_components" exec="component_container" name="control_container" namespace="">
+        <composable_node pkg="trajectory_follower_node" plugin="autoware::motion::control::trajectory_follower_node::Controller" name="controller_node_exe" namespace="trajectory_follower">        <remap from="~/input/reference_trajectory" to="/planning/scenario_planning/trajectory" />
+            <remap from="~/input/reference_trajectory" to="/planning/scenario_planning/trajectory"/>
+            <remap from="~/input/current_odometry" to="/localization/kinematic_state" />
+            <remap from="~/input/current_steering" to="/vehicle/status/steering_status" />
+            <remap from="~/input/current_accel" to="/localization/acceleration" />
+            <remap from="~/input/current_operation_mode" to="/system/operation_mode/state" />
+            <remap from="~/output/predicted_trajectory" to="lateral/predicted_trajectory" />
+            <remap from="~/output/lateral_diagnostic" to="lateral/diagnostic" />
+            <remap from="~/output/slope_angle" to="longitudinal/slope_angle" />
+            <remap from="~/output/longitudinal_diagnostic" to="longitudinal/diagnostic" />
+            <remap from="~/output/control_cmd" to="/control/trajectory_follower/control_cmd" />
+            <param from="$(find-pkg-share $(var vehicle_model)_description)/config/vehicle_info.param.yaml"/>
+            <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/common/nearest_search.param.yaml" />
+            <param from="$(find-pkg-share autoware_launch)/config/control/trajectory_follower/trajectory_follower_node.param.yaml" />
+            <param from="$(find-pkg-share autoware_launch)/config/control/trajectory_follower/lateral/$(var lateral_controller_mode).param.yaml" />
+            <param from="$(find-pkg-share autoware_launch)/config/control/trajectory_follower/longitudinal/$(var longitudinal_controller_mode).param.yaml" />
+        </composable_node>
+        <composable_node pkg="vehicle_cmd_gate" plugin="vehicle_cmd_gate::VehicleCmdGate" name="vehicle_cmd_gate">
+            <remap from="input/steering" to="/vehicle/status/steering_status" />
+            <remap from="input/operation_mode" to="/system/operation_mode/state" />
+            <remap from="input/auto/control_cmd" to="/control/trajectory_follower/control_cmd" />
+            <remap from="input/auto/turn_indicators_cmd" to="/planning/turn_indicators_cmd" />
+            <remap from="input/auto/hazard_lights_cmd" to="/planning/hazard_lights_cmd" />
+            <remap from="input/auto/gear_cmd" to="/control/shift_decider/gear_cmd" />
+            <remap from="input/external/control_cmd" to="/external/selected/control_cmd" />
+            <remap from="input/external/turn_indicators_cmd" to="/external/selected/turn_indicators_cmd" />
+            <remap from="input/external/hazard_lights_cmd" to="/external/selected/hazard_lights_cmd" />
+            <remap from="input/external/gear_cmd" to="/external/selected/gear_cmd" />
+            <remap from="input/external_emergency_stop_heartbeat" to="/external/selected/heartbeat" />
+            <remap from="input/gate_mode" to="/control/gate_mode_cmd" />
+            <remap from="input/emergency/control_cmd" to="/system/emergency/control_cmd" />
+            <remap from="input/emergency/hazard_lights_cmd" to="/system/emergency/hazard_lights_cmd" />
+            <remap from="input/emergency/gear_cmd" to="/system/emergency/gear_cmd" />
+            <remap from="input/mrm_state" to="/system/fail_safe/mrm_state" />
+            <remap from="input/gear_status" to="/vehicle/status/gear_status" />
+            <remap from="input/kinematics" to="/localization/kinematic_state" />
+            <remap from="input/acceleration" to="/localization/acceleration" />
+            <remap from="output/vehicle_cmd_emergency" to="/control/command/emergency_cmd" />
+            <remap from="output/control_cmd" to="/control/command/control_cmd" />
+            <remap from="output/gear_cmd" to="/control/command/gear_cmd" />
+            <remap from="output/turn_indicators_cmd" to="/control/command/turn_indicators_cmd" />
+            <remap from="output/hazard_lights_cmd" to="/control/command/hazard_lights_cmd" />
+            <remap from="output/gate_mode" to="/control/current_gate_mode" />
+            <remap from="output/engage" to="/api/autoware/get/engage" />
+            <remap from="output/external_emergency" to="/api/autoware/get/emergency" />
+            <remap from="output/operation_mode" to="/control/vehicle_cmd_gate/operation_mode" />
+            <remap from="~/service/engage" to="/api/autoware/set/engage" />
+            <remap from="~/service/external_emergency" to="/api/autoware/set/emergency" />
+            <remap from="input/engage" to="/autoware/engage" />
+            <remap from="~/service/external_emergency_stop" to="~/external_emergency_stop" />
+            <remap from="~/service/clear_external_emergency_stop" to="~/clear_external_emergency_stop" />
+            <param from="$(find-pkg-share $(var vehicle_model)_description)/config/vehicle_info.param.yaml"/>
+            <param from="$(find-pkg-share autoware_launch)/config/control/vehicle_cmd_gate/vehicle_cmd_gate.param.yaml" />
+        </composable_node>
+        <composable_node pkg="operation_mode_transition_manager" plugin="operation_mode_transition_manager::OperationModeTransitionManager" name="operation_mode_transition_manager">
+            <remap from="kinematics" to="/localization/kinematic_state" />
+            <remap from="steering" to="/vehicle/status/steering_status" />
+            <remap from="trajectory" to="/planning/scenario_planning/trajectory" />
+            <remap from="control_cmd" to="/control/command/control_cmd" />
+            <remap from="control_mode_report" to="/vehicle/status/control_mode" />
+            <remap from="gate_operation_mode" to="/control/vehicle_cmd_gate/operation_mode" />
+            <remap from="is_autonomous_available" to="/control/is_autonomous_available" />
+            <remap from="control_mode_request" to="/control/control_mode_request" />
+            <param from="$(find-pkg-share $(var vehicle_model)_description)/config/vehicle_info.param.yaml"/>
+            <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/common/nearest_search.param.yaml" />
+            <param from="$(find-pkg-share autoware_launch)/config/control/operation_mode_transition_manager/operation_mode_transition_manager.param.yaml" />
+        </composable_node>
+        <composable_node pkg="shift_decider" plugin="ShiftDecider" name="shift_decider">
+            <remap from="input/control_cmd" to="/control/trajectory_follower/control_cmd" />
+            <remap from="input/state" to="/autoware/state" />
+            <remap from="output/gear_cmd" to="/control/shift_decider/gear_cmd" />
+            <param from="$(find-pkg-share autoware_launch)/config/control/shift_decider/shift_decider.param.yaml"/>
+        </composable_node>
+    </node_container>
+  </group>
+    <!-- engage -->
+    <arg name="cmd" default="ros2 topic pub /autoware/engage autoware_auto_vehicle_msgs/msg/Engage '{engage: true}'"/>
+    <executable cmd="$(var cmd)" name="engage_pub" shell="true"/>
+
+</launch>
