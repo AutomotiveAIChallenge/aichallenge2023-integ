@@ -2,8 +2,10 @@
 <launch>
     <!-- RViz parameters -->
     <arg name="rviz2" default="true" description="launch rviz"/>
-    <arg name="rviz_config" default="$(find-pkg-share autoware_launch)/rviz/autoware-mini.rviz" description="rviz config"/>
+    <arg name="rviz_config" default="$(find-pkg-share autoware_launch)/rviz/autoware.rviz" description="rviz config"/>
 
+    <!-- Below is a more suitable RViz2 config for trying out Autoware-Mini -->
+    <!-- <arg name="rviz_config" default="$(find-pkg-share autoware_launch)/rviz/autoware-mini.rviz" description="rviz config"/> -->
 
     <!-- Scoring -->
     <include file="$(find-pkg-share aichallenge_scoring)/launch/aichallenge_scoring.launch.xml">
