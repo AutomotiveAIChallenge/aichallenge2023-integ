@@ -1,0 +1,652 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+  <!-- Essential parameters -->
+  <arg name="map_path" description="point cloud and lanelet2 map directory path"/>
+  <arg name="vehicle_model" description="vehicle model name"/>
+  <arg name="sensor_model" description="sensor model name"/>
+  <arg name="vehicle_id" default="$(env VEHICLE_ID default)" description="vehicle specific ID"/>
+
+  <!-- Optional parameters -->
+  <!-- Map -->
+  <arg name="lanelet2_map_file" default="lanelet2_map.osm" description="lanelet2 map file name"/>
+  <arg name="pointcloud_map_file" default="pointcloud_map.pcd" description="pointcloud map file name"/>
+  <!-- Control -->
+  <!-- Vehicle -->
+  <arg name="launch_vehicle_interface" default="false"/>
+  <!-- System -->
+  <arg name="system_run_mode" default="online" description="run mode in system"/>
+  <!-- Tools -->
+  <arg name="rviz" default="true" description="launch rviz"/>
+  <arg name="rviz_config" default="$(find-pkg-share autoware_launch)/rviz/autoware.rviz" description="rviz config"/>
+
+  <arg name="use_sim_time" default="true"/>
+
+  <!-- Global parameters -->
+  <group scoped="false">
+    <include file="$(find-pkg-share global_parameter_loader)/launch/global_params.launch.py">
+      <arg name="use_sim_time" value="$(var use_sim_time)"/>
+      <arg name="vehicle_model" value="$(var vehicle_model)"/>
+    </include>
+  </group>
+
+  <!-- Vehicle -->
+
+  <!-- vehicle description -->
+  <group>
+    <arg name="model_file" default="$(find-pkg-share tier4_vehicle_launch)/urdf/vehicle.xacro" description="path to the file of model settings (*.xacro)"/>
+    <arg name="config_dir" default="$(find-pkg-share individual_params)/config/default/$(var sensor_model)"/>
+    <node name="robot_state_publisher" pkg="robot_state_publisher" exec="robot_state_publisher">
+      <param name="robot_description" value="$(command 'xacro $(var model_file) vehicle_model:=$(var vehicle_model) sensor_model:=$(var sensor_model) config_dir:=$(var config_dir)' 'warn')"/>
+    </node>
+  </group>
+
+  <!-- vehicle interface -->
+  <!-- No Vehicle Interface -->
+
+  <!-- Map -->
+  <group>
+    <push-ros-namespace namespace="map"/>
+
+    <!-- map_loader::map_hash_generator -->
+    <node name="map_hash_generator" pkg="map_loader" exec="map_hash_generator">
+      <param name="lanelet2_map_path" value="$(var map_path)/$(var lanelet2_map_file)" />
+      <param name="pointcloud_map_path" value="$(var map_path)/$(var pointcloud_map_file)" />
+    </node>
+
+    <!-- map_container -->
+    <node_container pkg="rclcpp_components" exec="component_container" name="map_container" namespace="">
+
+      <!-- map_loader::Lanelet2MapLoaderNode -->
+      <composable_node pkg="map_loader" plugin="Lanelet2MapLoaderNode" name="lanelet2_map_loader" namespace="">
+        <remap from="output/lanelet2_map" to="vector_map" />
+        <param name="lanelet2_map_path" value="$(var map_path)/$(var lanelet2_map_file)" />
+        <param from="$(find-pkg-share autoware_launch)/config/map/lanelet2_map_loader.param.yaml" />
+        <extra_arg name="use_intra_process_comms" value="false" />
+      </composable_node>
+
+      <!-- map_loader::Lanelet2MapVisualizationNode -->
+      <composable_node pkg="map_loader" plugin="Lanelet2MapVisualizationNode" name="lanelet2_map_visualization" namespace="">
+        <remap from="input/lanelet2_map" to="vector_map" />
+        <remap from="output/lanelet2_map_marker" to="vector_map_marker" />
+        <param name="lanelet2_map_path" value="$(var map_path)/$(var lanelet2_map_file)" />
+        <param from="$(find-pkg-share autoware_launch)/config/map/lanelet2_map_loader.param.yaml" />
+        <extra_arg name="use_intra_process_comms" value="false" />
+      </composable_node>
+
+      <!-- map_loader::PointCloudMapLoaderNode -->
+      <composable_node pkg="map_loader" plugin="PointCloudMapLoaderNode" name="pointcloud_map_loader" namespace="">
+        <remap from="output/pointcloud_map" to="pointcloud_map" />
+        <remap from="service/get_partial_pcd_map" to="/map/get_partial_pointcloud_map" />
+        <remap from="service/get_differential_pcd_map" to="/map/get_differential_pointcloud_map" />
+        <param name="pcd_paths_or_directory" value="[$(var map_path)/$(var pointcloud_map_file)]" />
+        <param from="$(find-pkg-share autoware_launch)/config/map/pointcloud_map_loader.param.yaml" />
+        <extra_arg name="use_intra_process_comms" value="false" />
+      </composable_node>
+
+      <!-- map_tf_generator::VectorMapTFGeneratorNode -->
+      <composable_node pkg="map_tf_generator" plugin="VectorMapTFGeneratorNode" name="vector_map_tf_generator" namespace="">
+        <param name="map_frame" value="map" />
+        <param name="viewer_frame" value="viewer" />
+        <extra_arg name="use_intra_process_comms" value="false" />
+      </composable_node>
+      
+    </node_container>
+
+  </group> <!-- map -->
+
+  <!-- Sensing -->
+  <group>
+    <push-ros-namespace namespace="sensing"/>
+    <let name="sensor_launch_pkg" value="$(find-pkg-share $(var sensor_model)_launch)"/>
+    
+    <!-- LiDAR -->
+    <group>
+      <push-ros-namespace namespace="lidar/top"/>
+      
+      <!-- pointcloud_container -->
+      <node_container pkg="rclcpp_components" exec="component_container" name="pointcloud_container" namespace="">
+
+        <!-- pointcloud_preprocessor::CropBoxFilterComponent -->
+        <!-- <composable_node pkg="pointcloud_preprocessor" plugin="pointcloud_preprocessor::CropBoxFilterComponent" name="crop_box_filter_self" namespace="">
+          <remap from="input" to="pointcloud_raw_ex" />
+          <remap from="output" to="self_cropped/pointcloud_ex" />
+          <param name="min_x" value="-0.5" />
+          <param name="max_x" value="1.7" />
+          <param name="min_y" value="-0.72" />
+          <param name="max_y" value="0.92" />
+          <param name="min_z" value="0.0" />
+          <param name="max_z" value="2.5" />
+          <param name="input_frame" value="base_link" />
+          <param name="output_frame" value="base_link" />
+          <extra_arg name="use_intra_process_comms" value="false" />
+        </composable_node> -->
+
+        <!-- pointcloud_preprocessor::DistortionCorrectorComponent -->
+        <composable_node pkg="pointcloud_preprocessor" plugin="pointcloud_preprocessor::DistortionCorrectorComponent" name="distortion_corrector_node" namespace="">
+          <remap from="~/input/twist" to="/sensing/vehicle_velocity_converter/twist_with_covariance" />
+          <remap from="~/input/imu" to="/sensing/imu/imu_data" />
+          <remap from="~/input/pointcloud" to="pointcloud_raw_ex" />
+          <remap from="~/output/pointcloud" to="rectified/pointcloud_ex" />
+          <extra_arg name="use_intra_process_comms" value="false" />
+        </composable_node>
+
+        <!-- pointcloud_preprocessor::RingOutlierFilterComponent -->
+        <composable_node pkg="pointcloud_preprocessor" plugin="pointcloud_preprocessor::RingOutlierFilterComponent" name="ring_outlier_filter" namespace="">
+          <remap from="input" to="rectified/pointcloud_ex" />
+          <remap from="output" to="outlier_filtered/pointcloud" />
+          <extra_arg name="use_intra_process_comms" value="false" />
+        </composable_node>
+
+      </node_container>
+
+    </group> <!-- lidar/top -->
+
+    <!-- IMU Driver -->
+    <group>
+      <push-ros-namespace namespace="imu"/>
+
+      <!-- imu_corrector -->
+      <node name="imu_corrector" pkg="imu_corrector" exec="imu_corrector">
+        <remap from="input" to="tamagawa/imu_raw"/>
+        <remap from="output" to="imu_data"/>
+        <param from="$(find-pkg-share imu_corrector)/config/imu_corrector.param.yaml"/>
+      </node>
+
+    </group> <!-- imu -->
+
+    <!-- Vehicle Velocity Converter -->
+    <group>
+
+      <!-- vehicle_velocity_converter -->
+      <node pkg="vehicle_velocity_converter" exec="vehicle_velocity_converter" name="vehicle_velocity_converter_node" output="screen">
+        <param from="$(find-pkg-share vehicle_velocity_converter)/config/vehicle_velocity_converter.param.yaml"/>
+        <remap from="velocity_status" to="/vehicle/status/velocity_status"/>
+        <remap from="twist_with_covariance" to="/sensing/vehicle_velocity_converter/twist_with_covariance"/>
+      </node>
+
+    </group>
+
+  </group> <!-- sensing -->
+
+  <!-- Localization -->
+  <group>
+    <push-ros-namespace namespace="localization"/>
+
+    <group>
+      <push-ros-namespace namespace="util"/>
+
+      <!-- pose_initializer -->
+      <node pkg="pose_initializer" exec="pose_initializer_node" name="pose_initializer_node">
+        <remap from="ndt_align" to="/localization/pose_estimator/ndt_align_srv"/>
+        <remap from="stop_check_twist" to="/sensing/vehicle_velocity_converter/twist_with_covariance"/>
+        <remap from="gnss_pose_cov" to="/sensing/gnss/pose_with_covariance"/>
+        <remap from="pose_reset" to="/initialpose3d"/>
+        <remap from="ekf_trigger_node" to="/localization/pose_estimator/trigger_node"/>
+        <remap from="ndt_trigger_node" to="/localization/pose_twist_fusion_filter/trigger_node"/>
+        <remap from="~/pointcloud_map" to="/map/pointcloud_map"/>
+        <remap from="~/partial_map_load" to="/map/get_partial_pointcloud_map"/>
+        <param name="map_loader_name" value="/map/pointcloud_map_loader"/>
+        <param name="gnss_enabled" value="true"/>
+        <param name="ekf_enabled" value="true"/>
+        <param name="ndt_enabled" value="true"/>
+        <param name="stop_check_enabled" value="true"/>
+        <param name="gnss_pose_timeout" value="3.0"/>
+        <param name="stop_check_duration" value="3.0"/>
+        <param from="$(find-pkg-share pose_initializer)/config/pose_initializer.param.yaml"/>
+      </node>
+
+      <!-- pointcloud_container -->
+      <node_container pkg="rclcpp_components" exec="component_container" name="pointcloud_container" namespace="">
+
+        <!-- pointcloud_preprocessor::CropBoxFilterComponent -->
+        <composable_node pkg="pointcloud_preprocessor" plugin="pointcloud_preprocessor::CropBoxFilterComponent" name="crop_box_filter_measurement_range" namespace="">
+          <remap from="input" to="/sensing/lidar/top/outlier_filtered/pointcloud" />
+          <remap from="output" to="measurement_range/pointcloud" />
+          <param from="$(find-pkg-share autoware_launch)/config/localization/crop_box_filter_measurement_range.param.yaml" />
+          <extra_arg name="use_intra_process_comms" value="false" />
+        </composable_node>
+
+        <!-- pointcloud_preprocessor::VoxelGridDownsampleFilterComponent -->
+        <composable_node pkg="pointcloud_preprocessor" plugin="pointcloud_preprocessor::VoxelGridDownsampleFilterComponent" name="voxel_grid_downsample_filter" namespace="">
+          <remap from="input" to="measurement_range/pointcloud" />
+          <remap from="output" to="downsample/pointcloud" />
+          <param from="$(find-pkg-share autoware_launch)/config/localization/voxel_grid_filter.param.yaml" />
+          <extra_arg name="use_intra_process_comms" value="false" />
+        </composable_node>
+
+      </node_container>
+
+    </group> <!-- util -->
+
+    <!-- pose_estimator -->
+    <group>
+      <push-ros-namespace namespace="pose_estimator"/>
+
+      <!-- ndt_scan_matcher -->
+      <node pkg="ndt_scan_matcher" exec="ndt_scan_matcher" name="ndt_scan_matcher" output="log">
+        <remap from="points_raw" to="/localization/util/downsample/pointcloud"/>
+        <remap from="ekf_pose_with_covariance" to="/localization/pose_twist_fusion_filter/biased_pose_with_covariance"/>
+        <remap from="pointcloud_map" to="/map/pointcloud_map"/>
+        <remap from="ndt_pose" to="/localization/pose_estimator/pose"/>
+        <remap from="ndt_pose_with_covariance" to="/localization/pose_estimator/pose_with_covariance"/>
+        <remap from="regularization_pose_with_covariance" to="/sensing/gnss/pose_with_covariance"/>
+        <remap from="trigger_node_srv" to="trigger_node"/>
+        <remap from="pcd_loader_service" to="/map/get_differential_pointcloud_map"/>
+        <remap from="ekf_odom" to="/localization/kinematic_state"/>
+        <param from="$(find-pkg-share autoware_launch)/config/localization/ndt_scan_matcher.param.yaml"/>
+      </node>
+
+    </group>
+
+    <!-- twist_estimator -->
+    <group>
+      <push-ros-namespace namespace="twist_estimator"/>
+
+      <!-- gyro_odometer -->
+      <node pkg="gyro_odometer" exec="gyro_odometer" name="gyro_odometer" output="screen">
+        <remap from="vehicle/twist_with_covariance" to="/sensing/vehicle_velocity_converter/twist_with_covariance"/>
+        <remap from="imu" to="/sensing/imu/imu_data"/>
+        <remap from="twist_raw" to="gyro_twist_raw"/>
+        <remap from="twist_with_covariance_raw" to="/localization/twist_estimator/twist_with_covariance_raw"/>
+        <remap from="twist" to="gyro_twist"/>
+        <remap from="twist_with_covariance" to="/localization/twist_estimator/twist_with_covariance"/>
+        <param name="output_frame" value="base_link"/>
+        <param name="message_timeout_sec" value="0.5"/>
+      </node>
+
+    </group>
+
+    <!-- pose_twist_fusion_filter -->
+    <group>
+      <push-ros-namespace namespace="pose_twist_fusion_filter"/>
+
+      <!-- ekf_localizer -->
+      <node pkg="ekf_localizer" exec="ekf_localizer" name="ekf_localizer" output="screen">
+        <remap from="in_pose_with_covariance" to="/localization/pose_estimator/pose_with_covariance"/>
+        <remap from="in_twist_with_covariance" to="/localization/twist_estimator/twist_with_covariance"/>
+        <remap from="initialpose" to="/initialpose3d"/>
+        <remap from="trigger_node_srv" to="trigger_node"/>
+        <remap from="ekf_odom" to="kinematic_state"/>
+        <remap from="ekf_pose" to="pose"/>
+        <remap from="ekf_pose_with_covariance" to="/localization/pose_with_covariance"/>
+        <remap from="ekf_biased_pose" to="biased_pose"/>
+        <remap from="ekf_biased_pose_with_covariance" to="biased_pose_with_covariance"/>
+        <remap from="ekf_twist" to="twist"/>
+        <remap from="ekf_twist_with_covariance" to="twist_with_covariance"/>
+        <param name="pose_frame_id" value="map"/>
+        <param name="show_debug_info" value="false"/>
+        <param name="enable_yaw_bias_estimation" value="true"/>
+        <param name="predict_frequency" value="50.0"/>
+        <param name="tf_rate" value="50.0"/>
+        <param name="extend_state_step" value="50"/>
+        <param name="pose_additional_delay" value="0.0"/>
+        <param name="pose_measure_uncertainty_time" value="0.01"/>
+        <param name="pose_smoothing_steps" value="5"/>
+        <param name="pose_gate_dist" value="10000.0"/>
+        <param name="twist_additional_delay" value="0.0"/>
+        <param name="twist_smoothing_steps" value="2"/>
+        <param name="twist_gate_dist" value="10000.0"/>
+        <param name="proc_stddev_yaw_c" value="0.005"/>
+        <param name="proc_stddev_vx_c" value="10.0"/>
+        <param name="proc_stddev_wz_c" value="5.0"/>
+      </node>
+
+      <!-- stop_filter -->
+      <group>
+        <node pkg="stop_filter" exec="stop_filter" name="stop_filter" output="screen">
+          <param name="vx_threshold" value="0.01"/>
+          <param name="wz_threshold" value="0.01"/>
+          <remap from="input/odom" to="/localization/pose_twist_fusion_filter/kinematic_state"/>
+          <remap from="output/odom" to="/localization/kinematic_state"/>
+          <remap from="debug/stop_flag" to="debug/stop_flag"/>
+        </node>
+      </group>
+
+      <!-- twist2accel -->
+      <group>
+        <node pkg="twist2accel" exec="twist2accel" name="twist2accel" output="screen">
+          <param name="accel_lowpass_gain" value="0.9"/>
+          <param name="use_odom" value="true"/>
+          <remap from="input/odom" to="/localization/kinematic_state"/>
+          <remap from="input/twist" to="/localization/twist_estimator/twist_with_covariance"/>
+          <remap from="output/accel" to="/localization/acceleration"/>
+        </node>
+      </group>
+
+    </group> <!-- pose_twist_fusion_filter -->
+
+  </group> <!-- localization -->
+
+  <!-- Perception -->
+  <group>
+    <push-ros-namespace namespace="perception"/>
+
+    <!-- obstacle_segmentation -->
+    <group>
+      <push-ros-namespace namespace="obstacle_segmentation"/>
+
+      <!-- perception_pipeline_container -->
+      <node_container pkg="rclcpp_components" exec="component_container" name="perception_pipeline_container" namespace="">
+
+        <!-- pointcloud_preprocessor::CropBoxFilterComponent -->
+        <composable_node pkg="pointcloud_preprocessor" plugin="pointcloud_preprocessor::CropBoxFilterComponent" name="crop_box_filter" namespace="">
+          <remap from="input" to="/sensing/lidar/top/outlier_filtered/pointcloud" />
+          <remap from="output" to="range_cropped/pointcloud" />
+          <param name="input_frame" value="base_link"/>
+          <param name="output_frame" value="base_link"/>
+          <param name="min_x" value="-100.0" />
+          <param name="max_x" value="150.0" />
+          <param name="min_y" value="-70.0" />
+          <param name="max_y" value="70.0" />
+          <param name="min_z" value="-2.5" />
+          <param name="max_z" value="2.5" />
+          <param name="negative" value="False" />
+          <extra_arg name="use_intra_process_comms" value="false" />
+        </composable_node>
+
+        <!-- ground_segmentation::ScanGroundFilterComponent -->
+        <composable_node pkg="ground_segmentation" plugin="ground_segmentation::ScanGroundFilterComponent" name="common_ground_filter" namespace="">
+          <remap from="input" to="range_cropped/pointcloud" />
+          <remap from="output" to="/perception/obstacle_segmentation/pointcloud" />
+          <param name="input_frame" value="base_link"/>
+          <param name="output_frame" value="base_link"/>
+          <param name="global_slope_max_angle_deg" value="10.0"/>
+          <param name="local_slope_max_angle_deg" value="13.0"/>
+          <param name="split_points_distance_tolerance" value="0.2"/>
+          <param name="use_virtual_ground_point" value="True"/>
+          <param name="split_height_distance" value="0.2"/>
+          <param name="non_ground_height_threshold" value="0.20"/>
+          <param name="grid_size_m" value="0.1"/>
+          <param name="grid_mode_switch_radius" value="20.0"/>
+          <param name="gnd_grid_buffer_size" value="4"/>
+          <param name="detection_range_z_max" value="2.5"/>
+          <param name="elevation_grid_mode" value="false"/>
+          <extra_arg name="use_intra_process_comms" value="false" />
+        </composable_node>
+
+      </node_container> <!-- perception_pipeline_container -->
+    </group>
+
+    <!-- object_recognition -->
+    <group>
+      <push-ros-namespace namespace="object_recognition"/>
+
+
+      <!-- detection -->
+      <group>
+        <push-ros-namespace namespace="detection"/>
+        
+        <!-- euclidean_cluster -->
+        <group>
+          <!-- euclidean_cluster_container -->
+          <node_container pkg="rclcpp_components" exec="component_container" name="euclidean_cluster_container" namespace="">
+
+            <!-- euclidean_cluster::VoxelGridBasedEuclideanClusterNode -->
+            <composable_node pkg="euclidean_cluster" plugin="euclidean_cluster::VoxelGridBasedEuclideanClusterNode" name="euclidean_cluster" namespace="">
+              <remap from="input" to="/perception/obstacle_segmentation/pointcloud" />
+              <remap from="output" to="/perception/object_recognition/detection/clustering/clusters" />
+              <param from="$(find-pkg-share euclidean_cluster)/config/voxel_grid_based_euclidean_cluster.param.yaml" />
+              <extra_arg name="use_intra_process_comms" value="false" />
+            </composable_node>
+
+          </node_container> <!-- euclidean_cluster_container -->
+
+        </group>
+
+        <!-- shape_estimation -->
+        <group>
+          <node pkg="shape_estimation" exec="shape_estimation" name="shape_estimation" output="screen">
+            <remap from="input" to="/perception/object_recognition/detection/clustering/clusters"/> <!-- tier4_perception_msgs/DetectedObjectsWithFeature -->
+            <remap from="objects" to="/perception/object_recognition/detection/objects_with_feature"/> <!-- tier4_perception_msgs/DetectedObjectsWithFeature -->
+            <param name="use_filter" value="true"/>
+            <param name="use_corrector" value="true"/>
+            <param name="use_vehicle_reference_yaw" value="false"/>
+            <param name="use_boost_bbox_optimizer" value="false"/>
+          </node>
+
+        </group>
+
+        <!-- detected_object_feature_remover -->
+        <group>
+          <node pkg="detected_object_feature_remover" exec="detected_object_feature_remover" name="detected_object_feature_remover" output="screen">
+            <remap from="~/input" to="/perception/object_recognition/detection/objects_with_feature"/> <!-- tier4_perception_msgs/DetectedObjectsWithFeature -->
+            <remap from="~/output" to="/perception/object_recognition/detection/objects"/> <!-- autoware_auto_perception_msgs/DetectedObjects -->
+          </node>
+        </group>
+
+      </group> <!-- detection -->
+
+      <!-- tracking -->
+      <group>
+        <push-ros-namespace namespace="tracking"/>
+
+        <!-- multi_object_tracker -->
+        <node pkg="multi_object_tracker" exec="multi_object_tracker" name="multi_object_tracker" output="screen">
+          <remap from="input" to="/perception/object_recognition/detection/objects"/> <!-- autoware_auto_perception_msgs/DetectedObjects -->
+          <remap from="output" to="objects"/> <!-- autoware_auto_perception_msgs/TrackedObjects -->
+          <param name="world_frame_id" value="map"/>
+          <param name="publish_rate" value="10.0"/>
+          <param name="enable_delay_compensation" value="false"/>
+          <param from="$(find-pkg-share multi_object_tracker)/config/default_tracker.param.yaml"/>
+          <param from="$(find-pkg-share multi_object_tracker)/config/data_association_matrix.param.yaml"/>
+        </node>
+
+      </group> <!-- tracking -->
+
+      <!-- prediction -->
+      <group>
+        <push-ros-namespace namespace="prediction"/>
+
+        <!-- map_based_prediction -->
+        <node pkg="map_based_prediction" exec="map_based_prediction" name="map_based_prediction" output="screen">
+          <remap from="/vector_map" to="/map/vector_map"/>
+          <remap from="objects" to="/perception/object_recognition/objects"/> <!-- autoware_auto_perception_msgs/PredictedObjects -->
+          <param from="$(find-pkg-share map_based_prediction)/config/map_based_prediction.param.yaml"/>
+        </node>
+
+      </group> <!-- prediction -->
+      
+      <!-- dummy_perception_publisher -->
+      <!-- <node pkg="dummy_perception_publisher" exec="empty_objects_publisher" name="empty_objects_publisher" output="screen">
+        <remap from="~/output/objects" to="/perception/object_recognition/objects"/>
+      </node> -->
+
+    </group>
+    
+  </group> <!-- Perception -->
+
+  <!-- Planning -->
+  <group>
+    <push-ros-namespace namespace="planning"/>
+
+    <!-- mission_planning -->
+    <group>
+      <push-ros-namespace namespace="mission_planning"/>
+
+      <!-- mission_planner -->
+      <node pkg="mission_planner" exec="mission_planner" name="mission_planner" output="screen">
+        <remap from="input/modified_goal" to="/planning/scenario_planning/modified_goal"/>
+        <remap from="input/vector_map" to="/map/vector_map"/>
+        <remap from="debug/route_marker" to="/planning/mission_planning/route_marker"/>
+        <param from="$(find-pkg-share autoware_launch)/config/planning/mission_planning/mission_planner/mission_planner.param.yaml"/>
+      </node>
+
+      <!-- goal_pose_visualizer -->
+      <node pkg="mission_planner" exec="goal_pose_visualizer" name="goal_pose_visualizer" output="screen">
+        <remap from="input/route" to="/planning/mission_planning/route"/>
+        <remap from="output/goal_pose" to="/planning/mission_planning/echo_back_goal_pose"/>
+      </node>
+
+    </group> <!-- mission_planning -->
+
+    <!-- scenario_planning -->
+    <group>
+      <push-ros-namespace namespace="scenario_planning"/>
+
+      <!-- scenario_selector -->
+      <group>
+        <arg name="cmd" default="ros2 topic pub /planning/scenario_planning/scenario tier4_planning_msgs/msg/Scenario '{current_scenario: LaneDriving, activating_scenarios: [LaneDriving]}'"/>
+        <executable cmd="$(var cmd)" name="scenario_pub" shell="true"/>
+      </group> <!-- scenario_selector -->
+
+      <!-- lane_driving -->
+      <group>
+        <push-ros-namespace namespace="lane_driving"/>
+
+        <!-- behavior_planning -->
+        <group>
+          <push-ros-namespace namespace="behavior_planning"/>
+
+          <!-- behavior_planning_container -->
+          <node_container pkg="rclcpp_components" exec="component_container" name="behavior_planning_container" namespace="">
+
+            <!-- behavior_path_planner::BehaviorPathPlannerNode -->
+            <composable_node pkg="behavior_path_planner" plugin="behavior_path_planner::BehaviorPathPlannerNode" name="behavior_path_planner" namespace="">
+              <remap from="~/input/route" to="/planning/mission_planning/route" />
+              <remap from="~/input/vector_map" to="/map/vector_map" />
+              <remap from="~/input/perception" to="/perception/object_recognition/objects" /> <!-- autoware_auto_perception_msgs/PredictedObjects -->
+              <remap from="~/input/occupancy_grid_map" to="/perception/occupancy_grid_map/map" />
+              <remap from="~/input/costmap" to="/planning/scenario_planning/parking/costmap_generator/occupancy_grid" />
+              <remap from="~/input/odometry" to="/localization/kinematic_state" />
+              <remap from="~/input/accel" to="/localization/acceleration" />
+              <remap from="~/input/scenario" to="/planning/scenario_planning/scenario" />
+              <remap from="~/output/path" to="path_with_lane_id" />
+              <remap from="~/output/turn_indicators_cmd" to="/planning/turn_indicators_cmd" />
+              <remap from="~/output/hazard_lights_cmd" to="/planning/hazard_lights_cmd" />
+              <remap from="~/output/modified_goal" to="/planning/scenario_planning/modified_goal" />
+              <param name="bt_tree_config_path" value="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_path_planner/behavior_path_planner_tree.xml"/>
+              <param name="lane_change.enable_abort_lane_change" value="false"/>
+              <param name="lane_change.enable_collision_check_at_prepare_phase" value="false"/>
+              <param name="lane_change.use_predicted_path_outside_lanelet" value="false"/>
+              <param name="lane_change.use_all_predicted_path" value="false"/>
+              <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/common/nearest_search.param.yaml" />
+              <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_path_planner/side_shift/side_shift.param.yaml" />
+              <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_path_planner/avoidance/avoidance.param.yaml" />
+              <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_path_planner/lane_change/lane_change.param.yaml" />
+              <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_path_planner/pull_over/pull_over.param.yaml" />
+              <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_path_planner/lane_following/lane_following.param.yaml" />
+              <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_path_planner/behavior_path_planner.param.yaml" />
+              <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_path_planner/drivable_area_expansion.param.yaml" />
+              <extra_arg name="use_intra_process_comms" value="false" />
+            </composable_node>
+
+            <!-- behavior_velocity_planner::BehaviorVelocityPlannerNode -->
+            <composable_node pkg="behavior_velocity_planner" plugin="behavior_velocity_planner::BehaviorVelocityPlannerNode" name="behavior_velocity_planner" namespace="">
+              <remap from="~/input/path_with_lane_id" to="path_with_lane_id" />
+              <remap from="~/input/vector_map" to="/map/vector_map" />
+              <remap from="~/input/vehicle_odometry" to="/localization/kinematic_state" />
+              <remap from="~/input/accel" to="/localization/acceleration" />
+              <remap from="~/input/dynamic_objects" to="/perception/object_recognition/objects" /> <!-- autoware_auto_perception_msgs/PredictedObjects -->
+              <remap from="~/input/no_ground_pointcloud" to="/perception/obstacle_segmentation/pointcloud" />
+              <remap from="~/input/compare_map_filtered_pointcloud" to="/perception/obstacle_segmentation/pointcloud" />
+              <remap from="~/input/vector_map_inside_area_filtered_pointcloud" to="/perception/obstacle_segmentation/pointcloud" />
+              <remap from="~/input/traffic_signals" to="/perception/traffic_light_recognition/traffic_signals" />
+              <remap from="~/input/external_traffic_signals" to="/external/traffic_light_recognition/traffic_signals" />
+              <remap from="~/input/external_velocity_limit_mps" to="/planning/scenario_planning/max_velocity_default" />
+              <remap from="~/input/virtual_traffic_light_states" to="/awapi/tmp/virtual_traffic_light_states" />
+              <remap from="~/input/occupancy_grid" to="/perception/occupancy_grid_map/map" />
+              <remap from="~/output/path" to="path" />
+              <remap from="~/output/stop_reasons" to="/planning/scenario_planning/status/stop_reasons" />
+              <remap from="~/output/infrastructure_commands" to="/planning/scenario_planning/status/infrastructure_commands" />
+              <remap from="~/output/traffic_signal" to="debug/traffic_signal" />
+              <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/common/nearest_search.param.yaml" />
+              <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/common/common.param.yaml" />
+              <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/common/motion_velocity_smoother/Analytical.param.yaml" />
+              <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/blind_spot.param.yaml" />
+              <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/crosswalk.param.yaml" />
+              <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/detection_area.param.yaml" />
+              <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/intersection.param.yaml" />
+              <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/traffic_light.param.yaml" />
+              <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/virtual_traffic_light.param.yaml" />
+              <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/occlusion_spot.param.yaml" />
+              <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/no_stopping_area.param.yaml" />
+              <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/run_out.param.yaml" />
+              <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/speed_bump.param.yaml" />
+              <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/stop_line.param.yaml" />
+              <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/behavior_velocity_planner.param.yaml" />
+              <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/common/motion_velocity_smoother/motion_velocity_smoother.param.yaml" />
+              <extra_arg name="use_intra_process_comms" value="false" />
+            </composable_node>
+
+          </node_container>
+
+        </group> <!-- behavior_planning -->
+
+        <!-- motion_planning -->
+        <group>
+          <push-ros-namespace namespace="motion_planning"/>
+
+          <!-- motion_planning_container -->
+           <node_container pkg="rclcpp_components" exec="component_container" name="motion_planning_container" namespace="">
+
+            <!-- obstacle_avoidance_planner::ObstacleAvoidancePlanner -->
+            <composable_node pkg="obstacle_avoidance_planner" plugin="obstacle_avoidance_planner::ObstacleAvoidancePlanner" name="obstacle_avoidance_planner" namespace="">
+              <remap from="~/input/path" to="/planning/scenario_planning/lane_driving/behavior_planning/path" />
+              <remap from="~/input/odometry" to="/localization/kinematic_state" />
+              <remap from="~/output/path" to="obstacle_avoidance_planner/trajectory" />
+              <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/lane_driving/motion_planning/obstacle_avoidance_planner/obstacle_avoidance_planner.param.yaml" />
+              <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/common/nearest_search.param.yaml" />
+              <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/common/common.param.yaml" />
+              <param from="$(find-pkg-share $(var vehicle_model)_description)/config/vehicle_info.param.yaml" />
+              <extra_arg name="use_intra_process_comms" value="false" />
+            </composable_node>
+
+            <!-- motion_planning::ObstacleStopPlannerNode -->
+            <composable_node pkg="obstacle_stop_planner" plugin="motion_planning::ObstacleStopPlannerNode" name="obstacle_stop_planner" namespace="">
+              <remap from="~/input/acceleration" to="/localization/acceleration" />
+              <remap from="~/input/pointcloud" to="/perception/obstacle_segmentation/pointcloud" />
+              <remap from="~/input/objects" to="/perception/object_recognition/objects" />
+              <remap from="~/input/odometry" to="/localization/kinematic_state" />
+              <remap from="~/input/trajectory" to="obstacle_avoidance_planner/trajectory" />
+              <remap from="~/output/trajectory" to="/planning/scenario_planning/trajectory" />
+              <remap from="~/output/velocity_limit_clear_command" to="/planning/scenario_planning/clear_velocity_limit" />
+              <remap from="~/output/max_velocity" to="/planning/scenario_planning/max_velocity_candidates" />
+              <remap from="~/output/stop_reasons" to="/planning/scenario_planning/status/stop_reasons" />
+              <remap from="~/output/stop_reason" to="/planning/scenario_planning/status/stop_reason" />
+              <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/lane_driving/motion_planning/obstacle_stop_planner/obstacle_stop_planner.param.yaml" />
+              <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/lane_driving/motion_planning/obstacle_stop_planner/adaptive_cruise_control.param.yaml" />
+              <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/common/nearest_search.param.yaml" />
+              <param from="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/common/common.param.yaml" />
+              <param from="$(find-pkg-share $(var vehicle_model)_description)/config/vehicle_info.param.yaml" />
+              <extra_arg name="use_intra_process_comms" value="false" />
+            </composable_node>
+
+          </node_container> <!-- motion_planning_container -->
+
+        </group> <!-- motion_planning -->
+
+      </group> <!-- lane_driving -->
+
+    </group>
+
+  </group>
+
+  <!-- Control -->
+  <group>
+    <include file="$(find-pkg-share autoware_launch)/launch/components/tier4_control_component.launch.xml"/>
+  </group>
+
+  <!-- System -->
+  <group>
+    <include file="$(find-pkg-share autoware_launch)/launch/components/tier4_system_component.launch.xml">
+      <arg name="launch_system_monitor" value="false"/>
+      <arg name="launch_dummy_diag_publisher" value="false"/>
+    </include>
+  </group>
+
+  <!-- API -->
+  <group>
+    <!-- default_ad_api -->
+    <include file="$(find-pkg-share default_ad_api)/launch/default_ad_api.launch.py" />
+
+    <!-- ad_api_adaptors -->
+    <include file="$(find-pkg-share ad_api_adaptors)/launch/rviz_adaptors.launch.xml" />
+  </group>
+
+  <!-- Rviz2 -->
+  <!-- <group>
+    <node pkg="rviz2" exec="rviz2" name="rviz2" output="screen" args="-d $(var rviz_config) -s $(find-pkg-share autoware_launch)/rviz/image/autoware.png" />
+  </group> -->
+
+
+</launch>
