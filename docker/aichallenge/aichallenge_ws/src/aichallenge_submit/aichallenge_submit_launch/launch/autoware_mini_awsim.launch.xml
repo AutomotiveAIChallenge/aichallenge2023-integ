@@ -14,8 +14,7 @@
   <!-- Vehicle -->
   <arg name="launch_vehicle_interface" default="false"/>
   <!-- System -->
-  <arg name="launch_system_monitor" default="false" description="launch system monitor"/>
-  <arg name="launch_dummy_diag_publisher" default="false" description="launch dummy diag publisher"/>
+  <arg name="system_run_mode" default="online" description="run mode in system"/>
   <!-- Tools -->
   <arg name="rviz" default="true" description="launch rviz"/>
   <arg name="rviz_config" default="$(find-pkg-share autoware_launch)/rviz/autoware.rviz" description="rviz config"/>
@@ -625,6 +624,14 @@
   <!-- Control -->
   <group>
     <include file="$(find-pkg-share autoware_launch)/launch/components/tier4_control_component.launch.xml"/>
+  </group>
+
+  <!-- System -->
+  <group>
+    <include file="$(find-pkg-share autoware_launch)/launch/components/tier4_system_component.launch.xml">
+      <arg name="launch_system_monitor" value="false"/>
+      <arg name="launch_dummy_diag_publisher" value="false"/>
+    </include>
   </group>
 
   <!-- API -->
