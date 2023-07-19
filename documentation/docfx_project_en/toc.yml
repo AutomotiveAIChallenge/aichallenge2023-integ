@@ -10,6 +10,8 @@
   href: local/index.html
 - name: OnlineEnvironment
   href: online/index.html
+- name: Customizing Autoware
+  href: customize/index.html
 - name: Other
   href: other/index.html
 - name: To Japanese Page

@@ -34,7 +34,8 @@
         * We have copied and partially edited the launch, config-related packages of Autoware; Autoware in the Docker image has removed the packages included here. You can modify the behavior of Autoware by editing here.
         * If you want to use the files before the modification, please copy the files from [autoware_launch](https://github.com/autowarefoundation/autoware_launch/tree/awsim-stable), [autoware_universe's launch directory](https://github.com/autowarefoundation/autoware.universe/tree/awsim-stable/launch).
 
-### Steps to Execution
+### Steps for Execution
+
 1. Docker Image Build
 ```
 #In the aichallenge2023-sim directory
@@ -66,13 +67,6 @@ bash run.sh
 ```
  &emsp; If setup is successful, rviz will display a point cloud map and begin automatic operation.
  
-## How to customize and use Autoware packages  
-1. Copy the original package and change the following  
-     * package name
-     * Folder name
-     * code 
-     * package.xml
-    * CMakeLists.txt
-2. place in aichallenge_submit    
-3. modify launch file called from autoware_universe_launch    
-    * Reference example: pose_initializer_custom (called from autoware_universe_launch/tier4_localization_launch/launch/util/util.launch.xml)
+ ### Customizing Autoware
+
+ Ways in which Autoware can be customized, or new packages be added into Autoware, are explained in the [Customizing Autoware](../customize/index.html) page.
