@@ -25,7 +25,7 @@
     * Autowareのlaunch, config関連のパッケージをコピーして一部編集しています。Dockerイメージ内のAutowareにはここに含まれているパッケージが削除されています。こちらを編集することでAutowareの動作の変更を行うことが出来ます。
     * 改変前のファイルを利用したい場合は、[autoware_launch](https://github.com/autowarefoundation/autoware_launch/tree/awsim-stable), [autoware_universeのlaunchディレクトリ](https://github.com/autowarefoundation/autoware.universe/tree/awsim-stable/launch)をご利用ください。
 
-### Steps to Execution
+### Steps for Execution
 1. Docker Image Build
 ```
 #aichallenge2023-simディレクトリで
@@ -57,13 +57,6 @@ bash run.sh
 ```
  &emsp;セットアップが正常に行われていれば、rvizには点群地図が表示され、自動運転が開始されます。
  
-## How to customize and use Autoware packages
-1. 元のパッケージをコピーして、下記を変更
-     * パッケージ名
-     * フォルダ名
-     * コード
-    *  package.xml
-    * CMakeLists.txt
-2. aichallenge_submitの中に配置
-3. autoware_universe_launchから呼び出されるlaunchファイルを変更  
-    * 参考例：pose_initializer_custom（ autoware_universe_launch/tier4_localization_launch/launch/util/util.launch.xmlから呼び出しております）
+ ### Customizing Autoware
+
+ 既存のAutowareをカスタマイズし、新しくパッケージを追加する方法等は「[Customizing Autoware](../customize/index.html)」のページで紹介しています．

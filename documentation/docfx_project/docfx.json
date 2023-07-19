@@ -44,10 +44,16 @@
           "local/index.md"
         ]
       },
-     {
+      {
         "files": [
           "online/toc.yml",
           "online/index.md"
+        ]
+      },
+      {
+        "files": [
+          "customize/toc.yml",
+          "customize/index.md"
         ]
       },
       {
