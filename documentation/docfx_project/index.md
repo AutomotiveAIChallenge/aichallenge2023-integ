@@ -88,4 +88,5 @@ CASEと呼ばれる新たな技術領域が自動車業界の競争の中心と�
  * [Rule](./rule/index.html)  大会ルールについて
  * [LocalEnvrionment](./local/index.html)  ローカル環境について
  * [OnlineEnvrionment](./online/index.html)  オンライン環境について
+ * [Customizing Autoware](./customize/index.html)  Autowareのカスタマイズについて
  * [Other](./other/index.html)  問い合わせ方法などについて

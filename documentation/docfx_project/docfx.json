@@ -52,6 +52,12 @@
       },
       {
         "files": [
+          "customize/toc.yml",
+          "customize/index.md"
+        ]
+      },
+      {
+        "files": [
           "other/toc.yml",
           "other/index.md"
         ]

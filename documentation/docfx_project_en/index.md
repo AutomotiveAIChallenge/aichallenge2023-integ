@@ -129,4 +129,5 @@ Please check each page before participating.
  * [Rule](./rule) About the rules of the tournament
  * [LocalEnvrionment](./local) About local environment
  * [OnlineEnvrionment](./online) About online environment
+ * [Customizing Autoware](./customize/) About customizing Autoware
  * [Other](./other) How to contact us, etc.
