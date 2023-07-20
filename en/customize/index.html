@@ -1,0 +1,287 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Customizing Autoware </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Customizing Autoware ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/blob/main/documentation/docfx_project_en/customize/index.md/#L1">
+  </head>
+
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="customizing-autoware">Customizing Autoware</h1>
+
+<p>In this page, we explain how Autoware can be customized, including how new packages can be added into Autoware.</p>
+<p>We also introduce &quot;Autoware-Mini&quot;, which is a smaller version of Autoware that has fewer features than Autoware but is easier to understand and customize.</p>
+<h2 id="how-to-customize-and-use-autoware-packages">How to customize and use Autoware packages</h2>
+<ol>
+<li>Copy the original package and change the following
+<ul>
+<li>package name</li>
+<li>Folder name</li>
+<li>code</li>
+<li>package.xml</li>
+<li>CMakeLists.txt</li>
+</ul>
+</li>
+<li>place in aichallenge_submit</li>
+<li>modify launch file called from autoware_universe_launch
+<ul>
+<li>Reference example: pose_initializer_custom (called from autoware_universe_launch/tier4_localization_launch/launch/util/util.launch.xml)</li>
+</ul>
+</li>
+</ol>
+<h2 id="autoware-mini">Autoware-Mini</h2>
+<p>Although the default Autoware is feature-rich and includes many components, the extra layer of complexity and the multiply nested launch files can be confusing for beginners or users who have simpler and more relaxed use cases.</p>
+<p>A node diagram of the original Autoware is depicted below. This can also be found on the <a href="https://autowarefoundation.github.io/autoware-documentation/main/design/autoware-architecture/node-diagram/">Autoware Official Documentation</a>.</p>
+<p><img src="../../images/customize/autoware-node-diagram.png" alt="node-diagram"></p>
+<p>In Autoware-Mini, we tried to design a launch file that launches only the most basic nodes that are crucial for a simple lane-following scenario. By limiting the features, we aim to create a simpler version of Autoware: one that is easier to understand for users first trying out Autoware. Most nodes are launched directly from this &quot;Autoware-Mini&quot; launch file, so there is no need to traverse through layers of launch files to reach the actual part of the code where a node is actually created. Furthermore, instead of using arguments and variables to define parameters in different launch files, we specify the parameters necessary for a specific node when launching the node. So, there is less work to change parameters or &quot;find&quot; where they are actually defined.</p>
+<p>Participants of this competition can use this Autoware-Mini to:</p>
+<ul>
+<li>Better understand the workings of Autoware with a simpler design</li>
+<li>Use a different implementation to replace certain modules (simply by removing the part from the launch file and adding in yours!)</li>
+<li>More clearly see the effects of changing a parameter</li>
+<li>Plug-in other Autoware nodes to enhance performance</li>
+</ul>
+<p>The below is a node diagram of Autoware-Mini</p>
+<p><img src="../../images/customize/autoware-mini-node-diagram.png" alt="mini-node-diagram"></p>
+<h3 id="using-autoware-mini">Using Autoware-Mini</h3>
+<p>Here we describe how to set up Autoware-Mini and use it.</p>
+<h4 id="pulling-newest-changes-from-github">Pulling newest changes from GitHub</h4>
+<p>For participants who have already set up <code>aichallenge2023-sim</code>, run the below to pull the newest changes from GitHub.</p>
+<pre><code>cd aichallenge2023-sim/
+git pull
+</code></pre>
+<p>The launch file for Autoware-Mini is placed in <code>aichallenge2023-sim/docker/aichallenge/aichallenge_ws/src/aichallenge_submit/aichallenge_submit_launch/launch/autoware_mini_awsim.launch.xml</code> (<a href="https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/blob/main/docker/aichallenge/aichallenge_ws/src/aichallenge_submit/aichallenge_submit_launch/launch/autoware_mini_awsim.launch.xml">GitHub Link</a>)</p>
+<h4 id="updating-aichallenge_submitlaunchxml">Updating aichallenge_submit.launch.xml</h4>
+<p>In order to launch <code>autoware_mini_awsim.launch.xml</code>, <code>aichallenge_submit.launch.xml</code> must first be edited.</p>
+<p>Uncomment the sections in this file that are commented out, and comment out the section that launches <code>e2e_simulator.launch.xml</code>.</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;launch&gt;
+    &lt;!-- Autoware --&gt;
+    &lt;!-- &lt;include file=&quot;$(find-pkg-share autoware_launch)/launch/e2e_simulator.launch.xml&quot;&gt;
+        &lt;arg name=&quot;vehicle_model&quot; value=&quot;golfcart&quot;/&gt;
+        &lt;arg name=&quot;sensor_model&quot; value=&quot;awsim_sensor_kit&quot;/&gt;
+        &lt;arg name=&quot;map_path&quot; value=&quot;/aichallenge/mapfile&quot;/&gt;
+        &lt;arg name=&quot;rviz&quot; value=&quot;false&quot;/&gt;
+    &lt;/include&gt; --&gt;
+
+    &lt;!-- Uncomment the following lines to try Autoware-Mini --&gt;
+    &lt;include file=&quot;$(find-pkg-share aichallenge_submit_launch)/launch/autoware_mini_awsim.launch.xml&quot; &gt;
+      &lt;arg name=&quot;vehicle_model&quot; value=&quot;golfcart&quot;/&gt;
+      &lt;arg name=&quot;sensor_model&quot; value=&quot;awsim_sensor_kit&quot;/&gt;
+      &lt;arg name=&quot;map_path&quot; value=&quot;/aichallenge/mapfile&quot;/&gt;
+      &lt;arg name=&quot;rviz&quot; value=&quot;false&quot;/&gt;
+    &lt;/include&gt;
+
+    &lt;include file=&quot;$(find-pkg-share initialpose_publisher)/launch/initialpose_publisher.launch.xml&quot; /&gt;
+
+    &lt;include file=&quot;$(find-pkg-share self_driving_controller)/launch/self_driving_controller.launch.xml&quot; /&gt;
+&lt;/launch&gt;
+</code></pre>
+<h4 id="updating-aichallengelaunchxml">Updating aichallenge.launch.xml</h4>
+<p>In order to change how the GUI tool &quot;Rviz2&quot; looks when launching Autoware-Mini, we will change the Rviz2 config file to one that is more suitable for Autoware-Mini.</p>
+<p>Change <code>aichallenge.launch.xml</code> like the following.</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;launch&gt;
+    &lt;!-- RViz parameters --&gt;
+    &lt;arg name=&quot;rviz2&quot; default=&quot;true&quot; description=&quot;launch rviz&quot;/&gt;
+    &lt;!-- &lt;arg name=&quot;rviz_config&quot; default=&quot;$(find-pkg-share autoware_launch)/rviz/autoware.rviz&quot; description=&quot;rviz config&quot;/&gt; --&gt;
+
+    &lt;!-- Below is a more suitable RViz2 config for trying out Autoware-Mini --&gt;
+    &lt;arg name=&quot;rviz_config&quot; default=&quot;$(find-pkg-share autoware_launch)/rviz/autoware-mini.rviz&quot; description=&quot;rviz config&quot;/&gt;
+
+    &lt;!-- Scoring --&gt;
+    &lt;include file=&quot;$(find-pkg-share aichallenge_scoring)/launch/aichallenge_scoring.launch.xml&quot;&gt;
+        &lt;arg name=&quot;result_score_topic&quot; value=&quot;/aichallenge/score&quot; /&gt;
+    &lt;/include&gt;
+
+    &lt;node pkg=&quot;aichallenge_scoring_result&quot; exec=&quot;scoring_result&quot; name=&quot;scoring_result&quot; output=&quot;screen&quot; /&gt;
+
+    &lt;!-- Submitted Package --&gt;
+    &lt;include file=&quot;$(find-pkg-share aichallenge_submit_launch)/launch/aichallenge_submit.launch.xml&quot; /&gt;
+
+    &lt;!-- RViz --&gt;
+    &lt;group&gt;
+        &lt;node pkg=&quot;rviz2&quot; exec=&quot;rviz2&quot; name=&quot;rviz2&quot; output=&quot;screen&quot; args=&quot;-d $(var rviz_config) -s $(find-pkg-share autoware_launch)/rviz/image/autoware.png&quot; if=&quot;$(var rviz2)&quot;/&gt;
+    &lt;/group&gt;
+&lt;/launch&gt;
+</code></pre>
+<h4 id="updating-behavior_path_plannerparamyaml">Updating behavior_path_planner.param.yaml</h4>
+<p>Next, for the <code>behavior_path_planner</code> node and <code>behavior_velocity_planner</code> node in the Planning Component, the following config files must be edited to change what modules are launched within each planner.</p>
+<ul>
+<li><a href="https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/blob/main/docker/aichallenge/aichallenge_ws/src/aichallenge_submit/autoware_launch/autoware_launch/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_path_planner/behavior_path_planner.param.yaml">behavior_path_planner.param.yaml</a></li>
+<li><a href="https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/blob/main/docker/aichallenge/aichallenge_ws/src/aichallenge_submit/autoware_launch/autoware_launch/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/behavior_velocity_planner.param.yaml">behavior_velocity_planner.param.yaml</a></li>
+</ul>
+<p>In the original Autoware, the following modules are enabled in the <code>behavior_path_planner</code> node.</p>
+<ul>
+<li>lane_change</li>
+<li>pull_out</li>
+<li>side_shift</li>
+<li>pull_over</li>
+<li>avoidance</li>
+</ul>
+<p>For Autoware-Mini, we will turn them all OFF for now.</p>
+<pre><code>...
+
+lane_change:
+  enable_module: false
+  enable_simultaneous_execution: false
+  priority: 4
+  max_module_size: 1
+
+pull_out:
+  enable_module: false
+  enable_simultaneous_execution: false
+  priority: 0
+  max_module_size: 1
+
+side_shift:
+  enable_module: false
+  enable_simultaneous_execution: false
+  priority: 2
+  max_module_size: 1
+
+pull_over:
+  enable_module: false
+  enable_simultaneous_execution: false
+  priority: 1
+  max_module_size: 1
+
+avoidance:
+  enable_module: false
+  enable_simultaneous_execution: false
+  priority: 3
+  max_module_size: 1
+
+</code></pre>
+<h4 id="updating-behavior_velocity_plannerparamyaml">Updating behavior_velocity_planner.param.yaml</h4>
+<p>Next, for the <code>behavior_path_planner</code> node and <code>behavior_velocity_planner</code> node in the Planning Component, the following config files must be edited to change what modules are launched within each planner.</p>
+<ul>
+<li><a href="https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/blob/main/docker/aichallenge/aichallenge_ws/src/aichallenge_submit/autoware_launch/autoware_launch/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_path_planner/behavior_path_planner.param.yaml">behavior_path_planner.param.yaml</a></li>
+<li><a href="https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/blob/main/docker/aichallenge/aichallenge_ws/src/aichallenge_submit/autoware_launch/autoware_launch/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/behavior_velocity_planner.param.yaml">behavior_velocity_planner.param.yaml</a></li>
+</ul>
+<p>In the original Autoware, the following modules are enabled in the <code>behavior_velocity_planner</code> node.</p>
+<pre><code>...
+launch_stop_line: true
+launch_crosswalk: true
+launch_traffic_light: true
+launch_intersection: true
+launch_blind_spot: true
+launch_detection_area: true
+launch_virtual_traffic_light: true
+launch_occlusion_spot: false
+launch_no_stopping_area: true
+launch_run_out: false
+launch_speed_bump: false
+</code></pre>
+<p>For Autoware-Mini, we will turn everything except the &quot;stop_line module&quot; to OFF.</p>
+<pre><code>...
+# Autoware-Mini (Uncomment the lines below to try Autoware-Mini)
+launch_stop_line: true
+launch_crosswalk: false
+launch_traffic_light: false
+launch_intersection: false
+launch_blind_spot: false
+launch_detection_area: false
+launch_virtual_traffic_light: false
+launch_occlusion_spot: false
+launch_no_stopping_area: false
+launch_run_out: false
+launch_speed_bump: false
+</code></pre>
+<h4 id="run-autoware-mini">Run Autoware-Mini</h4>
+<p>This concludes the preparation necessary for launching Autoware-Mini. You can now launch AWSIM and launch Autoware-Mini with the following commands.</p>
+<pre><code># Inside the Rocker container
+cd /aichallenge
+bash build.sh
+bash run.sh
+</code></pre>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/blob/main/documentation/docfx_project_en/customize/index.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

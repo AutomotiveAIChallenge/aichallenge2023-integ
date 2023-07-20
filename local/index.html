@@ -127,7 +127,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="steps-to-execution">Steps to Execution</h3>
+<h3 id="steps-for-execution">Steps for Execution</h3>
 <ol>
 <li>Docker Image Build</li>
 </ol>
@@ -161,24 +161,8 @@ cd /aichallenge
 bash run.sh
 </code></pre>
 <p> セットアップが正常に行われていれば、rvizには点群地図が表示され、自動運転が開始されます。</p>
-<h2 id="how-to-customize-and-use-autoware-packages">How to customize and use Autoware packages</h2>
-<ol>
-<li>元のパッケージをコピーして、下記を変更
-<ul>
-<li>パッケージ名</li>
-<li>フォルダ名</li>
-<li>コード</li>
-<li>package.xml</li>
-<li>CMakeLists.txt</li>
-</ul>
-</li>
-<li>aichallenge_submitの中に配置</li>
-<li>autoware_universe_launchから呼び出されるlaunchファイルを変更
-<ul>
-<li>参考例：pose_initializer_custom（ autoware_universe_launch/tier4_localization_launch/launch/util/util.launch.xmlから呼び出しております）</li>
-</ul>
-</li>
-</ol>
+<h3 id="customizing-autoware">Customizing Autoware</h3>
+<p>既存のAutowareをカスタマイズし、新しくパッケージを追加する方法等は「<a href="../customize/index.html">Customizing Autoware</a>」のページで紹介しています．</p>
 </article>
 
         <div class="contribution d-print-none">

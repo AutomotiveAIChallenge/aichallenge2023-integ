@@ -18,6 +18,35 @@
         "InvalidFileLink"
       ],
       "type": "Conceptual",
+      "source_relative_path": "customize/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "customize/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Toc",
+      "source_relative_path": "customize/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "customize/toc.html"
+        },
+        ".json": {
+          "relative_path": "customize/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Conceptual",
       "source_relative_path": "index.md",
       "output": {
         ".html": {
