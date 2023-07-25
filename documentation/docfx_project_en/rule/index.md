@@ -23,7 +23,8 @@ For details of the competition and course specifications, please refer to the fo
 - If the speed limit is exceeded by more than 2km/h, the competitor will be disqualified = 0 points.
 - Time limit is 5 minutes (to accommodate the case where the vehicle stops in the middle of the route).
 - Time from when the vehicle starts is measured.
-- The placement of the vehicles may be somewhat random.
+- Placement and route may be somewhat random
+- No method of clearing each task by setting the route in advance is allowed
 - Need to add a handling of collision after reaching the goal.
 
 ## Vehicle
