@@ -18,7 +18,7 @@
    	```
 	#aichallenge2023-simディレクトリで
 	cd docker/evaluation
-	bash advance_preparation.sh
+	bash advance_preparations.sh
 	```
 	2. dockerイメージのビルド
 	```
