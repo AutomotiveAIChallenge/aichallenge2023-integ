@@ -39,9 +39,8 @@
 	 &emsp; Access the [online environment](https://aichallenge.synesthesias.jp) and upload the aichallenge_submit.tar.gz file you created in step 1 by clicking "Choose File." Once the upload is complete, the source code will be built, and the simulation will be run in that order.
 	
 	* If the process finishes successfully, "Scoring complete" will be displayed, and you can download the result.json file. The distance points and time will be displayed on the ranking.
-	* If the scenario execution finishes successfully, but there is no score output due to a failed launch or other issues, it will be marked as "No result" and will not be used as the final time.
+	* When a scenario finishes running but no scores are output due to launch failure, etc., the result will be "No Result" and will not be used as the final time. If you see "No Result" even though the local run is working properly, there may be an internal error on the server side, so please upload the file again. Please contact us if the message is displayed repeatedly.
 	* If the build fails, "Build error" will be displayed. Please review the instructions and try again.
-	* If the simulator execution fails, "Simulator error" will be displayed. In this case, there may be an internal error on the server, so please try uploading again. If the issue persists, please contact support.
 	* The scoring process will be run three times for each submission, and the highest score will be used as the final result. The ranking will be based on the highest score obtained in the scoring process so far.
 	* You cannot upload new sources while the scoring process is ongoing.
 	* You can upload up to three times per day, and the count will reset at 0:00 Japan time.
