@@ -18,7 +18,7 @@
    	```
 	# In the aichallenge2023-sim directory
 	cd docker/evaluation
-	bash advance_preparation.sh
+	bash advance_preparations.sh
 	```
 	2. Build the Docker image
 	```
