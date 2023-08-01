@@ -24,8 +24,10 @@ For details of the competition and course specifications, please refer to the fo
 - Time limit is 5 minutes (to accommodate the case where the vehicle stops in the middle of the route).
 - Time from when the vehicle starts is measured.
 - Placement and route may be somewhat random
-- No method of clearing each task by setting the route in advance is allowed
 - Need to add a handling of collision after reaching the goal.
+- Please do not use an algorithm that sets up a route in advance and runs in a deterministic manner, as this may be dangerous when running in the finals.
+- The contents of the submitted code may be checked during the judging.
+- Any code that affects the scoring process or any other intentional irregularity that is discovered will be disqualified.
 
 ## Vehicle
 The vehicle to be used is the golf cart shown here.
