@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title> </title>
+      <title>Online Environment </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content=" ">
+      <meta name="title" content="Online Environment ">
       
       <link rel="icon" href="../favicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
@@ -72,8 +72,62 @@
         </div>
 
         <article data-uid="">
+<h1 id="online-environment">Online Environment</h1>
 
-<p>Under Construnction...</p>
+<br>
+<div class="alert alert-success">
+<h5>REGISTER</h5>
+<p>こちらから参加登録!
+<a href="https://www.jsae.or.jp/jaaic/en/index.php">https://www.jsae.or.jp/jaaic/en/index.php</a></p>
+</div>
+<br>
+<p> 本大会での採点は、シミュレータ・自動採点機能を備えたオンライン環境で行われます。<br>
+ 下記手順を参考に、作成していただいたパッケージ群をオンライン環境にアップロードしてください。アップロード完了後、オンライン環境にてシミュレーションが開始され、結果が提示されます。</p>
+<h2 id="upload-procedure-to-online-environment">Upload Procedure to Online Environment</h2>
+<ol>
+<li><p>動作確認</p>
+<p> <code>aichallenge_submit</code>のみアップロード可能なオンライン環境での動作を模した動作確認をお願いします。</p>
+<ol>
+<li>事前準備（<code>aichallenge_submit</code>の圧縮や結果出力用フォルダの生成）</li>
+</ol>
+<pre><code> #aichallenge2023-simディレクトリで
+ cd docker/evaluation
+ bash advance_preparations.sh
+</code></pre>
+<ol start="2">
+<li>dockerイメージのビルド</li>
+</ol>
+<pre><code> #aichallenge2023-sim/docker/evaluationディレクトリで
+ bash build.sh
+</code></pre>
+<ol start="3">
+<li>AWSIMの起動</li>
+<li>dockerコンテナの起動（起動後、自動でautowareが立ち上がり、自動運転が開始されます）</li>
+</ol>
+<pre><code> #aichallenge2023-sim/docker/evaluationディレクトリで
+ bash run_container.sh
+</code></pre>
+<ol start="5">
+<li>result.jsonの確認<br>
+評価完了後、outputフォルダにresult.jsonが格納されます。</li>
+</ol>
+</li>
+<li><p>オンライン環境にアップロード<br>
+<img src="../images/online/siteImage.png" width="100%"><br>
+ <a href="https://aichallenge.synesthesias.jp">オンライン環境</a>にアクセスし、手順1で作成した<code>aichallenge_submit.tar.gz</code>を「ファイルを選択」からアップロードしてください。アップロードが完了すると、ソースコードのビルド・シミュレーションの順番で実施されます。</p>
+<ul>
+<li>正常に終了した場合は、採点完了と表示され、result.jsonがダウンロードできるようになり、距離点・タイムがランキングに掲示されます。</li>
+<li>シナリオ実行が終了しても、launchに失敗した等でスコアが出力されていない場合は「結果無し」となり、最終的なタイムとしては使われません。ローカルでは正常に動いているのにも関わらず「結果無し」と表示されてしまう場合サーバーサイドで内部エラーが生じている可能性があるため再度アップロードお願いします。繰り返し表示されてしまう場合はお問合せください。</li>
+<li>ビルドに失敗した場合はビルド失敗が表示されます。再度、手順の確認をお願いします。</li>
+<li>採点プロセスは一度の提出で3回実行され、最高点が結果として使用されます。また、ランキングはそれまでの採点における最高点が適用されます。</li>
+<li>採点実行中は新たなソースのアップロードはできません。</li>
+<li>アップロードできるのは1日3回までで、日本時間0時に回数はリセットされます。</li>
+</ul>
+</li>
+<li><p>結果を確認<br>
+ オンライン環境にて評価が終わると、result.jsonがダウンロード可能になります。result.jsonをダウンロードし、結果を確認してください。</p>
+</li>
+</ol>
 </article>
 
         <div class="contribution d-print-none">

@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Online Enviroment </title>
+      <title>Online Environment </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Online Enviroment ">
+      <meta name="title" content="Online Environment ">
       
       <link rel="icon" href="../favicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
@@ -72,9 +72,62 @@
         </div>
 
         <article data-uid="">
-<h2 id="online-enviroment">Online Enviroment</h2>
+<h1 id="online-environment">Online Environment</h1>
 
-<p>Under Construction</p>
+<br>
+<div class="alert alert-success">
+<h5>REGISTER</h5>
+<p>Register from here!
+<a href="https://www.jsae.or.jp/jaaic/en/index.php">https://www.jsae.or.jp/jaaic/en/index.php</a></p>
+</div>
+<br>
+<p>  In this competition, scoring will be conducted in an online environment equipped with simulators and automatic grading features.<br>
+  Follow the steps below to upload the package you have created to the online environment. After the upload is complete, the simulation will start in the online environment, and the results will be presented.</p>
+<h2 id="upload-procedure-to-online-environment">Upload Procedure to Online Environment</h2>
+<ol>
+<li><p>Functionality Check</p>
+<p>  Please perform a functionality check simulating the behavior in the online environment, using only aichallenge_submit for the upload.</p>
+<ol>
+<li>Preparations (Compression of aichallenge_submit and generation of the output folder for results)</li>
+</ol>
+<pre><code> # In the aichallenge2023-sim directory
+ cd docker/evaluation
+ bash advance_preparations.sh
+</code></pre>
+<ol start="2">
+<li>Build the Docker image</li>
+</ol>
+<pre><code> # In the aichallenge2023-sim/docker/evaluation directory
+ bash build.sh
+</code></pre>
+<ol start="3">
+<li>Launch AWSIM</li>
+<li>Start the Docker container (After launch, autoware will start automatically, and autonomous driving will begin)</li>
+</ol>
+<pre><code> #In the aichallenge2023-sim/docker/evaluation directory
+ bash run_container.sh
+</code></pre>
+<ol start="5">
+<li>Verify result.json<br>
+Once the evaluation is complete, result.json will be stored in the <code>output</code> folder.</li>
+</ol>
+</li>
+<li><p>Upload to the Online Environment
+<img src="../images/online/siteImage.png" width="100%"><br>
+  Access the <a href="https://aichallenge.synesthesias.jp">online environment</a> and upload the aichallenge_submit.tar.gz file you created in step 1 by clicking &quot;Choose File.&quot; Once the upload is complete, the source code will be built, and the simulation will be run in that order.</p>
+<ul>
+<li>If the process finishes successfully, &quot;Scoring complete&quot; will be displayed, and you can download the result.json file. The distance points and time will be displayed on the ranking.</li>
+<li>When a scenario finishes running but no scores are output due to launch failure, etc., the result will be &quot;No Result&quot; and will not be used as the final time. If you see &quot;No Result&quot; even though the local run is working properly, there may be an internal error on the server side, so please upload the file again. Please contact us if the message is displayed repeatedly.</li>
+<li>If the build fails, &quot;Build error&quot; will be displayed. Please review the instructions and try again.</li>
+<li>The scoring process will be run three times for each submission, and the highest score will be used as the final result. The ranking will be based on the highest score obtained in the scoring process so far.</li>
+<li>You cannot upload new sources while the scoring process is ongoing.</li>
+<li>You can upload up to three times per day, and the count will reset at 0:00 Japan time.</li>
+</ul>
+</li>
+<li><p>Check the Results<br>
+  After the evaluation is completed in the online environment, you can download the result.json file and review the results.</p>
+</li>
+</ol>
 </article>
 
         <div class="contribution d-print-none">

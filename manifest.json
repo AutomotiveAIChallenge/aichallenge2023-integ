@@ -71,6 +71,16 @@
     },
     {
       "type": "Resource",
+      "source_relative_path": "images/online/siteImage.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/online/siteImage.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
       "source_relative_path": "images/rule/Thumbs.db",
       "output": {
         "resource": {
