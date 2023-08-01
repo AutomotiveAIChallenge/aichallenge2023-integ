@@ -18,7 +18,7 @@ For details of the competition and course specifications, please refer to the fo
 `Distance points: min(overall distance from the starting point (m), distance of the entire course) * (1.0 - assignment 1 penalty - assignment 2 penalty - assignment 3 penalty)`.
 * If the distance points are the same, the Competitor with the shortest running time in the Task 3 area will be placed higher (if he/she runs to the end of the task).
 
-### Limitation
+### Regulation
 - Travel speed is 0~5km/h
 - If the speed limit is exceeded by more than 2km/h, the competitor will be disqualified = 0 points.
 - Time limit is 5 minutes (to accommodate the case where the vehicle stops in the middle of the route).
