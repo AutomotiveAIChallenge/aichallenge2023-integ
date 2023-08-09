@@ -58,6 +58,12 @@
       },
       {
         "files": [
+          "FAQ/toc.yml",
+          "FAQ/index.md"
+        ]
+      },
+      {
+        "files": [
           "other/toc.yml",
           "other/index.md"
         ]
@@ -96,6 +102,12 @@
         "files": [
           "en/evaluation/toc.yml",
           "en/evaluation/index.md"
+        ]
+      },
+      {
+        "files": [
+          "en/FAQ/toc.yml",
+          "en/FAQ/index.md"
         ]
       },
       {

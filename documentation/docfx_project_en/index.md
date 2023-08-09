@@ -130,4 +130,5 @@ Please check each page before participating.
  * [LocalEnvrionment](./local) About local environment
  * [OnlineEnvrionment](./online) About online environment
  * [Customizing Autoware](./customize/) About customizing Autoware
+ * [FAQ](./FAQ/) About Frequently Asked Questions.
  * [Other](./other) How to contact us, etc.
