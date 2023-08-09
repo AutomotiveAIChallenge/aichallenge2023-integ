@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>FAQ </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="FAQ ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/blob/main/documentation/docfx_project_en/FAQ/index.md/#L1">
+  </head>
+
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="faq">FAQ</h1>
+
+<br>
+<h2 id="ros-faq">ROS FAQ</h2>
+<br>
+<h3 id="-ros2-topic-list-is-not-displayed"><code>$ ros2 topic list</code> is not displayed</h3>
+<ul>
+<li>Ensure your machine's <code>ROS_DOMAIN_ID</code> matches. (If you haven't set the <code>ROS_DOMAIN_ID</code>, there's no issue.)</li>
+<li>Ensure <code>ROS2</code> is sourced.</li>
+</ul>
+<br>
+<h3 id="using-awsim-on-windows-and-autoware-on-ubuntu-but--ros2-topic-list-is-not-displayed">Using AWSIM on Windows and Autoware on Ubuntu but <code>$ ros2 topic list</code> is not displayed</h3>
+<ul>
+<li>Allow communication in the Windows Firewall.</li>
+<li>Execute <code>ros2 daemon stop</code> and <code>ros2 daemon start</code>, check for any lingering processes, and restart.</li>
+</ul>
+<br>
+<h3 id="no-path-found-in-rviz">No path found in Rviz</h3>
+<ul>
+<li>Verify that your map data is correct. This includes PointCloud, VectorMap, and 3D fbx models.</li>
+</ul>
+<br>
+<h3 id="awsim-and-autoware-network-is-unstable">AWSIM and Autoware network is unstable</h3>
+<p>When testing locally, setting <code>ROS_LOCALHOST_ONLY=1</code> in all terminals can improve communication speed. For this competition, configurations of two PCs (Windows+Linux, Linux+Linux) and a single PC (only Linux) are considered. Please refer to the following settings:</p>
+<ul>
+<li>In the evaluation environment, set <code>ROS_LOCALHOST_ONLY=0</code> in <a href="https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/blob/main/docker/evaluation/main.bash">this file</a>.</li>
+<li>On the container side, set <code>ROS_LOCALHOST_ONLY=0</code> in <a href="https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/blob/main/docker/Dockerfile">this file</a>.</li>
+</ul>
+<p>If you feel that machine performance or communication speed is insufficient, you can change the execution to be localhost-only as follows:</p>
+<ul>
+<li>Set ROS to be localhost-only. Add the following lines to your <code>.bashrc</code>. Note: After OS startup, the password will be prompted at terminal startup, and <code>sudo ip link set lo multicast on</code> is required for the first time.
+<pre><code class="lang-bash">export ROS_LOCALHOST_ONLY=1
+export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+
+if [ ! -e /tmp/cycloneDDS_configured ]; then
+    sudo sysctl -w net.core.rmem_max=2147483647
+    sudo ip link set lo multicast on
+    touch /tmp/cycloneDDS_configured
+fi
+</code></pre>
+</li>
+</ul>
+<p>Note: If you forget to modify as written in <code>.bashrc</code>, it will always be applied. Always track changes, such as verifying with <code>echo $ROS_LOCALHOST_ONLY</code>. Also, be aware that <code>ROS_LOCALHOST_ONLY</code> is specified in the executable file.</p>
+<br>
+<h3 id="launched-autoware-is-not-stable">Launched Autoware is not stable</h3>
+<p>Consider setting a wait time for Autoware to start.</p>
+<p><a href="https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/issues/31">Refer here</a></p>
+<pre><code>&lt;timer period=&quot;150.0&quot;&gt;
+     &lt;include file=&quot;$(find-pkg-share self_driving_controller)/launch/self_driving_controller.launch.xml&quot; /&gt;
+&lt;/timer&gt;
+</code></pre>
+<br>
+<h3 id="unable-to-launch-rocker">Unable to Launch Rocker</h3>
+<p><a href="https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/issues/21#issuecomment-1637851299">Refer here</a></p>
+<br>
+<h2 id="setup-faq">Setup FAQ</h2>
+<br>
+<h3 id="rviz-black-screen-when-running-container">Rviz Black Screen when running container</h3>
+<p><a href="https://github.com/ros2/rviz/issues/948">Refer here</a></p>
+<pre><code>add-apt-repository ppa:kisak/kisak-mesa
+apt update
+apt upgrade
+</code></pre>
+<br>
+<h3 id="awsim-ends-with-coredump">AWSIM ends with coredump</h3>
+<p>If AWSIM ends with a coredump just by starting, there might be a GPU memory shortage.</p>
+<p>Check with Nvidia-smi if the GPU memory usage is reaching its limit.</p>
+<p>We recommend a GPU memory of more than 11GB.</p>
+<br>
+<h2 id="other-faq">Other FAQ</h2>
+<p>You can also refer to the tier4:AWSIM troubleshooting.</p>
+<p><a href="https://github.com/tier4/AWSIM/blob/main/docs/DeveloperGuide/TroubleShooting/index.md">Refer here</a></p>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/blob/main/documentation/docfx_project_en/FAQ/index.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
