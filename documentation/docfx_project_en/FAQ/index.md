@@ -1,17 +1,27 @@
 # FAQ
 
+<br>
+
 ## ROS FAQ
+
+<br>
 
 ### `$ ros2 topic list` is not displayed
 - Ensure your machine's `ROS_DOMAIN_ID` matches. (If you haven't set the `ROS_DOMAIN_ID`, there's no issue.)
 - Ensure `ROS2` is sourced.
 
+<br>
+
 ### Using AWSIM on Windows and Autoware on Ubuntu but `$ ros2 topic list` is not displayed
 - Allow communication in the Windows Firewall.
 - Execute `ros2 daemon stop` and `ros2 daemon start`, check for any lingering processes, and restart.
 
+<br>
+
 ### No path found in Rviz
 - Verify that your map data is correct. This includes PointCloud, VectorMap, and 3D fbx models.
+
+<br>
 
 ### AWSIM and Autoware network is unstable
 When testing locally, setting `ROS_LOCALHOST_ONLY=1` in all terminals can improve communication speed. For this competition, configurations of two PCs (Windows+Linux, Linux+Linux) and a single PC (only Linux) are considered. Please refer to the following settings:
@@ -32,6 +42,8 @@ If you feel that machine performance or communication speed is insufficient, you
   ```
 Note: If you forget to modify as written in `.bashrc`, it will always be applied. Always track changes, such as verifying with `echo $ROS_LOCALHOST_ONLY`. Also, be aware that `ROS_LOCALHOST_ONLY` is specified in the executable file.
 
+<br>
+
 ### Launched Autoware is not stable
 
 Consider setting a wait time for Autoware to start.
@@ -44,11 +56,17 @@ Consider setting a wait time for Autoware to start.
 </timer>
 ```
 
+<br>
+
 ### Unable to Launch Rocker
 
 [Refer here](https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/issues/21#issuecomment-1637851299)
 
+<br>
+
 ## Setup FAQ
+
+<br>
 
 ### Rviz Black Screen when running container
 
@@ -60,6 +78,8 @@ apt update
 apt upgrade
 ```
 
+<br>
+
 ### AWSIM ends with coredump
 
 If AWSIM ends with a coredump just by starting, there might be a GPU memory shortage.
@@ -67,6 +87,8 @@ If AWSIM ends with a coredump just by starting, there might be a GPU memory shor
 Check with Nvidia-smi if the GPU memory usage is reaching its limit.
 
 We recommend a GPU memory of more than 11GB.
+
+<br>
 
 ## Other FAQ
 

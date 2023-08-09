@@ -1,17 +1,27 @@
 # FAQ
 
+<br>
+
 ## ROS FAQ
+
+<br>
 
 ### `$ ros2 topic list` が表示されない
 - あなたのマシンの `ROS_DOMAIN_ID` が一致していることを確認してください。（`ROS_DOMAIN_ID` を設定していない方は問題ないです）
 - `ROS2` がソースされていることを確認してください。
 
+<br>
+
 ### WindowsのAWSIMとUbuntuのAutowareを使用しており、`$ ros2 topic list` が表示されない
 - Windows Firewallでの通信を許可してください。
 - `ros2 daemon stop` と `ros2 daemon start` を実行して、不要なプロセスが残っていないか確認し、再起動してください。
 
+<br>
+
 ### No path found in Rviz
 - あなたのマップデータが正しいか確認してください。PointCloud、VectorMapが含まれます。
+
+<br>
 
 ### AWSIM and Autoware network is unstable
 localでテストする際、すべてのterminalで `ROS_LOCALHOST_ONLY=1` に設定すると通信速度が向上します。
@@ -36,6 +46,8 @@ localでテストする際、すべてのterminalで `ROS_LOCALHOST_ONLY=1` に�
 - `ROS_LOCALHOST_ONLY=1`と`ROS_LOCALHOST_ONLY=0`が混在しているとcontainer間の通信ができません。
 - `ROS_LOCALHOST_ONLY`が実行ファイルに記載されていることには注意してください。
 
+<br>
+
 ### Launched Autoware is not stable
 
 Autowareが起動するまでの待機時間を設定してみてください。
@@ -48,12 +60,18 @@ https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/issues/31
 </timer>
 ```
 
+<br>
+
 ### Unable to Launch Rocker
 
 https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/issues/21#issuecomment-1637851299
 
 
+<br>
+
 ## Setup FAQ
+
+<br>
 
 ### Rviz Black Screen when running container
 
@@ -65,12 +83,16 @@ apt update
 apt upgrade
 ```
 
+<br>
+
 ### AWSIM ends with coredump
 AWSIMを起動するだけでcoredumpで終了する場合、GPUのメモリが不足している可能性があります。
 
 Nvidia-smiでGPUメモリの利用率が限界に達していないか確認してください。
 
 GPUのメモリは11GB以上を推奨しています。
+
+<br>
 
 ## Other FAQ
 
