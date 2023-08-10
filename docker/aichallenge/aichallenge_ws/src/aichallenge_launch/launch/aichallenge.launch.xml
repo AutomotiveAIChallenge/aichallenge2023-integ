@@ -7,15 +7,15 @@
     <!-- Below is a more suitable RViz2 config for trying out Autoware-Mini -->
     <!-- <arg name="rviz_config" default="$(find-pkg-share autoware_launch)/rviz/autoware-mini.rviz" description="rviz config"/> -->
 
+    <!-- Submitted Package -->
+    <include file="$(find-pkg-share aichallenge_submit_launch)/launch/aichallenge_submit.launch.xml" />
+
     <!-- Scoring -->
     <include file="$(find-pkg-share aichallenge_scoring)/launch/aichallenge_scoring.launch.xml">
         <arg name="result_score_topic" value="/aichallenge/score" />
     </include>
 
     <node pkg="aichallenge_scoring_result" exec="scoring_result" name="scoring_result" output="screen" />
-
-    <!-- Submitted Package -->
-    <include file="$(find-pkg-share aichallenge_submit_launch)/launch/aichallenge_submit.launch.xml" />
 
     <!-- RViz -->
     <group>
