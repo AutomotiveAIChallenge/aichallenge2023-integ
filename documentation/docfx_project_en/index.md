@@ -2,12 +2,12 @@
 
 <br>
 
-> [!REGISTER]
+<!-- > [!REGISTER]
 > Register from here!
 > [https://www.jsae.or.jp/jaaic/en/index.php](https://www.jsae.or.jp/jaaic/en/index.php)
 
 
-<br>
+<br> -->
 
 ![AIchallenge2023](../images/top/aichallenge2023.png)
 

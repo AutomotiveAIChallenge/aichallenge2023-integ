@@ -1,11 +1,11 @@
 # Online Environment
 <br>
 
-> [!REGISTER]
+<!-- > [!REGISTER]
 > こちらから参加登録!
 > [https://www.jsae.or.jp/jaaic/en/index.php](https://www.jsae.or.jp/jaaic/en/index.php)
 
-<br>
+<br> -->
 
  &emsp;本大会での採点は、シミュレータ・自動採点機能を備えたオンライン環境で行われます。  
  &emsp;下記手順を参考に、作成していただいたパッケージ群をオンライン環境にアップロードしてください。アップロード完了後、オンライン環境にてシミュレーションが開始され、結果が提示されます。
