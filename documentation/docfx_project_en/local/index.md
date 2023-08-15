@@ -2,11 +2,11 @@
 
 <br>
 
-> [!REGISTER]
+<!-- > [!REGISTER]
 > Register from here!
 > [https://www.jsae.or.jp/jaaic/en/index.php](https://www.jsae.or.jp/jaaic/en/index.php)
 
-<br>
+<br> -->
 
  &emsp; Participants will be asked to create a ROS2 package to carry out the scenario, and the following ROS2 package is provided in aichallenge2023-sim/docker/aichallenge/aichallenge_ws/src as sample code to serve as a base for this in this repository The following ROS2 package is provided.  
  &emsp; Please place the ROS2 package you created under aichallenge_ws/src/aichallenge_submit and follow the steps below to build and run it.

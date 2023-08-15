@@ -2,11 +2,11 @@
 
 <br>
 
-> [!REGISTER]
+<!-- > [!REGISTER]
 > Register from here!
 > [https://www.jsae.or.jp/jaaic/en/index.php](https://www.jsae.or.jp/jaaic/en/index.php)
 
-<br>
+<br> -->
 
 ## Introduction
 As in the Automated AI Challenge 2022 simulation competition held last year, the qualifying competition for the Automated AI Challenge 2023 Integration Competition will use the Autoware.universe automated driving software and the AWSIM automated driving simulator. The [Setup page](../setup) and participate in the competition.
