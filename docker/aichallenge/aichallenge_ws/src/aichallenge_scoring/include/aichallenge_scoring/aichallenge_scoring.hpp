@@ -43,6 +43,8 @@ namespace aichallenge_scoring {
       void visualizeVehicleFootprint(bool is_outside_lane);
 
     private:
+      class StopWatch;
+
       // Subscribers
       rclcpp::Subscription<Odometry>::SharedPtr sub_odom_;
       rclcpp::Subscription<HADMapBin>::SharedPtr sub_map_;
@@ -70,7 +72,7 @@ namespace aichallenge_scoring {
       Odometry::ConstSharedPtr odometry_;
       lanelet::ConstLanelet closest_lanelet_;
       lanelet::LaneletMapPtr lanelet_map_ptr_;
-      tier4_autoware_utils::StopWatch<std::chrono::seconds> stop_watch_ptr_;
+      std::unique_ptr<StopWatch> stop_watch_ptr_;
       tier4_autoware_utils::LinearRing2d vehicle_footprint_;
   };
 } // namespace aichallenge_scoring
