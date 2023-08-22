@@ -1,94 +1,105 @@
 # Operation
 
-<br>
+&emsp;このページでは、 AutowareをインストールしたノートPCで競技車両(自動運転対応ゴルフカート、以下ゴルフカート)を動かす手順を解説します。
 
-&emsp;このページでは、 AutowareをインストールしたノートPCで実際の車両を動かす手順を解説します。
+## Vehicle Interfaceの動作確認
 
-## Vehicle Interfaceの有効化
-本選で使用するゴルフカートのVehicle Interfaceの実行ファイルが`~/vi_ws` の中に含まれています。このVehicle Interfaceを使用する方法を説明します。
+本選で使用するゴルフカートのVehicle Interfaceの実行ファイルが競技に使用するPCの`~/vi_ws` の中に含まれています。このVehicle Interfaceを使用する方法を説明します。
 
+1. シンボリックリンクを適用する。
 
-1. シンボリックリンクの適用 
-以下のコマンドを実行し、 シンボリックリンクを適用する。
+    以下のコマンドを実行する。 //ToDo: レポジトリ名確認
+    ```
+    $ ln -snf /home/autoware/<開発に使用しているレポジトリ> /home/autoware/aichallenge2023final-test
+    ```
+2. Vehicle Interface の起動を確認する。
 
-```
-$ ln -snf /home/autoware/<開発に使用しているレポジトリ> /home/autoware/aichallenge2023final-test
-```
+    `scripts/run_autoware_on_vehicle.sh` を実行後、別のターミナルで`ros2 node list |grep g30` を実行し、以下のように、Vehicle Interfaceのノード名が出力されることを確認する。
 
-3. Vehicle Interface の起動確認
-`scripts/run.sh` を実行後、別のターミナルで`ros2 node list |grep g30` を実行し、以下のように、Vehicle Interfaceのノード名が出力されていることを確認する。
+    ```
+    $ ros2 node list |grep g30
+    /g30esli/socket_can_receiver
+    /g30esli/socket_can_sender
+    /g30esli_interface
+    /g30esli_interface_awiv_adapt_receiver
+    /g30esli_interface_awiv_adapt_sender
+    ```
 
-```
-/g30esli/socket_can_receiver
-/g30esli/socket_can_sender
-/g30esli_interface
-/g30esli_interface_awiv_adapt_receiver
-/g30esli_interface_awiv_adapt_sender
-```
 
 ## 車両HWとの接続方法
-LiDARとCameraデータを取得するための方法を説明します。
+
+LiDARとCAN インターフェースとの接続設定手順を説明します。
 
 ### LiDARの接続
-ToDo: Velodyneの接続設定を選択する という内容に変更、 スクショかなにか挿入
+
+1. OS設定アプリ(`Settings`)から、Network設定メニューへ移動する。
+2. Network設定画面内にある `Wired` の設定選択メニューから `velodyne` をクリックする。
+<img src="../images/operation/velo_network_setting.png" alt="Velodyne Network Setting">
 
 ### CAN インターフェースの接続
-1. 車両から出ている Type-A USBコネクタをPCに接続する。
-ターミナルにてチェック用のスクリプトを実行する。
-    ```
-    $ ./can_config.sh # 成功ならば出力はCAN configuration done
-    $ ifconfig # txqueuelenが500000になっていれば成功 ※ToDo can_config.sh内に判定を入れる
-    ```
 
-### 接続確認
-1. ターミナル上で `~/hw_connectivity_check.sh` を実行し、 LiDAR、 CAN Interfaceの接続状況を確認する。
-    ```
-    $ ~/hw_connectivity_check.sh #ToDo: 診断をスクリプトに含める
-    ```
+1. 車両前方にある Type-A USBケーブルをPCに接続する。
+2. ターミナルを開き、`~/can_config.sh` を実行する。
+3. `CAN Interface configuration done` と表示されることを確認する。
 
-## 車両IDの設定．
+### LiDAR、CANインターフェース接続状態の確認
+
+1. ターミナル上で `~/hw_connectivity_check.sh` を実行する。
+2. `Connectivity check clear` と表示されることを確認する。
+
+## 車両IDの設定
+
 Autowareを実行するターミナルにて、 環境変数 `VEHICLE_ID` を設定する。
 ```
-$ export VEHICLE_ID=3 # 3号車の場合。 VEHICLE_IDは競技当日メンターから提示されます。
+例)
+$ export VEHICLE_ID=3 # VEHICLE_IDは競技当日メンターから提示されます。
 ```
 
-## Autoware起動〜自動運転開始の操作
-※車両を動かす前に，必ず [安全に関する注意点](#安全に関する注意点)を一読ください．
+## 自動運転発進までの手順
 
-1. 下記コマンドでAutowareを起動する．
+**※車両を動かす前に必ず [安全に関する注意点](#安全に関する注意点)を一読ください。**
+
+1. (競技参加者)ターミナルを開き、以下のコマンドを実行してAutowareを起動する。
     ```
-    $ source /opt/ros/humble/setup.bash #.bashrc記載の場合は不要
-    $ cd ~/<ToDo: フォルダ名確認>
-    $ source install/setup.bash #.bashrc記載の場合は不要
+    $ source /opt/ros/humble/setup.bash
+    $ source <開発レポジトリのルート>install/setup.bash
     $ cd scripts
-    $ ./run_autoware_on_vehicle.sh #ToDo: can_config.shの内容を含める
+    $ ./run_autoware_on_vehicle.sh
     ```
 
-2. 自己位置推定を開始する。
-    - 2D pose estimate をrVizから入力する。
+2. (競技参加者)自己位置推定を開始する。
+   1. 2D pose estimate をrVizから入力する。
+   2. `AutowareStatePanel` の `Localization`の表示が`INITIALIZED`となっていることを確認する。
+   <img src="../images/operation/loc_initialized.png" alt="Localization INITIALIZED State" width="300">
 
-3. ゴール地点を指定する．
-    - ターミナルを開き、`~/<ToDo ディレクトリ名>/scripts/set_goal.sh`を実行してゴール地点を設定する．
+3. (競技参加者)ゴール地点を指定する。
+   1. ターミナルを開き、`<開発レポジトリのルート>/scripts/set_goal.sh`を実行してゴール地点を設定する。
+   2. ゴールに向かう経路が引かれていることをrVizで確認する。
 
-4. ToDo: エンゲージまでの手順を追記
+4. (セーフティドライバー)ゴルフカートのモードを`自動モード`に設定する。
 
+5. (競技参加者)Autowareによる車両制御を有効化する。
+   1. メンターの指示を受け、`AutowareStatePanel`の`AutowareControl`の`Enable`ボタンをクリックする。
+   2. `AutowareStatePanel`の`AutowareControl`の表示が`Enable`になっていることを確認する。
+   <img src="../images/operation/autoware_control_enabled.png" alt="Autoware Control Enabled" width="300">
 
-## 車両を動かすフロー
-### 自動運転発進までの手順
-1. セーフティドライバー: Golf Cartを自動モードに設定する．
-2. メンター: 競技参加者に "Webコントローラーを起動．Vehicle engageとAutoware engageのdisengageを押下する" 指示を出す．
-3. Autowareオペレーター(参加者): Webコントローラーを起動．Vehicle engageとAutoware engageのdisengageを押下．
-4. メンター: Autoware オペレーターに "Vehicle engageを押下する" 指示を出す．
-5. Autowareオペレーター(参加者): Vehicle engageのengageを押下．
-6. セーフティドライバー: ステアの挙動から，正常にVehicle engageされたことを確認．
-7. メンター: "RVizに切り替え，Autoware engageを押下する" 指示を出す．
-8. Autowareオペレーター: RVizに切り替え，Autoware engageボタンを押下．
+6. (セーフティードライバー) ステアの挙動を確認し、ゴルフカードがAutowareの制御を正常に受け付けていることを確認し、Autowareの自動運転モード許可を参加者に伝達する。
 
-### オーバーライド（ドライバーが車両を停止させたとき）が発生した場合のフロー
-1. Disengage する ※ToDo: どうやるか書く
+7. (競技参加者)Autowareを自動運転モードに設定する。
+   1. セーフティドライバーに「自動運転開始します」と発話する。
+   2. `AutowareStatePanel`の`OperationMode`の`AUTO`ボタンをクリックする。
+   3. `AutowareStatePanel`の`OperationMode`の表示が`AUTONOMOUS`になっていることを確認する。
+   <img src="../images/operation/operation_mode_auto.png" alt="Operation Mode Auto" width="300">
+
+### オーバーライド（ドライバーが車両を停止させたとき）が発生した場合
+
+1. (セーフティドライバー) オーバーライドした旨を競技参加者に伝達する。
+2. メンターの指示を受け、`AutowareStatePanel`の`AutowareControl`の`Disable`ボタンをクリックする。
+3. `AutowareStatePanel`の`AutowareControl`の表示が`Disable`になっていることを確認する。
 
 ## 安全に関する注意点
-- 競技車両の不具合により、Vehicle Engageへの遷移に失敗することがあります。セーフティドライバーがVehicle Engage遷移失敗を判断します. 本事象が発生した場合は、Autoware Engage と Vehicle EngageをFalseにした後、自動運転発進までの手順をやり直してください．
-- 自動走行時，車両に同乗しない参加者は、 歩道上で待機してください．経路上や車両周囲は立ち入り禁止です。
+
+- HWの接続不良などが原因で、自動運転モードへの切り替えに失敗することがあります。自動運転モードへの切り替え失敗はセーフティドライバーが判断します。本事象が発生した場合は、メンターの指示に従い自動運転発進までの手順をやり直してください。
+- 自動走行時、車両に同乗しない参加者は歩道上で待機してください。経路上や車両周囲は立ち入り禁止です。
 - 自動走行時は必ず上部の手すりを掴んでください。
 - 自動運転に使用するノートPCをバンドで固定してください。 キーボードが打ちづらい場合は貸出しているUSB無線キーボードを使用してください。
