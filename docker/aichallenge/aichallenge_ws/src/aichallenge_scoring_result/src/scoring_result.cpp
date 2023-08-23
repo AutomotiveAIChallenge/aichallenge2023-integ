@@ -48,6 +48,11 @@ private:
     if (score_msg.has_exceeded_speed_limit)
       return 0.0f;
 
+    constexpr auto speed_limit_mps = 7.0 * 1000.0 / 60.0 / 60.0; 
+
+    if (score_msg.distance_score / score_msg.total_duration > speed_limit_mps)
+      return 0.0f;
+
     auto penalty_ratio = 1.0f;
 
     if (!score_msg.has_finished_task1)
