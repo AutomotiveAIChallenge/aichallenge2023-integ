@@ -8,13 +8,13 @@
 
 1. シンボリックリンクを適用する。
 
-    以下のコマンドを実行する。 //ToDo: レポジトリ名確認
+    以下のコマンドを実行する。
     ```
-    $ ln -snf /home/autoware/<開発に使用しているレポジトリ> /home/autoware/aichallenge2023final-test
+    $ ln -snf /home/autoware/aichallenge2023-integration-final /home/autoware/aichallenge2023final-test
     ```
 2. Vehicle Interface の起動を確認する。
 
-    `scripts/run_autoware_on_vehicle.sh` を実行後、別のターミナルで`ros2 node list |grep g30` を実行し、以下のように、Vehicle Interfaceのノード名が出力されることを確認する。
+    `~/aichallenge2023-integration-final/scripts/run_autoware_on_vehicle.sh` を実行後、別のターミナルで`ros2 node list |grep g30` を実行し、以下のように、Vehicle Interfaceのノード名が出力されることを確認する。
 
     ```
     $ ros2 node list |grep g30
@@ -62,8 +62,8 @@ $ export VEHICLE_ID=3 # VEHICLE_IDは競技当日メンターから提示され�
 1. (競技参加者)ターミナルを開き、以下のコマンドを実行してAutowareを起動する。
     ```
     $ source /opt/ros/humble/setup.bash
-    $ source <開発レポジトリのルート>install/setup.bash
-    $ cd scripts
+    $ source ~/aichallenge2023-integration-final/install/setup.bash
+    $ cd ~/aichallenge2023-integration-final/scripts
     $ ./run_autoware_on_vehicle.sh
     ```
 
@@ -73,7 +73,7 @@ $ export VEHICLE_ID=3 # VEHICLE_IDは競技当日メンターから提示され�
    <img src="../images/operation/loc_initialized.png" alt="Localization INITIALIZED State" width="300">
 
 3. (競技参加者)ゴール地点を指定する。
-   1. ターミナルを開き、`<開発レポジトリのルート>/scripts/set_goal.sh`を実行してゴール地点を設定する。
+   1. ターミナルを開き、`~/aichallenge2023-integration-final/scripts/set_goal.sh`を実行してゴール地点を設定する。
    2. ゴールに向かう経路が引かれていることをrVizで確認する。
 
 4. (セーフティドライバー)ゴルフカートのモードを`自動モード`に設定する。
