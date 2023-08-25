@@ -2,12 +2,12 @@
 
 <br>
 
-> [!REGISTER]
+<!-- > [!REGISTER]
 > Register from here!
 > [https://www.jsae.or.jp/jaaic/en/index.php](https://www.jsae.or.jp/jaaic/en/index.php)
 
 
-<br>
+<br> -->
 
 ![AIchallenge2023](../images/top/aichallenge2023.png)
 
@@ -130,4 +130,5 @@ Please check each page before participating.
  * [LocalEnvrionment](./local) About local environment
  * [OnlineEnvrionment](./online) About online environment
  * [Customizing Autoware](./customize/) About customizing Autoware
+ * [FAQ](./FAQ/) About Frequently Asked Questions.
  * [Other](./other) How to contact us, etc.

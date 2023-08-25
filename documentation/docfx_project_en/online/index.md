@@ -1,11 +1,11 @@
 # Online Environment
 <br>
 
-> [!REGISTER]
+<!-- > [!REGISTER]
 > Register from here!
 > [https://www.jsae.or.jp/jaaic/en/index.php](https://www.jsae.or.jp/jaaic/en/index.php)
 
-<br>
+<br> -->
 
  &emsp; In this competition, scoring will be conducted in an online environment equipped with simulators and automatic grading features.   
  &emsp; Follow the steps below to upload the package you have created to the online environment. After the upload is complete, the simulation will start in the online environment, and the results will be presented.

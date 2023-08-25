@@ -21,10 +21,49 @@
 #include <rclcpp/rclcpp.hpp>
 
 namespace aichallenge_scoring {
+  class AIChallengeScoringNode::StopWatch {
+  public:
+    StopWatch(const rclcpp::Clock::SharedPtr& clock)
+      : system_clock_(clock) {
+      tic(default_name);
+    }
+
+    void tic(const std::string & name = default_name) { t_start_[name] = system_clock_->now(); }
+
+    void tic(const char * name) { tic(std::string(name)); }
+
+    double toc(const std::string & name, const bool reset = false)
+    {
+      const auto t_start = t_start_.at(name);
+      const auto t_end = system_clock_->now();
+      const auto duration = (t_end - t_start).nanoseconds();
+
+      if (reset) {
+        t_start_[name] = system_clock_->now();
+      }
+
+      const auto one_sec = rclcpp::Duration(1, 0).nanoseconds();
+
+      return static_cast<double>(duration) / one_sec;
+    }
+
+    double toc(const char * name, const bool reset = false) { return toc(std::string(name), reset); }
+
+    double toc(const bool reset = false) { return toc(default_name, reset); }
+
+  private:
+    using Time = rclcpp::Time;
+    static constexpr const char * default_name{"__auto__"};
+
+    rclcpp::Clock::SharedPtr system_clock_;
+
+    std::unordered_map<std::string, Time> t_start_;
+  };
+
   AIChallengeScoringNode::AIChallengeScoringNode(const rclcpp::NodeOptions & node_options) 
-  : Node("aichallenge_scoring", node_options),
-    vehicle_info_(vehicle_info_util::VehicleInfoUtil(*this).getVehicleInfo())
-  {
+  : Node("aichallenge_scoring", node_options)
+  , vehicle_info_(vehicle_info_util::VehicleInfoUtil(*this).getVehicleInfo())
+  , stop_watch_ptr_(std::make_unique<StopWatch>(get_clock())) {
     using std::placeholders::_1;
 
     task3_start_distance_ = declare_parameter<double>("task3_start_distance");
@@ -32,7 +71,7 @@ namespace aichallenge_scoring {
     task1_start_distance_ = declare_parameter<double>("task1_start_distance");
     task1_end_distance_ = declare_parameter<double>("task1_end_distance");
 
-    // Subscriberstic
+    // Subscribers
     sub_odom_ = create_subscription<Odometry>("/localization/kinematic_state", rclcpp::QoS(1), std::bind(&AIChallengeScoringNode::onOdom, this, _1));
     sub_map_ = create_subscription<HADMapBin>("/map/vector_map", rclcpp::QoS{1}.transient_local(), std::bind(&AIChallengeScoringNode::onMap, this, _1));
 
@@ -50,7 +89,7 @@ namespace aichallenge_scoring {
     has_finished_task3_ = false;
     is_doing_task3_ = false;
     odometry_ = nullptr;
-    stop_watch_ptr_.tic("task3_duration");
+    stop_watch_ptr_->tic("task3_duration");
   }
 
   void AIChallengeScoringNode::onOdom(const Odometry::SharedPtr msg) {
@@ -115,13 +154,13 @@ namespace aichallenge_scoring {
       RCLCPP_INFO(this->get_logger(), "Self-driving started");
 
       has_started_driving_ = true;
-      stop_watch_ptr_.tic(total_duration_timer_name);
+      stop_watch_ptr_->tic(total_duration_timer_name);
     }
 
     // Update total duration
     auto total_duration = 0.0;
     if (has_started_driving_) {
-      total_duration = stop_watch_ptr_.toc(total_duration_timer_name, false);
+      total_duration = stop_watch_ptr_->toc(total_duration_timer_name, false);
     }
     const auto timeout_time = 5.0 * 60.0;
     auto is_timeout = total_duration > timeout_time;
@@ -147,13 +186,13 @@ namespace aichallenge_scoring {
     if (distance_score >= task3_start_distance_ && distance_score <= task3_end_distance_ && !is_doing_task3_) {
       RCLCPP_INFO(this->get_logger(), "Task3 started");
 
-      task3_duration_ = stop_watch_ptr_.toc("task3_duration", true);
+      task3_duration_ = stop_watch_ptr_->toc("task3_duration", true);
       is_doing_task3_ = true;
     }
 
     // End of Task 3: Stop timer
     if (distance_score > task3_end_distance_ && is_stopped && is_doing_task3_) {
-      task3_duration_ = stop_watch_ptr_.toc("task3_duration", false);
+      task3_duration_ = stop_watch_ptr_->toc("task3_duration", false);
       is_doing_task3_ = false;
       has_finished_task3_ = true;
     }
@@ -162,7 +201,7 @@ namespace aichallenge_scoring {
     aichallenge_scoring_msgs::msg::Score score_msg;
     score_msg.distance_score = std::min(distance_score, task3_end_distance_);
     if (is_doing_task3_) {
-      score_msg.task3_duration = stop_watch_ptr_.toc("task3_duration", false);
+      score_msg.task3_duration = stop_watch_ptr_->toc("task3_duration", false);
     } else if (has_finished_task3_) {
       score_msg.task3_duration = task3_duration_;
     } else {
