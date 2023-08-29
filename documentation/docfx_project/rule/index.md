@@ -56,16 +56,17 @@
 &emsp;・指定の経路からはみ出さないこと     
 ペナルティ：     
 &emsp;・ダンボールに衝突、または指定の経路からはみ出すと走行終了
+<img src="../images/rule/kadai3-1.png" width="70%">
+<img src="../images/rule/kadai3.png" width="70%">
 
 ### Task 3-2: Narrow road driving (L-shaped crank)  
-クリア条件：    
-&emsp;・ダンボールに衝突しないこと    
+クリア条件：      
 &emsp;・指定の経路からはみ出さないこと    
 &emsp;・完走後、停止すること
 ペナルティ：    
-&emsp;・ダンボールに衝突、または指定の経路からはみ出すと走行終了    
+&emsp;・指定の経路からはみ出すと走行終了    
 &emsp;・完走した後で衝突・経路からはみ出した場合、5%減点      
-<img src="../images/rule/kadai3.png" width="70%">
+<img src="../images/rule/kadai3-2.png" width="70%">
 
 ### How to check results
 &emsp;走行が完了すると、`/aichallenge/scoreトピック`と`/aichallenge/collisionトピック`に基づき`result.json`が出力されます。下記を参照のうえ、結果をご確認ください。  
