@@ -141,10 +141,30 @@
     },
     {
       "type": "Resource",
+      "source_relative_path": "images/rule/kadai3-2.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/rule/kadai3-2.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
       "source_relative_path": "images/rule/kadai3.png",
       "output": {
         "resource": {
           "relative_path": "images/rule/kadai3.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/rule/task3-goal.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/rule/task3-goal.png"
         }
       },
       "version": ""
