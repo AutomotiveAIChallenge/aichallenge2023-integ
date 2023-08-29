@@ -59,7 +59,7 @@ Clear condition:
 &emsp;・Do not collide with a cardboard box.      
 &emsp;・Do not stray from the designated route.       
 Penalty:   
-&emsp;・If the vehicle collides with a cardboard box or strays from the designated path, the driving will be terminated.
+&emsp;・If the vehicle collides with a cardboard box or strays from the designated path, the driving will be terminated.      
 <img src="../../images/rule/kadai3.png" width="70%">
 
 ### Task 3-2: Narrow road driving (L-shaped crank)  
@@ -71,10 +71,10 @@ Penalty:
 
 ### Task 3-3: Stop after reaching the goal
 Clear condition:      
-&emsp;・Stop when you reach the goal at blue-framed area.
+&emsp;・Stop when you reach the goal at blue-framed area.      
 Penalty:      
-&emsp;・Going out of the path(Couldn't stop at the goal) after finishing the race, 5% point deduction will be given. 
-<img src="../images/rule/task3-goal.png" width="70%">
+&emsp;・Going out of the path(Couldn't stop at the goal) after finishing the race, 5% point deduction will be given.      
+<img src="../../images/rule/task3-goal.png" width="70%">
 
 ### How to check results
 &emsp; When the run is completed, `result.json` will be output based on `/aichallenge/score topic` and `/aichallenge/collision topic`. See below to check the results.  
