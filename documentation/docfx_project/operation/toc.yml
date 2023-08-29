@@ -2,12 +2,6 @@
 - name: Operation
   href: index.html
   homepage: operation/index.html
-- name: Vehicle Interfaceの動作確認
-  href: index.html#vehicle-interfaceの動作確認
-- name: 車両HWとの接続方法
-  href: index.html#車両hwとの接続方法
-- name: 車両IDの設定
-  href: index.html#車両idの設定
 - name: 自動運転発進までの手順
   href: index.html#自動運転発進までの手順
 - name: 安全に関する注意点

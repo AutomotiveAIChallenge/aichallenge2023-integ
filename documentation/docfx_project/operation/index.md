@@ -2,58 +2,8 @@
 
 &emsp;このページでは、 AutowareをインストールしたノートPCで競技車両(自動運転対応ゴルフカート、以下ゴルフカート)を動かす手順を解説します。
 
-## Vehicle Interfaceの動作確認
+※開発用のレポジトリが`/home/autoware/aichallenge2023-integration-final`に配置されている前提で解説しています。
 
-本選で使用するゴルフカートのVehicle Interfaceの実行ファイルが競技に使用するPCの`~/vi_ws` の中に含まれています。このVehicle Interfaceを使用する方法を説明します。
-
-1. シンボリックリンクを適用する。
-
-    以下のコマンドを実行する。
-    ```
-    $ ln -snf /home/autoware/aichallenge2023-integration-final /home/autoware/aichallenge2023final-test
-    ```
-2. Vehicle Interface の起動を確認する。
-
-    `~/aichallenge2023-integration-final/scripts/run_autoware_on_vehicle.sh` を実行後、別のターミナルで`ros2 node list |grep g30` を実行し、以下のように、Vehicle Interfaceのノード名が出力されることを確認する。
-
-    ```
-    $ ros2 node list |grep g30
-    /g30esli/socket_can_receiver
-    /g30esli/socket_can_sender
-    /g30esli_interface
-    /g30esli_interface_awiv_adapt_receiver
-    /g30esli_interface_awiv_adapt_sender
-    ```
-
-
-## 車両HWとの接続方法
-
-LiDARとCAN インターフェースとの接続設定手順を説明します。
-
-### LiDARの接続
-
-1. OS設定アプリ(`Settings`)から、Network設定メニューへ移動する。
-2. Network設定画面内にある `Wired` の設定選択メニューから `velodyne` をクリックする。
-<img src="../images/operation/velo_network_setting.png" alt="Velodyne Network Setting">
-
-### CAN インターフェースの接続
-
-1. 車両前方にある Type-A USBケーブルをPCに接続する。
-2. ターミナルを開き、`~/can_config.sh` を実行する。
-3. `CAN Interface configuration done` と表示されることを確認する。
-
-### LiDAR、CANインターフェース接続状態の確認
-
-1. ターミナル上で `~/hw_connectivity_check.sh` を実行する。
-2. `Connectivity check clear` と表示されることを確認する。
-
-## 車両IDの設定
-
-Autowareを実行するターミナルにて、 環境変数 `VEHICLE_ID` を設定する。
-```
-例)
-$ export VEHICLE_ID=3 # VEHICLE_IDは競技当日メンターから提示されます。
-```
 
 ## 自動運転発進までの手順
 
@@ -61,8 +11,6 @@ $ export VEHICLE_ID=3 # VEHICLE_IDは競技当日メンターから提示され�
 
 1. (競技参加者)ターミナルを開き、以下のコマンドを実行してAutowareを起動する。
     ```
-    $ source /opt/ros/humble/setup.bash
-    $ source ~/aichallenge2023-integration-final/install/setup.bash
     $ cd ~/aichallenge2023-integration-final/scripts
     $ ./run_autoware_on_vehicle.sh
     ```
