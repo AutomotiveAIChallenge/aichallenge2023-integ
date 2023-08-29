@@ -56,7 +56,6 @@
 &emsp;・指定の経路からはみ出さないこと     
 ペナルティ：     
 &emsp;・ダンボールに衝突、または指定の経路からはみ出すと走行終了
-<img src="../images/rule/kadai3-1.png" width="70%">
 <img src="../images/rule/kadai3.png" width="70%">
 
 ### Task 3-2: Narrow road driving (L-shaped crank)  

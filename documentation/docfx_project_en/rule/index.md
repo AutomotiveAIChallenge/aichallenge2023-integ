@@ -60,7 +60,6 @@ Clear condition:
 &emsp;・Do not stray from the designated route.       
 Penalty:   
 &emsp;・If the vehicle collides with a cardboard box or strays from the designated path, the driving will be terminated.
-<img src="../../images/rule/kadai3-1.png" width="70%">
 <img src="../../images/rule/kadai3.png" width="70%">
 
 ### Task 3-2: Narrow road driving (L-shaped crank)  
