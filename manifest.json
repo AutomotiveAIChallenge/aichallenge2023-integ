@@ -91,6 +91,36 @@
     },
     {
       "type": "Resource",
+      "source_relative_path": "images/operation/autoware_control_enabled.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/operation/autoware_control_enabled.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/operation/loc_initialized.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/operation/loc_initialized.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/operation/operation_mode_auto.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/operation/operation_mode_auto.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
       "source_relative_path": "images/rule/Thumbs.db",
       "output": {
         "resource": {
@@ -422,6 +452,32 @@
         },
         ".json": {
           "relative_path": "online/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "operation/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "operation/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Toc",
+      "source_relative_path": "operation/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "operation/toc.html"
+        },
+        ".json": {
+          "relative_path": "operation/toc.json"
         }
       },
       "version": ""

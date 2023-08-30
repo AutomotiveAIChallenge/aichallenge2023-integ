@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>[WIP]Operation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="[WIP]Operation ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/blob/main/documentation/docfx_project/operation/index.md/#L1">
+  </head>
+
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="wipoperation">[WIP]Operation</h1>
+
+<p><strong>注意: このページは作成中です。ページの内容は暫定の情報であり、今後変更される可能性があります。</strong></p>
+<p>このページでは、 AutowareをインストールしたノートPCで競技車両(自動運転対応ゴルフカート、以下ゴルフカート)を動かす手順を解説します。</p>
+<p>※開発用のレポジトリが<code>/home/autoware/aichallenge2023-integration-final</code>に配置されている前提で解説しています。</p>
+<h2 id="自動運転発進までの手順">自動運転発進までの手順</h2>
+<p><strong>※車両を動かす前に必ず <a href="#%E5%AE%89%E5%85%A8%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E6%B3%A8%E6%84%8F%E7%82%B9">安全に関する注意点</a>を一読ください。</strong></p>
+<ol>
+<li><p>(競技参加者)ターミナルを開き、以下のコマンドを実行してAutowareを起動する。</p>
+<pre><code>$ cd ~/aichallenge2023-integration-final/scripts
+$ ./run_autoware_on_vehicle.sh
+</code></pre>
+</li>
+<li><p>(競技参加者)自己位置推定を開始する。</p>
+<ol>
+<li>2D pose estimate をrVizから入力する。</li>
+<li><code>AutowareStatePanel</code> の <code>Localization</code>の表示が<code>INITIALIZED</code>となっていることを確認する。
+<img src="../images/operation/loc_initialized.png" alt="Localization INITIALIZED State" width="300"></li>
+</ol>
+</li>
+<li><p>(競技参加者)ゴール地点を指定する。</p>
+<ol>
+<li>ターミナルを開き、<code>~/aichallenge2023-integration-final/scripts/set_goal.sh</code>を実行してゴール地点を設定する。</li>
+<li>ゴールに向かう経路が引かれていることをrVizで確認する。</li>
+</ol>
+</li>
+<li><p>(セーフティドライバー)ゴルフカートのモードを<code>自動モード</code>に設定する。</p>
+</li>
+<li><p>(競技参加者)Autowareによる車両制御を有効化する。</p>
+<ol>
+<li>メンターの指示を受け、<code>AutowareStatePanel</code>の<code>AutowareControl</code>の<code>Enable</code>ボタンをクリックする。</li>
+<li><code>AutowareStatePanel</code>の<code>AutowareControl</code>の表示が<code>Enable</code>になっていることを確認する。
+<img src="../images/operation/autoware_control_enabled.png" alt="Autoware Control Enabled" width="300"></li>
+</ol>
+</li>
+<li><p>(セーフティードライバー) ステアの挙動を確認し、ゴルフカードがAutowareの制御を正常に受け付けていることを確認し、Autowareの自動運転モード許可を参加者に伝達する。</p>
+</li>
+<li><p>(競技参加者)Autowareを自動運転モードに設定する。</p>
+<ol>
+<li>セーフティドライバーに「自動運転開始します」と発話する。</li>
+<li><code>AutowareStatePanel</code>の<code>OperationMode</code>の<code>AUTO</code>ボタンをクリックする。</li>
+<li><code>AutowareStatePanel</code>の<code>OperationMode</code>の表示が<code>AUTONOMOUS</code>になっていることを確認する。
+<img src="../images/operation/operation_mode_auto.png" alt="Operation Mode Auto" width="300"></li>
+</ol>
+</li>
+</ol>
+<h3 id="オーバーライドドライバーが車両を停止させたときが発生した場合">オーバーライド（ドライバーが車両を停止させたとき）が発生した場合</h3>
+<ol>
+<li>(セーフティドライバー) オーバーライドした旨を競技参加者に伝達する。</li>
+<li>メンターの指示を受け、<code>AutowareStatePanel</code>の<code>AutowareControl</code>の<code>Disable</code>ボタンをクリックする。</li>
+<li><code>AutowareStatePanel</code>の<code>AutowareControl</code>の表示が<code>Disable</code>になっていることを確認する。</li>
+</ol>
+<h2 id="安全に関する注意点">安全に関する注意点</h2>
+<ul>
+<li>HWの接続不良などが原因で、自動運転モードへの切り替えに失敗することがあります。自動運転モードへの切り替え失敗はセーフティドライバーが判断します。本事象が発生した場合は、メンターの指示に従い自動運転発進までの手順をやり直してください。</li>
+<li>自動走行時、車両に同乗しない参加者は歩道上で待機してください。経路上や車両周囲は立ち入り禁止です。</li>
+<li>自動走行時は必ず上部の手すりを掴んでください。</li>
+<li>自動運転に使用するノートPCをバンドで固定してください。 キーボードが打ちづらい場合は貸出しているUSB無線キーボードを使用してください。</li>
+</ul>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/blob/main/documentation/docfx_project/operation/index.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
