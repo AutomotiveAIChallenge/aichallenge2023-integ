@@ -58,6 +58,12 @@
       },
       {
         "files": [
+          "operation/toc.yml",
+          "operation/index.md"
+        ]
+      },
+      {
+        "files": [
           "FAQ/toc.yml",
           "FAQ/index.md"
         ]
