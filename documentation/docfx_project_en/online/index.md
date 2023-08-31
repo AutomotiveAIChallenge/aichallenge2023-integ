@@ -47,3 +47,15 @@
    
 4.  Check the Results  
 	&emsp; After the evaluation is completed in the online environment, you can download the result.json file and review the results.
+   
+5.  If no results are found:
+	1. Check for issues in the package dependencies:
+   	If implemented in Python, please verify there are no missing dependencies in the `package.xml`, and ensure that `setup.py` or `CMakeLists.txt` are correctly written. If implemented in C++, please ensure that both `package.xml` and `CMakeLists.txt` are accurately described.
+   
+    2. Verify in Docker:
+   	You can check using `docker run -it aichallenge-eval:latest  /bin/bash`.
+   	Please ensure that the `aichallenge_ws` in the following directories is properly installed and built:
+		```
+   		/aichallenge/aichallenge_ws/*
+   		/autoware/install/*
+   		```

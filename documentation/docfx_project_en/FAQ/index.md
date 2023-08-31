@@ -6,6 +6,10 @@
 
 <br>
 
+### When creating a package in Python, a "no module named *" error occurs during execution
+Please check if the submodule has been added to setup.py.
+please refer to [this link](https://zenn.dev/tasada038/articles/5d8ba66aa34b85#setup.py%E3%81%ABsubmodules%E3%81%A8%E3%81%97%E3%81%A6%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%99%E3%82%8B)
+
 ### `$ ros2 topic list` is not displayed
 - Ensure your machine's `ROS_DOMAIN_ID` matches. (If you haven't set the `ROS_DOMAIN_ID`, there's no issue.)
 - Ensure `ROS2` is sourced.
