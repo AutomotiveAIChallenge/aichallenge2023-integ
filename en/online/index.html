@@ -126,6 +126,20 @@ Once the evaluation is complete, result.json will be stored in the <code>output<
 <li><p>Check the Results<br>
   After the evaluation is completed in the online environment, you can download the result.json file and review the results.</p>
 </li>
+<li><p>If no results are found:</p>
+<ol>
+<li><p>Check for issues in the package dependencies:
+If implemented in Python, please verify there are no missing dependencies in the <code>package.xml</code>, and ensure that <code>setup.py</code> or <code>CMakeLists.txt</code> are correctly written. If implemented in C++, please ensure that both <code>package.xml</code> and <code>CMakeLists.txt</code> are accurately described.</p>
+</li>
+<li><p>Verify in Docker:
+You can check using <code>docker run -it aichallenge-eval:latest  /bin/bash</code>.
+Please ensure that the <code>aichallenge_ws</code> in the following directories is properly installed and built:</p>
+<pre><code> /aichallenge/aichallenge_ws/*
+ /autoware/install/*
+</code></pre>
+</li>
+</ol>
+</li>
 </ol>
 </article>
 
