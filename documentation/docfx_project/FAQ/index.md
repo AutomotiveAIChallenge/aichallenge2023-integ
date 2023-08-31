@@ -6,6 +6,9 @@
 
 <br>
 
+### pythonでパッケージを作成すると実行時 no module named * のerrorが起こる
+[setup.pyにsubmoduleが追加されているか確認してください。](https://zenn.dev/tasada038/articles/5d8ba66aa34b85#setup.py%E3%81%ABsubmodules%E3%81%A8%E3%81%97%E3%81%A6%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%99%E3%82%8B)
+
 ### `$ ros2 topic list` が表示されない
 - あなたのマシンの `ROS_DOMAIN_ID` が一致していることを確認してください。（`ROS_DOMAIN_ID` を設定していない方は問題ないです）
 - `ROS2` がソースされていることを確認してください。
