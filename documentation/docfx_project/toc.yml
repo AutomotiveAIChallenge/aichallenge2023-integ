@@ -2,18 +2,26 @@
   href: index.html
 - name: Introduction
   href: intro/index.html
-- name: Setup
-  href: setup/index.html
-- name: Rule
-  href: rule/index.html
-- name: LocalEnvironment
-  href: local/index.html
-- name: OnlineEnvironment
-  href: online/index.html
+- name: Preliminaries
+  dropdown: true
+  items:
+  - name: Setup
+    href: setup/index.html
+  - name: Rule
+    href: rule/index.html
+  - name: LocalEnvironment
+    href: local/index.html
+  - name: OnlineEnvironment
+    href: online/index.html
+- name: Finals
+  dropdown: true
+  items:
+  - name: Operation
+    href: operation/index.html
+- name: Teams
+  href: teams/index.html
 - name: Customizing Autoware
   href: customize/index.html
-- name: Operation
-  href: operation/index.html
 - name: FAQ
   href: FAQ/index.html
 - name: Other

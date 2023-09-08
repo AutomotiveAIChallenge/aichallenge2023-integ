@@ -64,6 +64,12 @@
       },
       {
         "files": [
+          "teams/toc.yml",
+          "teams/index.md"
+        ]
+      },
+      {
+        "files": [
           "FAQ/toc.yml",
           "FAQ/index.md"
         ]
