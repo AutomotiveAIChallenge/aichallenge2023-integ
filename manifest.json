@@ -581,6 +581,32 @@
       "version": ""
     },
     {
+      "type": "Conceptual",
+      "source_relative_path": "teams/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "teams/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Toc",
+      "source_relative_path": "teams/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "teams/toc.html"
+        },
+        ".json": {
+          "relative_path": "teams/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
       "log_codes": [
         "InvalidFileLink"
       ],
