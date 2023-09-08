@@ -16,8 +16,12 @@
 - name: Finals
   dropdown: true
   items:
+  - name: About the Finals
+    href: finals/index.html
+  - name: Rules and Scoring
+    href: finals/rules.html
   - name: Operation
-    href: operation/index.html
+    href: finals/operation.html
 - name: Teams
   href: teams/index.html
 - name: Customizing Autoware
