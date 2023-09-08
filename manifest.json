@@ -91,6 +91,26 @@
     },
     {
       "type": "Resource",
+      "source_relative_path": "images/operation/aichal-2022-expl.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/operation/aichal-2022-expl.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/operation/aichal-vehicle.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/operation/aichal-vehicle.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
       "source_relative_path": "images/operation/autoware_control_enabled.png",
       "output": {
         "resource": {

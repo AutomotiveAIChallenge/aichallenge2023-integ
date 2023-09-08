@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>[WIP]Operation </title>
+      <title>[WIP]Operation (決勝大会) </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="[WIP]Operation ">
+      <meta name="title" content="[WIP]Operation (決勝大会) ">
       
       <link rel="icon" href="../favicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
@@ -16,6 +16,17 @@
       
       
       <meta name="docfx:docurl" content="https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/blob/main/documentation/docfx_project/operation/index.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
   </head>
 
   <script type="module">
@@ -72,12 +83,33 @@
         </div>
 
         <article data-uid="">
-<h1 id="wipoperation">[WIP]Operation</h1>
+<h1 id="wipoperation-決勝大会">[WIP]Operation (決勝大会)</h1>
 
 <p><strong>注意: このページは作成中です。ページの内容は暫定の情報であり、今後変更される可能性があります。</strong></p>
 <p>このページでは、 AutowareをインストールしたノートPCで競技車両(自動運転対応ゴルフカート、以下ゴルフカート)を動かす手順を解説します。</p>
 <p>※開発用のレポジトリが<code>/home/autoware/aichallenge2023-integration-final</code>に配置されている前提で解説しています。</p>
-<h2 id="自動運転発進までの手順">自動運転発進までの手順</h2>
+<h2 id="はじめに">はじめに</h2>
+<p>決勝大会では競技参加者の開発用ノートパソコンでゴルフカート型の自動運転車両を走行させ、開発した自動運転ソフトウェアの性能を競います。
+競技参加者の皆様には、開発用ノートパソコンの車両への接続から自動運転走行開始までの操作を実施していただきます。</p>
+<div align="center">
+<img src="../images/operation/aichal-2022-expl.png" alt="去年の走行の様子" width="500">
+<p><em>走行の様子</em></p>
+<p>引用: <a href="https://www.jsae.or.jp/jaaic2022/final.html">https://www.jsae.or.jp/jaaic2022/final.html</a> &quot;競技解説 Explanation of　the competition&quot;)</p>
+</div>
+<h2 id="競技車両について">競技車両について</h2>
+<div align="center">
+<img src="../images/operation/aichal-vehicle.png" alt="競技車両" width="500">
+<p><em>競技に使用する車両</em></p>
+</div>
+<ul>
+<li>競技に使用する車両は予選のE2E空間で操作した車両と同様のセンサー(LiDAR)を備えています。一方で車両の運動特性は、シミュレーションのモデルと同一ではありません。</li>
+<li>LiDARに繋がるネットワークインターフェースとCANインターフェースを備えています。開発用ノートパソコンをこれらに接続することで自動運転走行を実施します。</li>
+<li>競技に使用する車両にはメンターと、セーフティドライバーが同乗します。メンターはインターフェースの接続や、自動運転ソフトウェア操作のサポートを、セーフティドライバーは手動運転での車両の移動と、自動運転走行時の監視を行います。</li>
+<li>車両の制御モードには、<code>自動モード</code>と<code>手動モード</code>の2種類があり、セーフティードライバーの操作により切り替えることができます。</li>
+<li>自動運転走行中、セーフティードライバーはブレーキをかけることで、車両の制御モードを<code>自動モード</code>から<code>手動モード</code>に切り替えることができます。これをオーバーライドといいます。セーフティドライバーは自動運転を継続することが危険と判断された場合にオーバーライドを実施します。</li>
+</ul>
+<h2 id="自動運転開始までの手順">自動運転開始までの手順</h2>
+<p>このセクションでは、競技の参加者の皆様が開発用ノートパソコンを車両に接続した後、自動運転を開始するまでのフローを説明します。</p>
 <p><strong>※車両を動かす前に必ず <a href="#%E5%AE%89%E5%85%A8%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E6%B3%A8%E6%84%8F%E7%82%B9">安全に関する注意点</a>を一読ください。</strong></p>
 <ol>
 <li><p>(競技参加者)ターミナルを開き、以下のコマンドを実行してAutowareを起動する。</p>
@@ -119,16 +151,21 @@ $ ./run_autoware_on_vehicle.sh
 </li>
 </ol>
 <h3 id="オーバーライドドライバーが車両を停止させたときが発生した場合">オーバーライド（ドライバーが車両を停止させたとき）が発生した場合</h3>
+<p>自動運転中に縁石への乗り上げや、障害物への接触が予見される場合はセーフティードライバーがブレーキをかけ、車両の制御を自動運転から手動運転に切り替えます。これをオーバーライドといいます。
+課題1, 課題2の区間でセーフティードライバーがオーバーライドを行った場合は、以下の手順を経て、次の課題から開始します。</p>
 <ol>
 <li>(セーフティドライバー) オーバーライドした旨を競技参加者に伝達する。</li>
+<li>(セーフティドライバー) ゴルフカートのモードを<code>手動モード</code>に設定する。</li>
+<li>(セーフティドライバー) 次の課題のスタート地点へ車両を移動する。</li>
 <li>メンターの指示を受け、<code>AutowareStatePanel</code>の<code>AutowareControl</code>の<code>Disable</code>ボタンをクリックする。</li>
 <li><code>AutowareStatePanel</code>の<code>AutowareControl</code>の表示が<code>Disable</code>になっていることを確認する。</li>
+<li><a href="#%E8%87%AA%E5%8B%95%E9%81%8B%E8%BB%A2%E9%96%8B%E5%A7%8B%E3%81%BE%E3%81%A7%E3%81%AE%E6%89%8B%E9%A0%86">自動運転開始までの手順</a> 5番、 <strong>(セーフティドライバー)ゴルフカートのモードを<code>自動モード</code>に設定する。</strong> から再開する。</li>
 </ol>
 <h2 id="安全に関する注意点">安全に関する注意点</h2>
 <ul>
-<li>HWの接続不良などが原因で、自動運転モードへの切り替えに失敗することがあります。自動運転モードへの切り替え失敗はセーフティドライバーが判断します。本事象が発生した場合は、メンターの指示に従い自動運転発進までの手順をやり直してください。</li>
-<li>自動走行時、車両に同乗しない参加者は歩道上で待機してください。経路上や車両周囲は立ち入り禁止です。</li>
-<li>自動走行時は必ず上部の手すりを掴んでください。</li>
+<li>HWの接続不良などが原因で、自動運転モードへの切り替えに失敗することがあります。自動運転モードへの切り替え失敗はセーフティドライバーが判断します。本事象が発生した場合は、メンターの指示に従い自動運転開始までの手順をやり直してください。</li>
+<li>自動運転走行時、車両に同乗しない参加者は歩道上で待機してください。経路上や車両周囲は立ち入り禁止です。</li>
+<li>自動運転走行時は必ず上部の手すりを掴んでください。</li>
 <li>自動運転に使用するノートPCをバンドで固定してください。 キーボードが打ちづらい場合は貸出しているUSB無線キーボードを使用してください。</li>
 </ul>
 </article>
