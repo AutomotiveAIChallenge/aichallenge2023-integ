@@ -6,6 +6,12 @@
 決勝大会では競技参加者の開発用ノートパソコンでゴルフカート型の自動運転車両を走行させ、開発した自動運転ソフトウェアの性能を競います。
 競技参加者の皆様には、開発用ノートパソコンの車両への接続から自動運転走行開始までの操作を実施していただきます。
 
+<br>
+
+> [!Video https://www.youtube.com/embed/8oF-XcbsJes?si=mD5LQWd28DEj5L7L]
+
+<br>
+
 <div align="center">
   <img src="../images/operation/aichal-2022-expl.png" alt="去年の走行の様子" width="500">
 
