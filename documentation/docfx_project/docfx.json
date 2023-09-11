@@ -58,8 +58,10 @@
       },
       {
         "files": [
-          "operation/toc.yml",
-          "operation/index.md"
+          "finals/toc.yml",
+          "finals/index.md",
+          "finals/rules.md",
+          "finals/operation.md"
         ]
       },
       {
