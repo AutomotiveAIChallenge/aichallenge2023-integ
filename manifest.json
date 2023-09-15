@@ -360,6 +360,26 @@
     },
     {
       "type": "Resource",
+      "source_relative_path": "images/teams/photo1.jpg",
+      "output": {
+        "resource": {
+          "relative_path": "images/teams/photo1.jpg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/teams/video1.webm",
+      "output": {
+        "resource": {
+          "relative_path": "images/teams/video1.webm"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
       "source_relative_path": "images/top/accomplish.png",
       "output": {
         "resource": {
