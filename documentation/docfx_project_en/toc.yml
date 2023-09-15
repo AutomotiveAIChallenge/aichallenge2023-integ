@@ -19,7 +19,7 @@
   - name: Operation
     href: operation/index.html
 - name: Teams
-  href: teams/index.html
+  href: ../teams/index.html
 - name: Customizing Autoware
   href: customize/index.html
 - name: FAQ
