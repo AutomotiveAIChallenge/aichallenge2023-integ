@@ -28,6 +28,8 @@
 
 **工夫した点：** ドキュメントをしっかり読みました！
 
+<br>
+
 <img src="../images/teams/photo1.jpg" alt="Team Photo" width="500px">
 
 <br><br>
