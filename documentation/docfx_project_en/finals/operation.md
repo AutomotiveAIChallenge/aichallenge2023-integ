@@ -11,7 +11,7 @@ This page describes the procedure for running the competition vehicle (an automa
 
 This section describes the flow of the competition participants from connecting the development laptop to the vehicle until the start of automated driving.
 
-**※Please be sure to read [the safety precautions](#安全に関する注意点) before starting the vehicle.**
+**※Please be sure to read [the safety precautions](#Safety-precautions) before starting the vehicle.**
 
 1. (Competition participants) Open a terminal and execute the following command to start Autoware.
     ```
@@ -22,7 +22,7 @@ This section describes the flow of the competition participants from connecting 
 2. (Competition participant) Start self-position estimation.
    1. Input 2D pose estimate from rViz.
    2. Confirm that the `Localization` display on the `AutowareStatePanel` is `INITIALIZED`.
-   <img src="../images/operation/loc_initialized.png" alt="Localization INITIALIZED State" width="300">
+   <img src="../../images/operation/loc_initialized.png" alt="Localization INITIALIZED State" width="300">
 
 3. Specify the (Competiton participant) goal point.
    1. Open a terminal and execute `~/aichallenge2023-integration-final/scripts/set_goal.sh` to set the goal point.
@@ -33,7 +33,7 @@ This section describes the flow of the competition participants from connecting 
 5. (Competiton participant) Enable vehicle control by Autoware.
    1. Click on the `Enable` button of the `AutowareControl` in the `AutowareStatePanel` after receiving the mentor’s instructions.
    2. Confirm that the display of `AutowareControl` in the `AutowareStatePanel` is `Enabled`.
-   <img src="../images/operation/autoware_control_enabled.png" alt="Autoware Control Enabled" width="300">
+   <img src="../../images/operation/autoware_control_enabled.png" alt="Autoware Control Enabled" width="300">
 
 6. (Safety Driver) Checks the steer behavior, confirms that the golf card is successfully accepting Autoware control, and communicates Autoware’s autopilot mode permission to the participant.
 
@@ -41,7 +41,7 @@ This section describes the flow of the competition participants from connecting 
    1. Speaks to the safety driver, “I will start automatic operation”.
    2. Click the `AUTO` button in the `OperationMode` of the `AutowareStatePanel`.
    3. Confirm that the `OperationMode` display on the `AutowareStatePanel` is set to `AUTONOMOUS`.
-   <img src="../images/operation/operation_mode_auto.png" alt="Operation Mode Auto" width="300">
+   <img src="../../images/operation/operation_mode_auto.png" alt="Operation Mode Auto" width="300">
 
 ### When an override (when the driver stops the vehicle) occurs
 
@@ -50,9 +50,9 @@ If the safety driver overrides during a segment of Task 1 or Task 2, the followi
 1. (Safety Driver) Notify the competitors that they have overridden.
 2. (Safety Driver) Sets the golf cart mode to `manual mode`.
 3. (Safety Driver) Moves the vehicle to the starting point of the next task.
-4. (Safety Driver) Moves the vehicle to the starting point of the next assignment.
-5. Confirm that the display of `AutowareControl` in the `AutowareStatePanel` is `Disable`.
-6. Resume an [automated operation from step](#steps-to-start-automated-operation) No4(**(Safety Driver)Set the golf cart mode to `automatic mode`.**)
+4. With the mentor's instructions, click on the `Disable` button of the `AutowareControl` in the `AutowareStatePanel`.
+5. Confirm that the display of `AutowareControl` in the `AutowareStatePanel` is set to `Disable`.
+6. Resume an [automated operation from step](#steps-to-start-automated-operation) No4 **(Safety Driver)Set the golf cart mode to `automatic mode`.**
 
 ## Safety precautions
 

@@ -12,10 +12,10 @@ In the final competition, participants will drive a golf cart-type self-driving 
 <br>
 
 <div align="center">
-  <img src="../images/operation/aichal-2022-expl.png" alt="Last year's run" width="500">
+  <img src="../../images/operation/aichal-2022-expl.png" alt="Last year's run" width="500">
 
   _Driving situation_<br>
-  （refer: https://www.jsae.or.jp/jaaic2022/final.html "競技解説 Explanation of　the competition"）
+  （refer: https://www.jsae.or.jp/jaaic2022/final.html "Explanation of　the competition"）
 </div>
 
 <br>
@@ -25,7 +25,7 @@ In the final competition, participants will drive a golf cart-type self-driving 
 <br>
 
 <div align="center">
-  <img src="../images/operation/aichal-vehicle.png" alt="Competition Vehicles" width="500">
+  <img src="../../images/operation/aichal-vehicle.png" alt="Competition Vehicles" width="500">
 
   _Vehicles used for competition_
 </div>
