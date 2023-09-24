@@ -75,3 +75,21 @@
 
 **Team Tactics：** We focused on avoidance especially task 3.
 
+---
+
+## チーム遊戯王
+
+<br>
+
+**紹介文：** 企業の有志活動メンバー３名で構成されるチームです。過去に自動運転AIチャレンジに４回ほど参加したことがあります。楽しむ事をモットーに取り組んでいます。<br>
+有志活動: https://challenge-club.connpass.com/
+
+**工夫した点：** 環境構築や走行性能向上に苦労しました。競技においては特に第3クランクの突破のためにplanner活用など各種工夫を試みました。チームワークで課題解決にとりくんでいきます。
+
+<br>
+
+<img src="../images/teams/photo2.png" alt="Team Photo" width="500px">
+
+<br><br>
+
+---
