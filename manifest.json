@@ -370,6 +370,16 @@
     },
     {
       "type": "Resource",
+      "source_relative_path": "images/teams/photo2.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/teams/photo2.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
       "source_relative_path": "images/teams/video1.webm",
       "output": {
         "resource": {
