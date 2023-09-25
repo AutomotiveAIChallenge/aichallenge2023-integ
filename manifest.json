@@ -360,6 +360,36 @@
     },
     {
       "type": "Resource",
+      "source_relative_path": "images/teams/atsugi_no_kosame_1.jpg",
+      "output": {
+        "resource": {
+          "relative_path": "images/teams/atsugi_no_kosame_1.jpg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/teams/atsugi_no_kosame_2.jpg",
+      "output": {
+        "resource": {
+          "relative_path": "images/teams/atsugi_no_kosame_2.jpg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/teams/iASL.jpg",
+      "output": {
+        "resource": {
+          "relative_path": "images/teams/iASL.jpg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
       "source_relative_path": "images/teams/photo1.jpg",
       "output": {
         "resource": {
