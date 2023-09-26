@@ -3,8 +3,7 @@
 <br>
 
 ## Introduction
-In the final competition, participants will drive a golf cart-type self-driving car using their own development laptop computers to compete in the performance of the self-driving software they have developed. Participants are required to perform all operations from connecting the development laptop to the vehicle to the start of automatic driving.
-
+In the final competition, participants will operate a golf cart-style autonomous vehicle using their development laptops to showcase the performance of their self-driving software. All operations, from connecting the development laptop to the vehicle to initiating autonomous driving, are to be performed by the participants.
 <br>
 
 > [!Video https://www.youtube.com/embed/8oF-XcbsJes?si=mD5LQWd28DEj5L7L]
@@ -32,8 +31,7 @@ In the final competition, participants will drive a golf cart-type self-driving 
 
 <br>
 
-- The vehicle used in the competition is equipped with the same sensors (LiDAR) as the vehicle operated in the E2E space during the qualifying round. On the other hand, the vehicle’s kinematic characteristics are not identical to the model in the simulation.
-- The vehicle is equipped with a network interface and a CAN interface connected to the LiDAR. Automatic driving is performed by connecting a development laptop to these interfaces.
-- The vehicle used for the competition will be accompanied by a mentor and a safety driver. The mentor will connect the interfaces and assist in operating the automated driving software, while the safety driver will move the vehicle manually and monitor the vehicle during automated driving.
-- The vehicle can be controlled in two modes, `automatic` and `manual`, which can be switched by the safety driver.
-- During automatic driving, the safety driver can switch the vehicle control mode from `automatic` to `manual` by applying the brakes. This is called an override. The safety driver performs the override when it is deemed dangerous to continue the automatic driving.
+- The vehicle used in the competition is fitted with the same sensors (LiDAR) as the one used in the E2E space during the qualifying round. However, the vehicle’s kinematic properties differ from the model in the simulation.
+- The vehicle comes with a network interface linked to the LiDAR and a CAN interface. Autonomous driving is facilitated by connecting a development laptop to these interfaces.
+- A mentor and a safety driver will accompany the competition vehicle. The mentor will handle the interface connections and aid in the operation of the autonomous driving software, while the safety driver will manually maneuver the vehicle and oversee it during autonomous driving.
+- The vehicle offers two control modes: `automatic` and `manual`. The safety driver has the ability to switch between these modes.- During autonomous driving, the safety driver has the capability to transition the vehicle's control mode from `automatic` to `manual` by pressing the brakes. This action is termed an override. The safety driver will initiate the override if continuing autonomous driving is deemed unsafe.
