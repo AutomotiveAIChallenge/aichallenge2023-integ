@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>[WIP]Operation (Finals Competition) </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="[WIP]Operation (Finals Competition) ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/blob/main/documentation/docfx_project_en/finals/operation.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+  </head>
+
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="wipoperation-finals-competition">[WIP]Operation (Finals Competition)</h1>
+
+<p><strong>Note: This is a draft page. Information on this page may change.</strong></p>
+<p>This page outlines the procedure to operate the competition vehicle (a drive-by-wired golf cart, hereafter referred to as “golf cart”) on a laptop with Autoware installed.</p>
+<p>※Instructions are based on the assumption that the repository for development is located in <code>/home/autoware/aichallenge2023-integration-final</code>.</p>
+<h2 id="steps-to-start-autonomous-driving">Steps to Start Autonomous Driving</h2>
+<p>This section details the process from connecting your laptop to the vehicle up to initiating autonomous driving.</p>
+<p><strong>※Please be sure to read <a href="#safety-precautions">the safety precautions</a> before heading to the test field.</strong></p>
+<ol>
+<li><p>(Competition participants) Open a terminal window and execute the following command to start Autoware.</p>
+<pre><code>$ cd ~/aichallenge2023-integration-final/scripts
+$ ./run_autoware_on_vehicle.sh
+</code></pre>
+</li>
+<li><p>(Competition participant) Complete initialization of localization.</p>
+<ol>
+<li>Input 2D pose estimate from rViz.</li>
+<li>Confirm that the <code>Localization</code> display on the <code>AutowareStatePanel</code> is <code>INITIALIZED</code>.
+<img src="../../images/operation/loc_initialized.png" alt="Localization INITIALIZED State" width="300"></li>
+</ol>
+</li>
+<li><p>(Competiton participant) Set the goal point.</p>
+<ol>
+<li>Open a terminal window and execute <code>~/aichallenge2023-integration-final/scripts/set_goal.sh</code> to set the goal point.</li>
+<li>Confirm with rViz that the route to the goal is drawn.</li>
+</ol>
+</li>
+<li><p>(Safety driver) Set the golf cart mode to <code>automatic mode</code>.</p>
+</li>
+<li><p>(Competiton participant) Enable vehicle control by Autoware.</p>
+<ol>
+<li>Click on the <code>Enable</code> button of the <code>AutowareControl</code> in the <code>AutowareStatePanel</code> after receiving the mentor’s instructions.</li>
+<li>Confirm that the display of <code>AutowareControl</code> in the <code>AutowareStatePanel</code> is <code>Enabled</code>.
+<img src="../../images/operation/autoware_control_enabled.png" alt="Autoware Control Enabled" width="300"></li>
+</ol>
+</li>
+<li><p>(Safety Driver) Check the steer behavior, confirm that the golf card is successfully accepting Autoware control, and tell the competition participant that the vehicle is ready to engage in autonomous driving.</p>
+</li>
+<li><p>(Competiton participant) Sets Autoware to autonomous driving mode.</p>
+<ol>
+<li>Tell the safety driver, “I will start automatic operation”.</li>
+<li>Click the <code>AUTO</code> button in the <code>OperationMode</code> of the <code>AutowareStatePanel</code>.</li>
+<li>Confirm that the <code>OperationMode</code> display on the <code>AutowareStatePanel</code> is set to <code>AUTONOMOUS</code>.
+<img src="../../images/operation/operation_mode_auto.png" alt="Operation Mode Auto" width="300"></li>
+</ol>
+</li>
+</ol>
+<h3 id="when-the-safety-driver-performed-override">When the safety driver performed override</h3>
+<p>Should there be a risk of the vehicle hitting a curb or an obstacle during autonomous driving operation, the safety driver will apply the brakes and switch the vehicle control from automatic operation to manual operation. This is called override.</p>
+<p>If the safety driver performs an override while the vehicle is engaging with Task 1 or Task 2, the current task will be forfeited, and autonomous driving will restart at the subsequent task.</p>
+<ol>
+<li>(Safety Driver) Inform the participant of the override</li>
+<li>(Safety Driver) Set the golf cart to <code>manual mode</code>.</li>
+<li>(Safety Driver) Move the vehicle to the starting point of the next task.</li>
+<li>Click on the <code>Disable</code> button of the <code>AutowareControl</code> in the <code>AutowareStatePanel</code>. Mentor will ask you to do so.</li>
+<li>Confirm that the display of <code>AutowareControl</code> in the <code>AutowareStatePanel</code> is set to <code>Disable</code>.</li>
+<li>Resume from step No.4 in <a href="#steps-to-start-autonomous-driving">Steps to Start Autonomous Driving</a> <strong>(Safety Driver)Set the golf cart mode to <code>automatic mode</code>.</strong></li>
+</ol>
+<h2 id="safety-precautions">Safety precautions</h2>
+<ul>
+<li>Failure to switch to automatic operation mode may occur due to a poor HW connection or other reasons. Failure to switch to the automatic operation mode is diagnosed by the safety driver. If this event occurs, follow the mentor’s instructions and redo the procedures to start autonomous driving.</li>
+<li>Participants who are not riding in the vehicle should stay on the sidewalk during the autonomous driving. Please do not enter the designated area for competition or approach the vehicle.</li>
+<li>Please be sure to hold onto the upper handrail during the autonomous driving.</li>
+<li>Please secure your laptop computer used for autonomous driving with a provided band. If you have difficulty typing on the keyboard, you may use the USB wireless keyboard. Please ask to your mentor.</li>
+</ul>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/blob/main/documentation/docfx_project_en/finals/operation.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

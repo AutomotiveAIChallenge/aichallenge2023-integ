@@ -57,6 +57,61 @@
         "InvalidFileLink"
       ],
       "type": "Conceptual",
+      "source_relative_path": "finals/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "finals/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Conceptual",
+      "source_relative_path": "finals/operation.md",
+      "output": {
+        ".html": {
+          "relative_path": "finals/operation.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Conceptual",
+      "source_relative_path": "finals/rules.md",
+      "output": {
+        ".html": {
+          "relative_path": "finals/rules.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Toc",
+      "source_relative_path": "finals/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "finals/toc.html"
+        },
+        ".json": {
+          "relative_path": "finals/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Conceptual",
       "source_relative_path": "index.md",
       "output": {
         ".html": {

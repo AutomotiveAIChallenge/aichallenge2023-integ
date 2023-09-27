@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Rules and Scoring </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Rules and Scoring ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/blob/main/documentation/docfx_project_en/finals/rules.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+  </head>
+
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="rules-and-scoring">Rules and Scoring</h1>
+
+<p>This page explains the rules and scoring for the finals.</p>
+<p>Basically, the rules are the same as <a href="../rule/index.html">the rules for the preliminary round</a>, but since the actual golf carts will be used, some of the rules and scoring methods have been changed.</p>
+<h2 id="challenges-for-the-finals">Challenges for the Finals</h2>
+<ul>
+<li>The contestants will be required to complete the following tasks.
+<ul>
+<li>Task 1: Stop before a small obstacle (cardboard box) and re-start after removing the obstacle.</li>
+<li>Challenge 2: Driving through smoke</li>
+<li>Task 3: Running between S-curves (slalom) and between L-curves (crank)</li>
+</ul>
+</li>
+<li>The contestants are required to start the automatic driving from the start point and aim to reach the goal point.</li>
+</ul>
+<h2 id="scoring-method">Scoring Method</h2>
+<ul>
+<li>Ranking is determined by distance points.
+<ul>
+<li><code>Distance points: min(overall distance traveled from the start point (m), distance of the entire course) * (1.0 - assignment 1 penalty - assignment 2 penalty - assignment 3 penalty)</code></li>
+</ul>
+</li>
+<li>If the distance points are the same, the Competitor with the shortest running time in the Task 3 area will be placed higher (if he/she runs to the end of the task).</li>
+</ul>
+<h2 id="competition-rules">Competition Rules</h2>
+<p>The rules governing the entire competition are as follows</p>
+<ul>
+<li>Driving speed is 0~5km/h</li>
+<li>If the speed exceeds the speed limit by more than 2km/h, disqualification = 0 points</li>
+<li>Time limit is 5 minutes (to accommodate the case where the vehicle stops in the middle of the route)</li>
+<li>Time is measured from the time the vehicle starts.</li>
+<li>Please do not use an algorithm that sets the route in advance and drives in a deterministic manner.</li>
+<li>The content of the submitted code may be checked during the judging.</li>
+<li>If any intentional irregularities are discovered, such as codes that affect the scoring process, the contestant will be disqualified.</li>
+</ul>
+<h3 id="conditions-for-completion-of-run">Conditions for Completion of Run</h3>
+<p>If any of the following conditions are met, the automatic driving will end immediately and the distance points at that point will be recorded.</p>
+<p>At this time, the vehicle’s automatic driving mode is automatically deactivated and the vehicle also stops immediately.</p>
+<ul>
+<li>Exceeds the speed limit of 7 km/h</li>
+<li>Exceeds the time limit of 5 minutes</li>
+<li>Any part of the vehicle body deviates from the travel lane</li>
+</ul>
+<h3 id="override-conditions">Override Conditions</h3>
+<p>When any of the following conditions are met, the safety driver in the driver’s seat of the vehicle intervenes in the driving operation and switches to manual operation (implementation of override).</p>
+<p>At this time, the distance point immediately before the override time is recorded. The safety driver manually drives the vehicle to a safe point and stops it. The participants can try to drive automatically from this point again.</p>
+<ul>
+<li>If the vehicle is too close to an obstacle and the safety driver determines that it is dangerous</li>
+</ul>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/blob/main/documentation/docfx_project_en/finals/rules.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
