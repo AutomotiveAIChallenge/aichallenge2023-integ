@@ -79,10 +79,10 @@ rosbagデータは以下のリンクからダウンロード可能です。
 
 ### 参加チームのサポート体制
 
-各チームにはTIERIV及びMAPIVから、セーフティドライバー(SD)、メンター兼セーフティオペレータ(SO)、及びオーバーライド(OR)の3名がサポートとして加わります。
+各チームにはTIERIV及びMAPIVから、セーフティドライバー(SD)、メンター兼セーフティオペレータ(SO)、がサポートとして同乗します。
 
 - SD（セーフティドライバー）の役割
-SDの主な役割は、手動運転によるゴルフカートの移動と、自動運転中の車両監視です。  
+SDの役割は、手動運転によるゴルフカートの移動と、自動運転中の車両監視です。  
 **SDは自動運転の監視経験が豊富なスタッフが担当いたします。オーバーライドが実施された場合は、SDの判断の尊重をお願いたします。**
 
 - メンター兼SO（セーフティオペレータ）の役割
@@ -96,6 +96,7 @@ SOは参加者のメンターとして活動する一方、自動運転の監視
 *Planning Simulation 実施方法*  
 
 1. ターミナルを開き、以下のコマンドを実行する
+
 ```
 source /home/autoware/aichallenge2023-integration-final/install/setup.bash
 
@@ -107,7 +108,7 @@ ros2 launch autoware_launch planning_simulator.launch.xml map_path:=<競技に�
 3. ゴールを設定し、自動運転走行を開始する。
 4. 車両が危険な挙動 (制限速度を超過した走行、障害物を無視した走行) をしないことを確認する。
 
-planning simulation：https://autowarefoundation.github.io/autoware-documentation/main/tutorials/ad-hoc-simulation/planning-simulation/
+参考: Planning Simulation：https://autowarefoundation.github.io/autoware-documentation/main/tutorials/ad-hoc-simulation/planning-simulation/
 
 
 ### 天候条件に関する基準
@@ -126,5 +127,5 @@ planning simulation：https://autowarefoundation.github.io/autoware-documentatio
 ### 追加機能と地図の更新について
 
 - 車両がコース外に逸脱した場合、自動的に走行が中断（Disengage）される機能が追加されました。
-- 実機での実験の結果を踏まえて地図のupdateがありますので適宜地図の入れ替えのご対応宜しくおねがいします。
+- 実機での実験の結果を踏まえ、地図を更新しました。地図データ入れ替えのご対応をおねがいいたします。新しい地図データは[こちらのSlackリンク](https://aichallenge2023-integ.slack.com/files/U05CFHNAZ8B/F05U4K4QMBJ/lanelet2_map.osm)からアクセス可能です。
   

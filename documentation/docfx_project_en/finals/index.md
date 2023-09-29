@@ -36,3 +36,60 @@ In the final competition, participants will operate a golf cart-style autonomous
 - A mentor and a safety driver will accompany the competition vehicle. The mentor will handle the interface connections and aid in the operation of the autonomous driving software, while the safety driver will manually maneuver the vehicle and oversee it during autonomous driving.
 - The vehicle offers two control modes: `automatic` and `manual`. The safety driver has the ability to switch between these modes.
 - During autonomous driving, the safety driver has the capability to transition the vehicle's control mode from `automatic` to `manual` by pressing the brakes. This action is termed an override. The safety driver will initiate the override if continuing autonomous driving is deemed unsafe.
+
+
+
+# For Final Tournament Participants (Updated on 2023/09/28)
+
+Please make sure all the participants of the final tournament thoroughly check the following before the day of the tournament.
+
+### Support System for Participating Teams
+
+Each team will receive support from TIERIV and MAPIV in the form of two staff riding with: a Safety Driver (SD), a Safety Operator (SO). Your SO will also help your setup.
+
+- Role of SD (Safety Driver)
+The role of the SD is to manually drive the golf cart and monitor the vehicle during autonomous driving.  
+**An experienced staff member will supervise autonomous driving as SD. If an override is performed, please respect the judgment of your SD.**
+
+- Role of Mentor and SO (Safety Operator)
+While the SO acts as a mentor to participants, they also monitor autonomous driving.  
+**If your SO determines that continuing autonomous driving is dangerous, they have the responsibility to operate the emergency stop button. If the emergency stop button is pressed, please respect the judgment of your SO.**
+
+### Request for Preliminary Simulation
+
+**For the safe operation of the competition, we request you to execute the Planning Simulation before coming to the test field.**  
+
+*How to execute Planning Simulation*  
+
+1. Open a terminal window and run the following commands:
+
+```
+source /home/autoware/aichallenge2023-integration-final/install/setup.bash
+
+ros2 launch autoware_launch planning_simulator.launch.xml map_path:=<path of the map used for competition> vehicle_model:=golfcart sensor_model:=golfcart
+```
+
+2. Use `2D Pose Estimation` to position the vehicle at the starting point.
+3. Set the goal and start autonomous driving.
+4. Confirm that the vehicle does not exhibit dangerous behavior (exceeding speed limits, ignoring obstacles). 
+   
+Ref: Planning Simulation: https://autowarefoundation.github.io/autoware-documentation/main/tutorials/ad-hoc-simulation/planning-simulation/
+
+### Criteria Regarding Weather Conditions
+
+- If the wind speed is higher than 5m/s, Task 2 involving smoke will be canceled.
+- If 11/12 is rainy, the competition will be rescheduled to 11/19.
+- According to the weather condition, pre-practice can be canceld and no alternative day will be given. We appreciate your understanding.
+
+### Notice Regarding Fairness of the Competition
+
+- About vehicle characteristics  
+The vehicles provided have already been tuned. Sensor positions and steering offsets parameters have been tuned at TIERIV. However, you may add adjustments at your responsibility.
+- Handling the task 2, smoke  
+This tournament is themed around factory transportation, aiming for stable driving under smoke. We are trying to recreate the environment in outdoor, so there may be environmental differences depending on the timing of the drive. We appreciate your understanding.
+
+### Additional Feature and Updated Map
+
+- An additional function has been added so that automatically interrupts (Disengage) the driving in case the vehicle deviates from the course.
+- New map is available. Please be prepared to appropriately replace the maps as needed. You may download new map from the following Slack link.  
+[Download New Map](https://aichallenge2023-integ.slack.com/files/U05CFHNAZ8B/F05U4K4QMBJ/lanelet2_map.osm))
