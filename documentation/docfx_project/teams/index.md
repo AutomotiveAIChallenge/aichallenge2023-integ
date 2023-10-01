@@ -143,7 +143,7 @@ Autoware、ROS、Deep Learningの初心者です。
 
 <br>
 
-**紹介文：** 同じ会社の有志活動のチームです。（有志活動：https://challenge-club.connpass.com/）  
+**紹介文：** 同じ会社の有志活動のチームです。（有志活動：https://challenge-club.connpass.com/ ）  
 
 **工夫した点：** 環境構築や評価の効率化。Discordでの多拠点同期デバッグ。Ishibushi氏と学ぶ経路生成。  
 
