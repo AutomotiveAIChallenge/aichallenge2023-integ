@@ -359,6 +359,16 @@
     },
     {
       "type": "Resource",
+      "source_relative_path": "images/teams/ai_challenger.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/teams/ai_challenger.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
       "source_relative_path": "images/teams/atsugi_no_kosame_1.jpg",
       "output": {
         "resource": {
