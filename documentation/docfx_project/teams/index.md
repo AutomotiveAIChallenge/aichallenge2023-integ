@@ -136,3 +136,19 @@ Autoware、ROS、Deep Learningの初心者です。
 <img src="../images/teams/iASL.jpg" alt="Team Photo" width="500px">
 
 <br><br>
+
+---
+
+## AIチャレンジャー
+
+<br>
+
+**紹介文：** 同じ会社の有志活動のチームです。（有志活動：https://challenge-club.connpass.com/ ）  
+
+**工夫した点：** 環境構築や評価の効率化。Discordでの多拠点同期デバッグ。Ishibushi氏と学ぶ経路生成。  
+
+<br>
+
+<img src="../images/teams/ai_challenger.png" alt="Team Photo" width="500px">
+
+<br><br>
