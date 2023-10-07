@@ -9,13 +9,14 @@ Basically, the rules are the same as [the rules for the preliminary round](../ru
 - The contestants will be required to complete the following tasks.
   - Task 1: Stop before a small obstacle (cardboard box) and re-start after removing the obstacle.
   - Challenge 2: Driving through smoke
-  - Task 3: Running between S-curves (slalom) and between L-curves (crank)
+  - Task 3-1: Driving through S-curves (slalom)
+  - Task 3-2: Driving through L-curves (crank)
 - The contestants are required to start the automatic driving from the start point and aim to reach the goal point.
 
 ## Scoring Method
 
 - Ranking is determined by distance points.
-  - `Distance points: min(overall distance traveled from the start point (m), distance of the entire course) * (1.0 - assignment 1 penalty - assignment 2 penalty - assignment 3 penalty)`
+  - `Distance points: min(Distance traveled in Task 3-1 (m) + Distance traveled in Task 3-2, distance of the entire Task 3 courses) * (1.0 - assignment 1 penalty - assignment 2 penalty - assignment 3 penalty)`
 - If the distance points are the same, the Competitor with the shortest running time in the Task 3 area will be placed higher (if he/she runs to the end of the task).
 
 ## Competition Rules
