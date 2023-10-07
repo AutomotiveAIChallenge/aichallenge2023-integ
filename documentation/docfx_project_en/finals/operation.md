@@ -47,7 +47,7 @@ This section details the process from connecting your laptop to the vehicle up t
 
 Should there be a risk of the vehicle hitting a curb or an obstacle during autonomous driving operation, the safety driver will apply the brakes and switch the vehicle control from automatic operation to manual operation. This is called override.
 
-If the safety driver performs an override while the vehicle is engaging with Task 1 or Task 2, the current task will be forfeited, and autonomous driving will restart at the subsequent task.
+If the safety driver performs an override while the vehicle is engaging with Task 1, Task 2, or Task 3-1, the current task will be forfeited, and autonomous driving will restart at the subsequent task.
 
 1. (Safety Driver) Inform the participant of the override
 2. (Safety Driver) Set the golf cart to `manual mode`.
