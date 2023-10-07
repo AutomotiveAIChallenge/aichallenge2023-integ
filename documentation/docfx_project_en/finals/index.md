@@ -37,9 +37,7 @@ In the final competition, participants will operate a golf cart-style autonomous
 - The vehicle offers two control modes: `automatic` and `manual`. The safety driver has the ability to switch between these modes.
 - During autonomous driving, the safety driver has the capability to transition the vehicle's control mode from `automatic` to `manual` by pressing the brakes. This action is termed an override. The safety driver will initiate the override if continuing autonomous driving is deemed unsafe.
 
-
-
-# For Final Tournament Participants (Updated on 2023/09/28)
+## For Final Tournament Participants (Updated on 2023/09/28)
 
 Please make sure all the participants of the final tournament thoroughly check the following before the day of the tournament.
 
@@ -58,22 +56,22 @@ While the SO acts as a mentor to participants, they also monitor autonomous driv
 ### Request for Preliminary Simulation
 
 **For the safe operation of the competition, we request you to execute the Planning Simulation before coming to the test field.**  
-
 *How to execute Planning Simulation*  
 
 1. Open a terminal window and run the following commands:
 
-```
-source /home/autoware/aichallenge2023-integration-final/install/setup.bash
+    ```bash
+    source /home/autoware/aichallenge2023-integration-final/install/setup.bash
 
-ros2 launch autoware_launch planning_simulator.launch.xml map_path:=<path of the map used for competition> vehicle_model:=golfcart sensor_model:=golfcart
-```
+    ros2 launch autoware_launch planning_simulator.launch.xml map_path:=<path of the map used for competition> vehicle_model:=golfcart sensor_model:=golfcart
+    ```
 
 2. Use `2D Pose Estimation` to position the vehicle at the starting point.
-3. Set the goal and start autonomous driving.
-4. Confirm that the vehicle does not exhibit dangerous behavior (exceeding speed limits, ignoring obstacles). 
-   
-Ref: Planning Simulation: https://autowarefoundation.github.io/autoware-documentation/main/tutorials/ad-hoc-simulation/planning-simulation/
+3. Open a new terminal window and run the script `~/aichallenge2023-integration-final/scripts/set_obstacles.sh`. Then confirm that virtual obstacles are placed in the area of task 3-1 (slalom). *If you cannot find the script, please merge [this commit](https://github.com/AutomotiveAIChallenge/aichallenge2023-integration-final/commit/49ec129db8f26485fffed7daef85c5da1649998b) into your repository.
+4. Set the goal and start autonomous driving.
+5. Confirm that the vehicle does not exhibit dangerous behavior (exceeding speed limits, ignoring obstacles).
+
+For more details about Planning Simulation, please refer [Autoware Documentation](https://autowarefoundation.github.io/autoware-documentation/main/tutorials/ad-hoc-simulation/planning-simulation/)
 
 ### Criteria Regarding Weather Conditions
 
