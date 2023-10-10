@@ -89,7 +89,6 @@ SDの役割は、手動運転によるゴルフカートの移動と、自動運
 SOは参加者のメンターとして活動する一方、自動運転の監視を行います。  
 **自動運転走行の継続が危険とSOが判断した緊急、SOは緊急停止ボタンを操作する責任を持っています。緊急停止ボタンが押下された場合は、SOの判断の尊重をお願いいたします。**
 
-
 ### 事前のシミュレーション実施のお願い
 
 **安全な競技運営のため、来場前にPlannning Simulationの実施をお願いいたします。**
@@ -97,19 +96,19 @@ SOは参加者のメンターとして活動する一方、自動運転の監視
 
 1. ターミナルを開き、以下のコマンドを実行する
 
-```
-source /home/autoware/aichallenge2023-integration-final/install/setup.bash
+    ```bash
+    source /home/autoware/aichallenge2023-integration-final/install/setup.bash
 
-ros2 launch autoware_launch planning_simulator.launch.xml map_path:=<競技に使用する地図のパス> vehicle_model:=golfcart sensor_model:=golfcart
+    ros2 launch autoware_launch planning_simulator.launch.xml map_path:=<競技に使用する地図のパス> vehicle_model:=golfcart sensor_model:=golfcart
 
-```
+    ```
 
 2. `2D Pose Estimation` を使用し、スタート地点に車両を配置する
-3. ゴールを設定し、自動運転走行を開始する。
-4. 車両が危険な挙動 (制限速度を超過した走行、障害物を無視した走行) をしないことを確認する。
+3. 新たにターミナルを開き、スクリプト   `~/aichallenge2023-integration-final/scripts/set_obstacles.sh` を実行する。その後、課題3の障害物が再現されていることを確認する。 ※スクリプトが存在しない場合は、[こちらのコミット](https://github.com/AutomotiveAIChallenge/aichallenge2023-integration-final/commit/49ec129db8f26485fffed7daef85c5da1649998b)を取り入れてください。
+4. ゴールを設定し、自動運転走行を開始する。
+5. 車両が危険な挙動 (制限速度を超過した走行、障害物を無視した走行) をしないことを確認する。
 
-参考: Planning Simulation：https://autowarefoundation.github.io/autoware-documentation/main/tutorials/ad-hoc-simulation/planning-simulation/
-
+Planning Simulationについての詳細は [Autoware Documentation](https://autowarefoundation.github.io/autoware-documentation/main/tutorials/ad-hoc-simulation/planning-simulation/) を参照してください。
 
 ### 天候条件に関する基準
 
