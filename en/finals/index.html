@@ -111,7 +111,7 @@
 <li>The vehicle offers two control modes: <code>automatic</code> and <code>manual</code>. The safety driver has the ability to switch between these modes.</li>
 <li>During autonomous driving, the safety driver has the capability to transition the vehicle's control mode from <code>automatic</code> to <code>manual</code> by pressing the brakes. This action is termed an override. The safety driver will initiate the override if continuing autonomous driving is deemed unsafe.</li>
 </ul>
-<h1 id="for-final-tournament-participants-updated-on-20230928">For Final Tournament Participants (Updated on 2023/09/28)</h1>
+<h2 id="for-final-tournament-participants-updated-on-20230928">For Final Tournament Participants (Updated on 2023/09/28)</h2>
 <p>Please make sure all the participants of the final tournament thoroughly check the following before the day of the tournament.</p>
 <h3 id="support-system-for-participating-teams">Support System for Participating Teams</h3>
 <p>Each team will receive support from TIERIV and MAPIV in the form of two staff riding with: a Safety Driver (SD), a Safety Operator (SO). Your SO will also help your setup.</p>
@@ -126,21 +126,25 @@ While the SO acts as a mentor to participants, they also monitor autonomous driv
 </li>
 </ul>
 <h3 id="request-for-preliminary-simulation">Request for Preliminary Simulation</h3>
-<p><strong>For the safe operation of the competition, we request you to execute the Planning Simulation before coming to the test field.</strong></p>
-<p><em>How to execute Planning Simulation</em></p>
+<p><strong>For the safe operation of the competition, we request you to execute the Planning Simulation before coming to the test field.</strong><br>
+<em>How to execute Planning Simulation</em></p>
 <ol>
-<li>Open a terminal window and run the following commands:</li>
-</ol>
-<pre><code>source /home/autoware/aichallenge2023-integration-final/install/setup.bash
+<li><p>Open a terminal window and run the following commands:</p>
+<pre><code class="lang-bash">source /home/autoware/aichallenge2023-integration-final/install/setup.bash
 
 ros2 launch autoware_launch planning_simulator.launch.xml map_path:=&lt;path of the map used for competition&gt; vehicle_model:=golfcart sensor_model:=golfcart
 </code></pre>
-<ol start="2">
-<li>Use <code>2D Pose Estimation</code> to position the vehicle at the starting point.</li>
-<li>Set the goal and start autonomous driving.</li>
-<li>Confirm that the vehicle does not exhibit dangerous behavior (exceeding speed limits, ignoring obstacles).</li>
+</li>
+<li><p>Use <code>2D Pose Estimation</code> to position the vehicle at the starting point.</p>
+</li>
+<li><p>Open a new terminal window and run the script <code>~/aichallenge2023-integration-final/scripts/set_obstacles.sh</code>. Then confirm that virtual obstacles are placed in the area of task 3-1 (slalom). *If you cannot find the script, please merge <a href="https://github.com/AutomotiveAIChallenge/aichallenge2023-integration-final/commit/49ec129db8f26485fffed7daef85c5da1649998b">this commit</a> into your repository.</p>
+</li>
+<li><p>Set the goal and start autonomous driving.</p>
+</li>
+<li><p>Confirm that the vehicle does not exhibit dangerous behavior (exceeding speed limits, ignoring obstacles).</p>
+</li>
 </ol>
-<p>Ref: Planning Simulation: <a href="https://autowarefoundation.github.io/autoware-documentation/main/tutorials/ad-hoc-simulation/planning-simulation/">https://autowarefoundation.github.io/autoware-documentation/main/tutorials/ad-hoc-simulation/planning-simulation/</a></p>
+<p>For more details about Planning Simulation, please refer <a href="https://autowarefoundation.github.io/autoware-documentation/main/tutorials/ad-hoc-simulation/planning-simulation/">Autoware Documentation</a></p>
 <h3 id="criteria-regarding-weather-conditions">Criteria Regarding Weather Conditions</h3>
 <ul>
 <li>If the wind speed is higher than 5m/s, Task 2 involving smoke will be canceled.</li>

@@ -169,19 +169,23 @@ SOは参加者のメンターとして活動する一方、自動運転の監視
 <p><strong>安全な競技運営のため、来場前にPlannning Simulationの実施をお願いいたします。</strong>
 <em>Planning Simulation 実施方法</em></p>
 <ol>
-<li>ターミナルを開き、以下のコマンドを実行する</li>
-</ol>
-<pre><code>source /home/autoware/aichallenge2023-integration-final/install/setup.bash
+<li><p>ターミナルを開き、以下のコマンドを実行する</p>
+<pre><code class="lang-bash">source /home/autoware/aichallenge2023-integration-final/install/setup.bash
 
 ros2 launch autoware_launch planning_simulator.launch.xml map_path:=&lt;競技に使用する地図のパス&gt; vehicle_model:=golfcart sensor_model:=golfcart
 
 </code></pre>
-<ol start="2">
-<li><code>2D Pose Estimation</code> を使用し、スタート地点に車両を配置する</li>
-<li>ゴールを設定し、自動運転走行を開始する。</li>
-<li>車両が危険な挙動 (制限速度を超過した走行、障害物を無視した走行) をしないことを確認する。</li>
+</li>
+<li><p><code>2D Pose Estimation</code> を使用し、スタート地点に車両を配置する</p>
+</li>
+<li><p>新たにターミナルを開き、スクリプト   <code>~/aichallenge2023-integration-final/scripts/set_obstacles.sh</code> を実行する。その後、課題3の障害物が再現されていることを確認する。 ※スクリプトが存在しない場合は、<a href="https://github.com/AutomotiveAIChallenge/aichallenge2023-integration-final/commit/49ec129db8f26485fffed7daef85c5da1649998b">こちらのコミット</a>を取り入れてください。</p>
+</li>
+<li><p>ゴールを設定し、自動運転走行を開始する。</p>
+</li>
+<li><p>車両が危険な挙動 (制限速度を超過した走行、障害物を無視した走行) をしないことを確認する。</p>
+</li>
 </ol>
-<p>参考: Planning Simulation：https://autowarefoundation.github.io/autoware-documentation/main/tutorials/ad-hoc-simulation/planning-simulation/</p>
+<p>Planning Simulationについての詳細は <a href="https://autowarefoundation.github.io/autoware-documentation/main/tutorials/ad-hoc-simulation/planning-simulation/">Autoware Documentation</a> を参照してください。</p>
 <h3 id="天候条件に関する基準">天候条件に関する基準</h3>
 <ul>
 <li>風速5m/s以上の場合、煙を使用した課題2は取りやめとします。</li>
