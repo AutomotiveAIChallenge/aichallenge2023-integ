@@ -37,6 +37,17 @@ In the final competition, participants will operate a golf cart-style autonomous
 - The vehicle offers two control modes: `automatic` and `manual`. The safety driver has the ability to switch between these modes.
 - During autonomous driving, the safety driver has the capability to transition the vehicle's control mode from `automatic` to `manual` by pressing the brakes. This action is termed an override. The safety driver will initiate the override if continuing autonomous driving is deemed unsafe.
 
+## Source Code Build Method for Final Competition PC
+
+On the final competition PC, it is assumed that the source code will be built locally, not in docker. For installing dependencies and building the source code, please execute the following commands:
+
+```bash
+cd /home/autoware/aichallenge2023-integration-final
+
+rosdep install -y --from-paths src --ignore-src --rosdistro $ROS_DISTRO
+colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
+```
+
 ## For Final Tournament Participants (Updated on 2023/09/28)
 
 Please make sure all the participants of the final tournament thoroughly check the following before the day of the tournament.
