@@ -111,6 +111,13 @@
 <li>The vehicle offers two control modes: <code>automatic</code> and <code>manual</code>. The safety driver has the ability to switch between these modes.</li>
 <li>During autonomous driving, the safety driver has the capability to transition the vehicle's control mode from <code>automatic</code> to <code>manual</code> by pressing the brakes. This action is termed an override. The safety driver will initiate the override if continuing autonomous driving is deemed unsafe.</li>
 </ul>
+<h2 id="source-code-build-method-for-final-competition-pc">Source Code Build Method for Final Competition PC</h2>
+<p>On the final competition PC, it is assumed that the source code will be built locally, not in docker. For installing dependencies and building the source code, please execute the following commands:</p>
+<pre><code class="lang-bash">cd /home/autoware/aichallenge2023-integration-final
+
+rosdep install -y --from-paths src --ignore-src --rosdistro $ROS_DISTRO
+colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
+</code></pre>
 <h2 id="for-final-tournament-participants-updated-on-20230928">For Final Tournament Participants (Updated on 2023/09/28)</h2>
 <p>Please make sure all the participants of the final tournament thoroughly check the following before the day of the tournament.</p>
 <h3 id="support-system-for-participating-teams">Support System for Participating Teams</h3>
