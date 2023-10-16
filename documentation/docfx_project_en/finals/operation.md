@@ -1,4 +1,4 @@
-# [WIP]Operation (Finals Competition)
+# Operation (Finals Competition)
 
 **Note: This is a draft page. Information on this page may change.**
 

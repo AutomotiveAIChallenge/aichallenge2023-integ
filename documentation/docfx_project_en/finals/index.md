@@ -1,4 +1,4 @@
-# [WIP] About the Finals
+# About the Finals
 
 <br>
 
