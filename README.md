@@ -14,5 +14,5 @@
 
 ## ドキュメント
 &emsp; 下記ページに本大会における予選大会の詳細や環境構築方法などがまとめられています。ご参照の上、大会へご参加ください。
-- [日本語ページ](https://automotiveaichallenge.github.io/aichallenge2023-sim/index.html)
-- [English Page](https://automotiveaichallenge.github.io/aichallenge2023-sim/en/index.html)
+- [日本語ページ](https://automotiveaichallenge.github.io/aichallenge2023-integ/index.html)
+- [English Page](https://automotiveaichallenge.github.io/aichallenge2023-integ/en/index.html)
