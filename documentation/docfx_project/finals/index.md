@@ -110,8 +110,8 @@ SOは参加者のメンターとして活動する一方、自動運転の監視
 
     ```bash
     source /home/autoware/aichallenge2023-integration-final/install/setup.bash
-
-    ros2 launch autoware_launch planning_simulator.launch.xml map_path:=<競技に使用する地図のパス> vehicle_model:=golfcart sensor_model:=golfcart
+    cd /home/autoware/aichallenge2023-integration-final/scripts
+    ./launch_psim.sh
 
     ```
 
