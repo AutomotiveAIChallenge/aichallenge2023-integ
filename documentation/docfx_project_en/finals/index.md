@@ -70,7 +70,7 @@ While the SO acts as a mentor to participants, they also monitor autonomous driv
 *How to execute Planning Simulation*  
 
 1. Open a terminal window and run the following commands:
-
+    For those who have the distributed PC, please execute the following command. For those who do not have the distributed PC and wish to practice, please replace the vehicle model with a distributable model by [clicking here](https://github.com/AutomotiveAIChallenge/aichallenge2023-integration-final/blob/178f9a05d77560f51df4bde915d15c6300f1d99a/scripts/vars/vehicle.env#L1) and replacing `export VEHICLE_MODEL=golfcart`.
     ```bash
     source /home/autoware/aichallenge2023-integration-final/install/setup.bash
     cd /home/autoware/aichallenge2023-integration-final/scripts
