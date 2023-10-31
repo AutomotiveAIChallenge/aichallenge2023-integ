@@ -107,7 +107,7 @@ SOは参加者のメンターとして活動する一方、自動運転の監視
 *Planning Simulation 実施方法*  
 
 1. ターミナルを開き、以下のコマンドを実行する
-
+    配布したPCを持っている方は以下のコマンドを、配布したPCを持っていない方で練習したい方は車両モデルを配布可能なモデルに置き換えるため[こちら](https://github.com/AutomotiveAIChallenge/aichallenge2023-integration-final/blob/178f9a05d77560f51df4bde915d15c6300f1d99a/scripts/vars/vehicle.env#L1)の`export VEHICLE_MODEL=golfcart`に置き換えてください
     ```bash
     source /home/autoware/aichallenge2023-integration-final/install/setup.bash
     cd /home/autoware/aichallenge2023-integration-final/scripts
