@@ -132,7 +132,7 @@ Autoware-MiniのLaunchファイルは`aichallenge2023-sim/docker/aichallenge/aic
 
 次に、Planningコンポーネントの`behavior_path_planner`と`behavior_velocity_planner`においては、設定を以下のコンフィグファイルで行う必要があります．
 
-- [behavior_path_planner.param.yaml](https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/blob/main/docker/aichallenge/aichallenge_ws/src/aichallenge_submit/autoware_launch/autoware_launch/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_path_planner/behavior_path_planner.param.yaml)
+- [behavior_path_planner_tree.xml](https://github.com/AutomotiveAIChallenge/aichallenge2023-integ/blob/main/docker/aichallenge/aichallenge_ws/src/aichallenge_submit/autoware_launch/autoware_launch/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_path_planner/behavior_path_planner_tree.xml)
 - [behavior_velocity_planner.param.yaml](https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/blob/main/docker/aichallenge/aichallenge_ws/src/aichallenge_submit/autoware_launch/autoware_launch/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/behavior_velocity_planner.param.yaml)
 
 デフォルトのAutowareでは、`behavior_path_planner`ノードでは、以下のモジュールを有効化しています．
@@ -143,49 +143,7 @@ Autoware-MiniのLaunchファイルは`aichallenge2023-sim/docker/aichallenge/aic
 - pull_over
 - avoidance
 
-今回のAutoware-Miniでは、一旦ここ全てをOFFにするよう変更を加えます．
-
-```
-...
-
-lane_change:
-  enable_module: false
-  enable_simultaneous_execution: false
-  priority: 4
-  max_module_size: 1
-
-pull_out:
-  enable_module: false
-  enable_simultaneous_execution: false
-  priority: 0
-  max_module_size: 1
-
-side_shift:
-  enable_module: false
-  enable_simultaneous_execution: false
-  priority: 2
-  max_module_size: 1
-
-pull_over:
-  enable_module: false
-  enable_simultaneous_execution: false
-  priority: 1
-  max_module_size: 1
-
-avoidance:
-  enable_module: false
-  enable_simultaneous_execution: false
-  priority: 3
-  max_module_size: 1
-
-```
-
 #### Updating behavior_velocity_planner.param.yaml
-
-次に、Planningコンポーネントの`behavior_path_planner`と`behavior_velocity_planner`においては、設定を以下のコンフィグファイルで行う必要があります．
-
-- [behavior_path_planner.param.yaml](https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/blob/main/docker/aichallenge/aichallenge_ws/src/aichallenge_submit/autoware_launch/autoware_launch/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_path_planner/behavior_path_planner.param.yaml)
-- [behavior_velocity_planner.param.yaml](https://github.com/AutomotiveAIChallenge/aichallenge2023-sim/blob/main/docker/aichallenge/aichallenge_ws/src/aichallenge_submit/autoware_launch/autoware_launch/config/planning/scenario_planning/lane_driving/behavior_planning/behavior_velocity_planner/behavior_velocity_planner.param.yaml)
 
 デフォルトのAutowareでは、`behavior_velocity_planner`ノードでは、以下のモジュールを有効化しています．
 
